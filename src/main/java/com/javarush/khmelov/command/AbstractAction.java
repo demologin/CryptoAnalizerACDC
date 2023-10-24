@@ -16,9 +16,9 @@ import java.nio.file.Path;
 public abstract class AbstractAction implements Action{
 
     //common methods for actions: Encode Decode Bruteforce
-    public Result copyWithKey(String sourceTextFile, String encryptedFile, int key) {
+    public Result copyWithKey(String sourceTextFile, String targetTextFile, int key) {
         Path source = PathBuilder.get(sourceTextFile);
-        Path target = PathBuilder.get(encryptedFile);
+        Path target = PathBuilder.get(targetTextFile);
         try (
                 BufferedReader reader = Files.newBufferedReader(source);
                 BufferedWriter writer = Files.newBufferedWriter(target)
@@ -39,6 +39,6 @@ public abstract class AbstractAction implements Action{
         } catch (IOException e) {
             throw new AppException(Const.INCORRECT_FILE + e.getMessage(), e);
         }
-        return new Result(ResultCode.OK, encryptedFile);
+        return new Result(ResultCode.OK, targetTextFile);
     }
 }
