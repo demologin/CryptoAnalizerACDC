@@ -1,5 +1,6 @@
 package com.javarush.kotovych.commands;
 
+import com.javarush.kotovych.constants.OtherSymbols;
 import com.javarush.kotovych.constants.RuAlphabet;
 
 import java.io.BufferedReader;
@@ -14,27 +15,33 @@ public class BruteForce extends Decoder implements Action{
     @Override
     public void execute(BufferedReader reader, int key, BufferedWriter writer) throws IOException{
         int validKey = 0;
-        boolean isFound = false;
-        while (reader.ready()){
+        if(reader.ready()){
             String line = reader.readLine();
-            int counter = 0;
-                String decodedCharLine = decodeFromString(line, validKey);
-                if (isValid(decodedCharLine)) {
-                    isFound = true;
-                    writer.write(decodedCharLine);
+            validKey = findValidKey(line);
+            writer.write(decodeFromString(line, validKey));
+        }
 
-                }
-                if (!isFound) {
-                    validKey++;
-                    counter++;
-                }
-                if(counter > RuAlphabet.CHARS.length){
-                    break;
-                }
+        while (reader.ready()){
+            super.execute(reader, validKey, writer);
         }
-        if(!isFound){
-            throw new RuntimeException("Can't find a valid key");
+    }
+
+    private int findValidKey(String text){
+        int validKey = 0;
+        boolean isFound = false;
+
+        while (!isFound){
+            String decodedCharLine = decodeFromString(text, validKey);
+            if (isValid(decodedCharLine)) {
+                isFound = true;
+                return validKey;
+            }
+            validKey++;
+            if(validKey > RuAlphabet.CHARS.length){
+                throw new RuntimeException("Unable to find a key");
+            }
         }
+        return -1;
     }
 
 
@@ -43,22 +50,27 @@ public class BruteForce extends Decoder implements Action{
         char[] chars = text.toCharArray();
         boolean containsWord = false;
         boolean nLettersInARow = false;
+        boolean isAWord = false;
         for(String word : words){
             if(RuAlphabet.words.contains(word)){
                 containsWord = true;
                 break;
             }
-            if(threeInARow(word)){
+            if(nInARow(word, 3)){
                 nLettersInARow = true;
+                break;
+            }
+            if(isValidWord(word)){
+                isAWord = true;
                 break;
             }
         }
         char mostFrequentChar = mostFrequentChar(chars);
         if(containsWord){
             return true;
-        } else if(mostFrequentChar == RuAlphabet.mostFrequentLetter && !nLettersInARow){
+        } else if(mostFrequentChar == RuAlphabet.mostFrequentLetter && !nLettersInARow && isAWord){
             return true;
-        } else if(RuAlphabet.mostFrequentChars.contains(mostFrequentChar) && !nLettersInARow){
+        } else if(RuAlphabet.mostFrequentChars.contains(mostFrequentChar) && !nLettersInARow && isAWord){
             return true;
         } else {
             return false;
@@ -85,8 +97,8 @@ public class BruteForce extends Decoder implements Action{
         return mostRepeated;
     }
 
-    private boolean threeInARow(String word){
-        String regex = "[" + RuAlphabet.consonants + "]{3}";
+    private boolean nInARow(String word, int n){
+        String regex = String.format("[" + RuAlphabet.consonants + "]{%d}", n);
         Pattern pattern = Pattern.compile(regex);
 
         Matcher matcher = pattern.matcher(word);
@@ -101,6 +113,18 @@ public class BruteForce extends Decoder implements Action{
     }
 
     private boolean isValidWord(String word){
+        if(!(containsCharacter(word, (OtherSymbols.NUMBERS + OtherSymbols.SYMBOLS).toCharArray()))){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean containsCharacter(String word, char[] chars){
+        for(char c: chars){
+            if(word.contains(String.valueOf(c))){
+                return true;
+            }
+        }
         return false;
     }
 }

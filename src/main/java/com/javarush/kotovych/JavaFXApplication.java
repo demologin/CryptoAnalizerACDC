@@ -12,10 +12,10 @@ import java.nio.file.Path;
 public class JavaFXApplication {
     public static void main(String[] args) {
         System.out.println();
-        Action encoder = Actions.get("DECODE");
+        Action encoder = Actions.get("BRUTE_FORCE");
         try(BufferedReader reader = Files.newBufferedReader(Path.of("/Users/roman/IdeaProjects/CryptoAnalizerACDC/out.txt"));
             BufferedWriter writer = Files.newBufferedWriter(Path.of("/Users/roman/IdeaProjects/CryptoAnalizerACDC/out2.txt"))){
-            encoder.execute(reader, 5, writer);
+            encoder.execute(reader, 18, writer);
         } catch (IOException e){
             throw new RuntimeException(e);
         }

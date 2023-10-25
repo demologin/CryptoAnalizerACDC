@@ -40,7 +40,7 @@ public class RuAlphabet {
 
     public static char mostFrequentLetter = 'o';
 
-    public static List<Character> mostFrequentChars = new ArrayList<>(Arrays.asList('е', 'а', 'и', 'н', 'т', 'с', 'л', 'в', 'р'));
+    public static List<Character> mostFrequentChars = new ArrayList<>(Arrays.asList('е', 'а', 'и', 'н', 'т', 'с', 'в', 'р'));
     public static String consonants = "бвгджзйклмнпрстфхцчшщ";
     private static final String RU_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     public static final char[] CHARS = (RU_ALPHABET + OtherSymbols.NUMBERS + OtherSymbols.SYMBOLS).toCharArray();
