@@ -6,7 +6,7 @@ interface Messages {
     String[][][] QUESTIONS = new String[][][]{
             {
                     {Const.ENCODE},
-                    {"Enter source (full path OR only filename OR Enter for text.txt) :", "text.txt"},
+                    {"Enter source (full path OR only filename OR Enter for myText.txt) :", "myText.txt"},
                     {"Enter destination (full path OR only filename OR Enter for encrypted.txt) :", "encrypted.txt"},
                     {"Enter key (int number OR Enter for key=1) :", "1"},
             },
