@@ -24,7 +24,6 @@ public class Application {
         } else {
             throw new AppException("args is empty");
         }
-        // TODO: add menu
     }
 
 
