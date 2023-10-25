@@ -51,7 +51,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.6</version>
                 <configuration>
-                    <mainClass>your.package.name.YourMainClass</mainClass>
+                    <mainClass>com.javarush.kotovych.controller.Controller</mainClass>
                 </configuration>
             </plugin>
         </plugins>

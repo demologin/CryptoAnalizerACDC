@@ -10,4 +10,10 @@ public class Decoder extends CipherMethods implements Action{
         Action encoder = Actions.get("ENCODE");
         encoder.execute(reader, -key, writer);
     }
+
+
+    public String decodeFromString(String text, int key){
+        Encoder encoder = new Encoder();
+        return encoder.encodeString(text, -key);
+    }
 }
