@@ -81,11 +81,38 @@ public class ConsoleMenu {
 
     private boolean menuDecoding() {
 
-        return false;
+        Scanner console = new Scanner(System.in);
+        System.out.println(Const.MENU_DECODING_ARG_ONE);
+        String fileInput = console.nextLine();
+        if (fileInput.isEmpty()) {
+            fileInput = Const.DECODING_DEFAULT_INPUTFILE;
+        } else if (!fileInput.endsWith(".txt")) {
+            return false;
+        }
+
+        System.out.println(Const.MENU_DECODING_ARG_TWO);
+        String fileOutput = console.nextLine();
+        if (fileOutput.isEmpty()) {
+            fileOutput = Const.DECODING_DEFAULT_OUTPUTFILE;
+        } else if (!fileOutput.endsWith(".txt")) {
+            return false;
+        }
+
+        System.out.println(Const.MENU_DECODING_ARG_THREE);
+        String keyString = console.nextLine();
+        if (keyString.isEmpty()) {
+            keyString = Const.DECODING_DEFAULT_KEY;
+        }
+        if (Integer.parseInt(keyString) < 0) {
+            return false;
+        }
+        MainController.giveCommand(CommandContainer.DECODING.name(), new String[]{fileInput, fileOutput, keyString});
+
+        return true;
     }
 
     private boolean menuExit() {
-
-        return false;
+        //пока просто true, возможно, нужно что-то добавить
+        return true;
     }
 }

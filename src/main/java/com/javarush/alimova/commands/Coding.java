@@ -13,8 +13,7 @@ public abstract class Coding implements Command{
 
 
     @Override
-    public void startCommand(String[] parameters) {
-        //todo проверку на невалидность аргументов
+    public Result startCommand(String[] parameters) {
         Path pathInput = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
         Path pathOutput = Path.of(System.getProperty("user.dir"), "text", parameters[1]);
         try {
@@ -28,15 +27,11 @@ public abstract class Coding implements Command{
         System.out.println(pathInput + " " + pathOutput);
         codingText(pathInput, pathOutput, keyCoding);
 
+        return Result.OK;       //пока везде ок
+
     }
 
-    @Override
-    public String resultCommand(boolean result) {
-        if (result) {
-            return "Operation completed successfully";
-        }
-        return "Action error";
-    }
+
 
     protected void codingText(Path input, Path output, int key) {
         try (BufferedReader reader = Files.newBufferedReader(input);
@@ -55,13 +50,10 @@ public abstract class Coding implements Command{
 
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
-            resultCommand(false);       //надо подумать, куда бы запихнуть ошибки
             throw new RuntimeException(e);      //подумать, выкидывать ли выше, в общем, нужно
             //либо с самого начала обрабатывать всё выше
             //подумать, какие ещё могут быть исключения
         }
-
-        resultCommand(true);
 
     }
 
