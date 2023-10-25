@@ -11,23 +11,24 @@ public class Encode {
             while (reader.ready()) {
                 char target = (char) reader.read();
                 for (char symbol : Constants.ALPHABET) {
-                    if (symbol == target) {
+                    if (Character.toString(target).equals(Character.toString(symbol))) {
                         int index = Arrays.binarySearch(Constants.ALPHABET, target);
                         if (index + key > Constants.ALPHABET.length) { // check if index + key>Array.length
                             index = index % Constants.ALPHABET.length;
                         }
                         result.append(Constants.ALPHABET[index + key]); // add to result
-                        continue;
+                        break;
                     }
                 }
                 for (char symbol2 : Constants.CAPITALLETTER) {
-                    if (symbol2 == target) {
+                    if (Character.toString(target).equals(Character.toString(symbol2))) {
                         int index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
                         if (index + key > Constants.CAPITALLETTER.length) { // check if index + key>Array.length
                             index = index % Constants.CAPITALLETTER.length;
                         }
                         result.append(Constants.CAPITALLETTER[index + key]); // add to result
-                        continue;
+                        break;
+
                     }
 
                 }
