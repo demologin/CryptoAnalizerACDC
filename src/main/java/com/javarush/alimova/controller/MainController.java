@@ -8,5 +8,7 @@ public class MainController {
         //на вход должен поступать только массив строк
         Command command = CommandContainer.getCommand(nameCommand);
         command.startCommand(args);
+
+        //сюда должны прилетать все исключения, и здесь они должны обрабатываться
     }
 }

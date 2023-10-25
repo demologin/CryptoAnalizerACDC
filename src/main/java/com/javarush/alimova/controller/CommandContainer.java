@@ -11,6 +11,7 @@ public enum CommandContainer {
 
     DECODING(new Decoding());
 
+    public static final String[] commandSet = {"Encoding", "Decoding", "Exist"};
     private final Command command;
 
     CommandContainer(Command command) {
@@ -26,5 +27,16 @@ public enum CommandContainer {
             throw new AppException();
         }
     }
+
+
+//    public static Command getCommand(CommandContainer value) {
+//        try {
+            //CommandContainer instance = CommandContainer.valueOf(commandName.toUpperCase());
+//
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("Невалидное наименование");
+//            throw new AppException();
+//        }
+//    }
 
 }
