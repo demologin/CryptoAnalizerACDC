@@ -9,7 +9,7 @@ public class ConsoleMenu {
 
         System.out.println("Пока разрабатываем только кодирование");
         Scanner console = new Scanner(System.in);
-        String[] arg = {"nke", "mew"};
+        String[] arg = {"output.txt", "output2.txt", "8"};
         MainController.giveCommand(console.nextLine(), arg);
     }
 }

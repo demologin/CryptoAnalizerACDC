@@ -1,12 +1,15 @@
 package com.javarush.alimova.controller;
 
-import com.javarush.alimova.commands.Coding;
 import com.javarush.alimova.commands.Command;
+import com.javarush.alimova.commands.Decoding;
+import com.javarush.alimova.commands.Encoding;
 import com.javarush.alimova.exception.AppException;
 
 public enum CommandContainer {
 
-    CODING(new Coding());
+    ENCODING(new Encoding()),
+
+    DECODING(new Decoding());
 
     private final Command command;
 
