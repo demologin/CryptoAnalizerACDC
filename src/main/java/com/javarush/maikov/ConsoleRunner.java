@@ -20,19 +20,4 @@ public class ConsoleRunner {
 }
 
 
-//        public char[] Encode (BufferedReader reader,int key) throws IOException {
-//            if (reader == null && key == 0) {
-//                throw new RuntimeException();
-//            }
-//            StringBuilder stringBuilder = new StringBuilder();
-//            int intValueOfChar;
-//            while ((intValueOfChar = reader.read()) != -1) {
-//                stringBuilder.append((char) intValueOfChar);
-//            }
-//            char[] charArray = stringBuilder.toString().toCharArray();
-//
-//
-//            return charArray;
-//        }
-
 

@@ -10,18 +10,45 @@ public class Encode {
         try (FileReader reader = new FileReader(link)) {
             while (reader.ready()) {
                 char target = (char) reader.read();
-                boolean isCharAlphabet = Arrays.toString(Constants.ALPHABET).contains(Character.toString(target));
-                boolean isCharCapital = Arrays.toString(Constants.CAPITALLETTER).contains(Character.toString(target));
-                if(isCharAlphabet){
-//                    result.append(Constants.ALPHABET[])
+                boolean isCharAlphabet = false;
+                boolean isCharCapital = false;
+                for (char symbol : Constants.ALPHABET) {
+                    if (target == symbol) {
+                        isCharAlphabet = true;
+                        break;
+                    }
                 }
+                if (isCharAlphabet) {
+                    int index = Arrays.binarySearch(Constants.ALPHABET, target);
+                    if (index + key >= Constants.ALPHABET.length - 1) {
+                        result.append(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
+                    } else {
+                        result.append(Constants.ALPHABET[index + key]);
+                    }
+                    continue;
+                }
+                for (char symbol : Constants.CAPITALLETTER) {
+                    if (target == symbol) {
+                        isCharCapital = true;
+                        break;
+                    }
+                }
+                if (isCharCapital) {
+                    int index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
+                    if (index + key >= Constants.CAPITALLETTER.length - 1) {
+                        result.append(Constants.CAPITALLETTER[(index + key) % Constants.CAPITALLETTER.length]);
+                    } else {
+                        result.append(Constants.CAPITALLETTER[index + key]);
+                    } continue;
+                }
+                result.append(target);
             }
-            System.out.println(result);
-        } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(result);
+        }
     }
-}
 
