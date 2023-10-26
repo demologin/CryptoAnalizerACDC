@@ -1,6 +1,8 @@
 package com.javarush.alimova.commands;
 
 import com.javarush.alimova.dictionary.Alphabet;
+import com.javarush.alimova.dictionary.Const;
+import com.javarush.alimova.exception.AppException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,26 +18,24 @@ public abstract class Coding implements Command{
     public Result startCommand(String[] parameters) {
         Path pathInput = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
         Path pathOutput = Path.of(System.getProperty("user.dir"), "text", parameters[1]);
+
         try {
             Files.deleteIfExists(pathOutput);
             Files.createFile(pathOutput);
         } catch (IOException e) {
-            //объявить, что не удалось создать файл
-            throw new RuntimeException(e);
+            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
         }
-        int keyCoding = Integer.parseInt(parameters[2]);
-        codingText(pathInput, pathOutput, keyCoding);
-
-        return getResult(pathInput, pathOutput);    //будет вызываться лишь при корректном выполнении (не нарвётся на исключения)
-
+        codingText(pathInput, pathOutput, parameters);
+        return getResult(pathInput, pathOutput);
     }
 
 
 
-    protected void codingText(Path input, Path output, int key) {
+    protected void codingText(Path input, Path output, String[] parameters) {
+
+        int key = Integer.parseInt(parameters[2]);      //надо подумать, как сделать покрасивше (но может не выйти)
         try (BufferedReader reader = Files.newBufferedReader(input);
              BufferedWriter writer = Files.newBufferedWriter(output, StandardOpenOption.WRITE)) {
-            //CharBuffer buffer = CharBuffer.allocate(1024);
             int symbol;
             while((symbol = reader.read()) > -1) {
                 char value = (char)Character.toLowerCase(symbol);
@@ -47,14 +47,14 @@ public abstract class Coding implements Command{
                 writer.write(Alphabet.CHARS[indexChars]);
             }
 
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-            throw new RuntimeException(e);      //подумать, выкидывать ли выше, в общем, нужно
-            //либо с самого начала обрабатывать всё выше
-            //подумать, какие ещё могут быть исключения
+        }
+        catch (IOException e) {
+            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
+
         }
 
     }
+
 
     protected abstract int getIndex(int index, int key);
 

@@ -40,7 +40,8 @@ public class ConsoleMenu {
         boolean readArg = switch(numbAction) {
             case 1 -> menuEncoding();
             case 2 -> menuDecoding();
-            case 3 -> menuExit();
+            case 3 -> menuBruteForce();
+            case 4 -> menuExit();
             default -> false;       //подобного варианта не должно быть в теории
         };
 
@@ -113,6 +114,29 @@ public class ConsoleMenu {
         }
         MainController.giveCommand(CommandContainer.DECODING.name(), new String[]{fileInput, fileOutput, keyString});
 
+        return true;
+    }
+
+    private boolean menuBruteForce() {
+        //нужно тут переопределить всё
+        Scanner console = new Scanner(System.in);
+        System.out.println(Const.MENU_BRUTE_FORCE_ARG_ONE);
+        String fileInput = console.nextLine();
+        if (fileInput.isEmpty()) {
+            fileInput = Const.BRUTE_FORCE_DEFAULT_INPUTFILE;
+        } else if (!fileInput.endsWith(".txt")) {
+            return false;
+        }
+
+        System.out.println(Const.MENU_BRUTE_FORCE_ARG_TWO);
+        String fileOutput = console.nextLine();
+        if (fileOutput.isEmpty()) {
+            fileOutput = Const.BRUTE_FORCE_DEFAULT_OUTPUTFILE;
+        } else if (!fileOutput.endsWith(".txt")) {
+            return false;
+        }
+
+        MainController.giveCommand(CommandContainer.BRUTEFORCE.name(), new String[]{fileInput, fileOutput});
         return true;
     }
 
