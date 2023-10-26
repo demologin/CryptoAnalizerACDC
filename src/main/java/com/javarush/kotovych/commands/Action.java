@@ -3,7 +3,8 @@ package com.javarush.kotovych.commands;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public interface Action {
-    void execute(BufferedReader reader, int key, BufferedWriter writer) throws IOException;
+    String execute(Path input, int key, Path output);
 }

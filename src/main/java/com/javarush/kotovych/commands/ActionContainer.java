@@ -1,16 +1,16 @@
 package com.javarush.kotovych.commands;
 
 
-public enum Actions {
+public enum ActionContainer {
     ENCODE(new Encoder()),
     DECODE(new Decoder()),
     BRUTE_FORCE(new BruteForce()),
-    EXIT(new Exit());
+    NOTHING(new Nothing());
     ;
 
     private final Action action;
 
-    Actions(Action action){
+    ActionContainer(Action action){
         this.action = action;
     }
 
@@ -20,7 +20,7 @@ public enum Actions {
             case "ENCODE" -> ENCODE.action;
             case "DECODE" ->DECODE.action;
             case "BRUTE_FORCE" -> BRUTE_FORCE.action;
-            default -> EXIT.action;
+            default -> NOTHING.action;
         };
 
         return returnAction;

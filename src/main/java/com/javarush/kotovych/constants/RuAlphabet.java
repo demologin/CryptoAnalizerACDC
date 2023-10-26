@@ -1,7 +1,5 @@
 package com.javarush.kotovych.constants;
 
-import com.javarush.kotovych.commands.Actions;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,10 +36,6 @@ public class RuAlphabet {
             "человек", "работать", "второй", "мысли", "знаю", "каждый", "ответ", "последний", "первый",
             "грусть", "воздух", "говорить", "нельзя", "каждый", "человек", "работать", "второй"));
 
-    public static char mostFrequentLetter = 'o';
-
-    public static List<Character> mostFrequentChars = new ArrayList<>(Arrays.asList('е', 'а', 'и', 'н', 'т', 'с', 'в', 'р'));
-    public static String consonants = "бвгджзйклмнпрстфхцчшщ";
     private static final String RU_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     public static final char[] CHARS = (RU_ALPHABET + OtherSymbols.NUMBERS + OtherSymbols.SYMBOLS).toCharArray();
 }

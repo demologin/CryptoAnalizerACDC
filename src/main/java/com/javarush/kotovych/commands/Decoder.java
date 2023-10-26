@@ -1,18 +1,15 @@
 package com.javarush.kotovych.commands;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.nio.file.Path;
 
 public class Decoder extends CipherMethods implements Action{
     @Override
-    public void execute(BufferedReader reader, int key, BufferedWriter writer) throws IOException {
-        Action encoder = Actions.get("ENCODE");
-        encoder.execute(reader, -key, writer);
+    public String execute(Path input, int key, Path output){
+        Action encoder = ActionContainer.get("ENCODE");
+        return encoder.execute(input, -key, output);
     }
 
-
-    public String decodeFromString(String text, int key){
+    public String decodeString(String text, int key){
         Encoder encoder = new Encoder();
         return encoder.encodeString(text, -key);
     }

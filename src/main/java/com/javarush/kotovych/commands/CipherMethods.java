@@ -1,5 +1,7 @@
 package com.javarush.kotovych.commands;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class CipherMethods {
     public int findPosition(char[] chars, char symbol){
@@ -11,11 +13,17 @@ public abstract class CipherMethods {
         return -1;
     }
 
-    public boolean isRussianLetter(char c) {
-        return Character.UnicodeBlock.of(c) == Character.UnicodeBlock.CYRILLIC;
-    }
+    public int countChar(char[] chars, char ch){
+        Map<Character, Integer> charCount = new HashMap<>();
 
-    public boolean isEnglishLetter(char c) {
-        return Character.UnicodeBlock.of(c) == Character.UnicodeBlock.BASIC_LATIN;
+        for (char c : chars) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+        try {
+            return charCount.get(ch);
+        } catch (NullPointerException e){
+            return 0;
+        }
+
     }
 }
