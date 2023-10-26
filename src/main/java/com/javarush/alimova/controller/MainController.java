@@ -16,9 +16,10 @@ public class MainController {
     }
 
     public static String resultCommand(Result result) {
-        if (result == Result.OK) {
-            return "Operation completed successfully";
+        if (result.correctCommand) {
+            return "Operation completed successfully.\nInput file: " + result.inputFile +
+                    "\nOutput file: " + result.outputFile;
         }
-        return "Action error";
+        return "The operation failed with an error";
     }
 }

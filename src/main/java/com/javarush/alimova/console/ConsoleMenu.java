@@ -14,8 +14,12 @@ public class ConsoleMenu {
     public void startMenu() {
         ConsoleMenu menu = new ConsoleMenu();
 
-        menu.printMenu();
-        menu.parserInputData();
+        boolean loopMenu = false;
+        while (!loopMenu) {
+            menu.printMenu();
+            loopMenu = menu.parserInputData();
+        }
+
     }
 
     public void printMenu() {
@@ -25,7 +29,7 @@ public class ConsoleMenu {
         }
     }
 
-    public void parserInputData() {
+    public boolean parserInputData() {
         Scanner console = new Scanner(System.in);
         int numbAction = console.nextInt();
         while (numbAction > CommandContainer.commandSet.length) {
@@ -41,8 +45,9 @@ public class ConsoleMenu {
         };
 
         if (!readArg) {
-            System.out.println("FALSE");        //как-то зациклить (сейчас выходит из меню)
+            System.out.println(Const.CONSOLE_INPUT_ERROR);        //как-то зациклить (сейчас выходит из меню)
         }
+        return readArg;
 
     }
 

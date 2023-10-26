@@ -24,6 +24,7 @@ public interface Const {
     String MENU_DECODING_ARG_TWO = "Enter the name of the resulting file and press 'enter' (default 'decoding_out.txt')";
     String MENU_DECODING_ARG_THREE = "Enter the encryption key and press 'enter' (default key=5)";
     String DECODING_DEFAULT_KEY = "5";
+    String CONSOLE_INPUT_ERROR = "You made a mistake when filling in the data. Please start from the beginning";
 
 
 

@@ -24,10 +24,9 @@ public abstract class Coding implements Command{
             throw new RuntimeException(e);
         }
         int keyCoding = Integer.parseInt(parameters[2]);
-        System.out.println(pathInput + " " + pathOutput);
         codingText(pathInput, pathOutput, keyCoding);
 
-        return Result.OK;       //пока везде ок
+        return getResult(pathInput, pathOutput);    //будет вызываться лишь при корректном выполнении (не нарвётся на исключения)
 
     }
 
@@ -58,4 +57,6 @@ public abstract class Coding implements Command{
     }
 
     protected abstract int getIndex(int index, int key);
+
+    protected abstract Result getResult(Path inputFile, Path outputFile);
 }
