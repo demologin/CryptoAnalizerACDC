@@ -41,7 +41,8 @@ public class ConsoleMenu {
             case 1 -> menuEncoding();
             case 2 -> menuDecoding();
             case 3 -> menuBruteForce();
-            case 4 -> menuExit();
+            case 4 -> menuStaticAnalyzer();
+            case 5 -> menuExit();
             default -> false;       //подобного варианта не должно быть в теории
         };
 
@@ -139,6 +140,38 @@ public class ConsoleMenu {
         MainController.giveCommand(CommandContainer.BRUTEFORCE.name(), new String[]{fileInput, fileOutput});
         return true;
     }
+
+    private boolean menuStaticAnalyzer() {
+
+        Scanner console = new Scanner(System.in);
+        System.out.println(Const.MENU_STATIC_ANALYZER_ARG_ONE);
+        String fileInput = console.nextLine();
+        if (fileInput.isEmpty()) {
+            fileInput = Const.STATIC_ANALYZER_DEFAULT_INPUTFILE;
+        } else if (!fileInput.endsWith(".txt")) {
+            return false;
+        }
+
+        System.out.println(Const.MENU_STATIC_ANALYZER_ARG_TWO);
+        String fileOutput = console.nextLine();
+        if (fileOutput.isEmpty()) {
+            fileOutput = Const.STATIC_ANALYZER_DEFAULT_OUTPUTFILE;
+        } else if (!fileOutput.endsWith(".txt")) {
+            return false;
+        }
+
+        System.out.println(Const.MENU_STATIC_ANALYZER_ARG_THREE);
+        String fileSource = console.nextLine();
+        if (fileSource.isEmpty()) {
+            fileSource = Const.STATIC_ANALYZER_DEFAULT_SOURCE;
+        } else if (!fileSource.endsWith(".txt")) {
+            return false;
+        }
+        MainController.giveCommand(CommandContainer.ANALYZER.name(), new String[]{fileInput, fileOutput, fileSource});
+
+        return true;
+    }
+
 
     private boolean menuExit() {
         //пока просто true, возможно, нужно что-то добавить

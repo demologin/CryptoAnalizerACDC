@@ -36,6 +36,15 @@ public interface Const {
 
     String ERROR_FILE = "The problem with the file (incorrect path or other reasons)";
 
+    String MENU_STATIC_ANALYZER_ARG_ONE = "Enter the name of the incoming file or press 'enter' (default 'encoding_out.txt')";
+    String STATIC_ANALYZER_DEFAULT_INPUTFILE = "encoding_out.txt";
+
+    String STATIC_ANALYZER_DEFAULT_OUTPUTFILE = "analyzer_out.txt";
+
+    String MENU_STATIC_ANALYZER_ARG_TWO = "Enter the name of the resulting file and press 'enter' (default 'analyzer_out.txt')";
+    String MENU_STATIC_ANALYZER_ARG_THREE = "Enter the name of the file with an example of the author's work and press 'enter' (default 'dict.txt')";
+    String STATIC_ANALYZER_DEFAULT_SOURCE = "dict.txt";
+
 
 
 

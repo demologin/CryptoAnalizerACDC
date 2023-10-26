@@ -1,9 +1,6 @@
 package com.javarush.alimova.controller;
 
-import com.javarush.alimova.commands.BruteForce;
-import com.javarush.alimova.commands.Command;
-import com.javarush.alimova.commands.Decoding;
-import com.javarush.alimova.commands.Encoding;
+import com.javarush.alimova.commands.*;
 import com.javarush.alimova.exception.AppException;
 
 public enum CommandContainer {
@@ -12,9 +9,11 @@ public enum CommandContainer {
 
     DECODING(new Decoding()),
 
-    BRUTEFORCE(new BruteForce());
+    BRUTEFORCE(new BruteForce()),
 
-    public static final String[] commandSet = {"Encoding", "Decoding", "Brute Force", "Exist"};
+    ANALYZER(new StaticAnalyzer());
+
+    public static final String[] commandSet = {"Encoding", "Decoding", "Brute Force", "Static analyzer", "Exist"};
     private final Command command;
 
     CommandContainer(Command command) {
