@@ -1,5 +1,4 @@
 package com.javarush.maikov;
-
 import java.io.*;
 import java.util.Arrays;
 
@@ -9,17 +8,22 @@ public class Encode {
         StringBuilder result = new StringBuilder();
         try (FileReader reader = new FileReader(link)) {
             while (reader.ready()) {
+                int index;
                 char target = (char) reader.read();
-                boolean isCharAlphabet = false;
-                boolean isCharCapital = false;
-                for (char symbol : Constants.ALPHABET) {
-                    if (target == symbol) {
-                        isCharAlphabet = true;
-                        break;
-                    }
+                if (target == 'ё'){    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
+                    index = 6;
+                        result.append(Constants.ALPHABET[index + key]);
+                    continue;
                 }
+                if (target == 'Ё'){    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
+                    index = 6;
+                    result.append(Constants.CAPITALLETTER[index + key]);
+                    continue;
+                }
+                boolean isCharAlphabet = Arrays.binarySearch(Constants.ALPHABET, target) >= 0 ? true : false;
+                boolean isCharCapital = Arrays.binarySearch(Constants.CAPITALLETTER, target) >= 0 ? true : false;
                 if (isCharAlphabet) {
-                    int index = Arrays.binarySearch(Constants.ALPHABET, target);
+                   index = Arrays.binarySearch(Constants.ALPHABET, target);;
                     if (index + key >= Constants.ALPHABET.length - 1) {
                         result.append(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
                     } else {
@@ -27,28 +31,23 @@ public class Encode {
                     }
                     continue;
                 }
-                for (char symbol : Constants.CAPITALLETTER) {
-                    if (target == symbol) {
-                        isCharCapital = true;
-                        break;
-                    }
-                }
                 if (isCharCapital) {
-                    int index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
+                    index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
                     if (index + key >= Constants.CAPITALLETTER.length - 1) {
                         result.append(Constants.CAPITALLETTER[(index + key) % Constants.CAPITALLETTER.length]);
                     } else {
                         result.append(Constants.CAPITALLETTER[index + key]);
-                    } continue;
+                    }
+                    continue;
                 }
                 result.append(target);
             }
-            } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         System.out.println(result);
-        }
     }
+}
 
