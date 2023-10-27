@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class BruteForce extends Decoder implements Action {
     @Override
@@ -17,22 +18,26 @@ public class BruteForce extends Decoder implements Action {
     }
 
     private int findValidKey(Path input, Alphabet alphabet){
-        int key;
+        int key = 0;
         int mostSpaces = 0;
         char[] textAlphabet = alphabet.getChars();
         try(BufferedReader reader = Files.newBufferedReader(input)) {
-            String line = reader.readLine();
-            for (key = -textAlphabet.length; key < textAlphabet.length; key++) {
-                String decodedLine = decodeString(line, key, alphabet);
-                String[] charLine = decodedLine.split(" ");
-                for(String s : charLine){
-                    if(alphabet.getWords().contains(s)){
-                        return key;
+
+            while (reader.ready()) {
+                String line = reader.readLine();
+                for (int i = -textAlphabet.length; i < textAlphabet.length; i++) {
+                    String decodedLine = decodeString(line, i, alphabet);
+                    String[] charLine = decodedLine.split(" ");
+                    for (String s : charLine) {
+                        if (alphabet.getWords().contains(s)) {
+                            return i;
+                        }
                     }
-                }
-                int spaces = countChar(decodedLine.toCharArray(), ' ');
-                if(spaces > mostSpaces){
-                    mostSpaces = spaces;
+                    int spaces = countChar(decodedLine.toCharArray(), ' ');
+                    if (spaces > mostSpaces) {
+                        mostSpaces = spaces;
+                        key = i;
+                    }
                 }
             }
             return key;

@@ -10,7 +10,7 @@ import java.nio.file.Path;
 
 public class JavaFXApplication {
     public static void main(String[] args) throws IOException{
-        Path p1 = Path.of("/Users/roman/IdeaProjects/CryptoAnalizerACDC/text2.txt");
+        Path p1 = Path.of("/Users/roman/IdeaProjects/CryptoAnalizerACDC/text.txt");
         Path p2 = Path.of("/Users/roman/IdeaProjects/CryptoAnalizerACDC/out.txt");
         Path p3 = Path.of("/Users/roman/IdeaProjects/CryptoAnalizerACDC/out2.txt");
 

@@ -42,7 +42,7 @@ public class Encoder extends CipherMethods implements Action {
 
         for (int i = 0; i < str.length; i++) {
             int position = findPosition(textAlphabet, str[i]);
-            if(position != -1){
+            if(position > -1){
                 str[i] = textAlphabet[(position + key + textAlphabet.length) % textAlphabet.length];
             }
         }
