@@ -4,7 +4,8 @@ import com.javarush.khasanov.command.*;
 import com.javarush.khasanov.exception.AppException;
 
 public enum Actions {
-    ENCRYPT(new Encrypt());
+    ENCRYPT(new Encrypt()),
+    DECRYPT(new Decrypt());
 
     private final Action action;
 

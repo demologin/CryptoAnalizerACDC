@@ -8,8 +8,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.Arrays;
 
-public class Encrypt implements Action {
-
+public class Decrypt implements Action{
     @Override
     public Result execute(String[] parameters) {
         Path sourceText = Path.of(DefaultPath.TXT_FOLDER + parameters[0]);
@@ -35,7 +34,7 @@ public class Encrypt implements Action {
             throw new AppException(e);
         }
 
-        return new Result(ResultCode.OK, "Encrypt called");
+        return new Result(ResultCode.OK, "Decrypt called");
     }
 
     private int getIndexSourceChar(char sourceChar) {
@@ -44,7 +43,10 @@ public class Encrypt implements Action {
     }
 
     private char getOffsetChar(int indexSourceChar, int key) {
-        int resultIndex = (indexSourceChar + key) % Alphabet.ALPHABET.length;
+        int resultIndex = (indexSourceChar - key) % Alphabet.ALPHABET.length;
+        if (resultIndex < 0) {
+            resultIndex += Alphabet.ALPHABET.length;
+        }
         return Alphabet.ALPHABET[resultIndex];
     }
 }
