@@ -13,6 +13,8 @@ public class Alphabet {
 
     public static final Map<Character, Integer> symbol = new HashMap<>();
 
+    public static final int SIZE = CHARS.length;
+
     static {
         for (int i = 0; i < CHARS.length; i++) {
             symbol.put(CHARS[i], i);

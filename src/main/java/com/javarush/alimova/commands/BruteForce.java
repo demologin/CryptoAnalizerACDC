@@ -28,13 +28,15 @@ public class BruteForce extends Coding{
     @Override
     protected int getIndex(int index, int key) {
         if (index - key < 0) {
-            return Alphabet.CHARS.length + (index - key);
+            return Alphabet.SIZE + (index - key);
         }
         return index - key;
     }
 
     @Override
-    protected void codingText(Path input, Path output, String[] parameters) {
+    protected void codingText(String[] parameters) {
+
+        Path input = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
 
         try (SeekableByteChannel scb = Files.newByteChannel(input)) {
             ByteBuffer buffer = ByteBuffer.allocate(2048);
@@ -42,7 +44,7 @@ public class BruteForce extends Coding{
             scb.read(buffer);//считываем кусок буфера, на который будем опираться
             buffer.flip();
             int validKey = -1;
-            for (int i = 1; i < Alphabet.CHARS.length; i++) {
+            for (int i = 1; i < Alphabet.SIZE; i++) {
                 buffer.position(0);
                 String lineFile = decodeLine(Charset.forName(encoding).decode(buffer).toString(), i);
                 //buffer.clear();
@@ -53,9 +55,7 @@ public class BruteForce extends Coding{
             }
             if (validKey != -1) {
                 keyCoding = validKey;
-                Files.deleteIfExists(output);
-                Files.createFile(output);
-                super.codingText(input, output, new String[]{"", "", String.valueOf(validKey)});
+                super.codingText(new String[]{parameters[0], parameters[1], String.valueOf(validKey)});
             }
 
 

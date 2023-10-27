@@ -16,22 +16,27 @@ public abstract class Coding implements Command{
 
     @Override
     public Result startCommand(String[] parameters) {
+
         Path pathInput = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
         Path pathOutput = Path.of(System.getProperty("user.dir"), "text", parameters[1]);
 
-        try {
-            Files.deleteIfExists(pathOutput);
-            Files.createFile(pathOutput);
-        } catch (IOException e) {
-            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
-        }
-        codingText(pathInput, pathOutput, parameters);
+        codingText(parameters);
         return getResult(pathInput, pathOutput);
     }
 
 
 
-    protected void codingText(Path input, Path output, String[] parameters) {
+    protected void codingText(String[] parameters) {
+
+        Path input = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
+        Path output = Path.of(System.getProperty("user.dir"), "text", parameters[1]);
+
+        try {
+            Files.deleteIfExists(output);
+            Files.createFile(output);
+        } catch (IOException e) {
+            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
+        }
 
         int key = Integer.parseInt(parameters[2]);      //надо подумать, как сделать покрасивше (но может не выйти)
         try (BufferedReader reader = Files.newBufferedReader(input);

@@ -6,18 +6,19 @@ import com.javarush.alimova.dictionary.Const;
 import com.javarush.alimova.exception.AppException;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class StaticAnalyzer extends Coding{
 
     @Override
     protected int getIndex(int index, int key) {
-        return 0;
+        if (index - key < 0) {
+            return Alphabet.CHARS.length + (index - key);
+        }
+        return index - key;
     }
 
     @Override
@@ -26,83 +27,17 @@ public class StaticAnalyzer extends Coding{
     }
 
     @Override
-    protected void codingText(Path input, Path output, String[] parameters) {
+    protected void codingText(String[] parameters) {
 
-        //здесь реализован примитивный метод сопоставления частот, возможно, можно сделать лучше
-
+        Path input = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
         Path pathSource = Path.of(System.getProperty("user.dir"), "text", parameters[2]);
 
-        List<Map.Entry<Character, Long>> charFrequencySource = new ArrayList<>();
-        List<Map.Entry<Character, Long>> charFrequencyText = new ArrayList<>();
-        //пригодится для сопоставления частот
+        int validKey = keySelection(input, pathSource);
+        super.codingText(new String[]{parameters[0], parameters[1], String.valueOf(validKey)});
 
-        //частоты будем считать через обычный массив (тоже этот кусок можно вынести в один код)
-        //----
-        long[] freqArraySource = new long[Alphabet.CHARS.length];
-        Arrays.fill(freqArraySource, 0);
-        long sizeTextSource = countingFreq(pathSource, freqArraySource);
-
-        for (int i = 0; i < freqArraySource.length; i++) {
-            charFrequencySource.add(new AbstractMap.SimpleEntry<>(Alphabet.CHARS[i], freqArraySource[i] / (sizeTextSource / 5000)));
-        }
-
-        charFrequencySource.sort(Map.Entry.comparingByValue());
-        for (Map.Entry<Character, Long> map:
-                charFrequencySource) {
-            System.out.println(map.getKey() + " " + map.getValue());
-        }
-
-        //------
-
-
-        long[] freqArrayText = new long[Alphabet.CHARS.length];
-        Arrays.fill(freqArrayText, 0);
-        long sizeTextFile = countingFreq(input, freqArrayText);
-
-        for (int i = 0; i < freqArrayText.length; i++) {
-            charFrequencyText.add(new AbstractMap.SimpleEntry<>(Alphabet.CHARS[i], freqArrayText[i] / (sizeTextFile / 5000)));
-        }
-
-        charFrequencyText.sort(Map.Entry.comparingByValue());
-        for (Map.Entry<Character, Long> map:
-                charFrequencyText) {
-            System.out.println(map.getKey() + " " + map.getValue());
-        }
-
-        //для быстроты замены
-        Map<Character, Character> changeAlphabet = new HashMap<>();
-
-        for (int i = 0; i < Alphabet.CHARS.length; i++) {
-            Character inputChar = charFrequencyText.get(i).getKey();
-            Character outputChar = charFrequencySource.get(i).getKey();
-            changeAlphabet.put(inputChar, outputChar);
-        }
-
-        for (Map.Entry<Character, Character> map:
-                changeAlphabet.entrySet()) {
-            System.out.println(map.getKey() + " -> " + map.getValue());
-        }
-
-        try (BufferedReader reader = Files.newBufferedReader(input);
-             BufferedWriter writer = Files.newBufferedWriter(output, StandardOpenOption.WRITE)) {
-            int symbol;
-            while((symbol = reader.read()) > -1) {
-                char value = (char)Character.toLowerCase(symbol);
-                if (!Alphabet.symbol.containsKey(value)) {
-                    continue;
-                }
-                writer.write(changeAlphabet.get(value));
-            }
-
-        }
-        catch (IOException e) {
-            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
-
-        }
-        //super.codingText(input, output, parameters);
     }
 
-    private long countingFreq(Path inputFile, long[] freqArray) {
+    private void countingFreq(Path inputFile, long[] freqArray) {
         long sizeText = 0;
         try (BufferedReader reader = Files.newBufferedReader(inputFile)) {
             int symbol;
@@ -116,11 +51,57 @@ public class StaticAnalyzer extends Coding{
                 sizeText++;
             }
 
+            for (int i = 0; i < freqArray.length; i++) {
+                freqArray[i] = freqArray[i] / (sizeText / 1000);
+            }
+
         }
         catch (IOException e) {
             throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
 
         }
-        return sizeText;
+    }
+
+    private double avgSquaredDeviation(long[] freqArrayText, long[] freqArraySource) {
+        double avgSql = 0;
+        for (int i = 0; i < freqArrayText.length; i++) {
+            double value = freqArraySource[i] - freqArrayText[i];
+            avgSql += value * value;
+        }
+        avgSql /= freqArrayText.length;
+        return avgSql;
+    }
+
+    private void shiftArray(long[] freqArray) {
+        long tmp = freqArray[0];
+        for (int i = 0; i < freqArray.length - 1; i++) {
+            freqArray[i] = freqArray[i + 1];
+        }
+        freqArray[freqArray.length - 1] = tmp;
+    }
+
+    private int keySelection(Path pathInput, Path pathSource) {
+        int validKey = 0;
+
+        long[] freqArraySource = new long[Alphabet.SIZE];
+        Arrays.fill(freqArraySource, 0);
+        countingFreq(pathSource, freqArraySource);
+
+        long[] freqArrayText = new long[Alphabet.SIZE];
+        Arrays.fill(freqArrayText, 0);
+        countingFreq(pathInput, freqArrayText);
+
+        double minDeviation = avgSquaredDeviation(freqArrayText, freqArraySource);
+
+        for (int i = 1; i < Alphabet.SIZE; i++) {
+            shiftArray(freqArrayText);
+            double value = avgSquaredDeviation(freqArrayText, freqArraySource);
+
+            if (value < minDeviation) {
+                minDeviation = value;
+                validKey = i;
+            }
+        }
+        return validKey;
     }
 }
