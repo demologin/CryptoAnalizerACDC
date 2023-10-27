@@ -1,5 +1,7 @@
-package com.javarush.kotovych.commands;
+package com.javarush.kotovych.containers;
 
+
+import com.javarush.kotovych.commands.*;
 
 public enum ActionContainer {
     ENCODE(new Encoder()),
@@ -15,14 +17,11 @@ public enum ActionContainer {
     }
 
     public static Action get(String actionName){
-        Action returnAction;
-        returnAction = switch (actionName){
+        return switch (actionName){
             case "ENCODE" -> ENCODE.action;
             case "DECODE" ->DECODE.action;
             case "BRUTE_FORCE" -> BRUTE_FORCE.action;
             default -> NOTHING.action;
         };
-
-        return returnAction;
     }
 }

@@ -1,11 +1,14 @@
 package com.javarush.kotovych.constants;
 
+import com.javarush.kotovych.containers.Alphabet;
+import com.javarush.kotovych.containers.AlphabetContainer;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RuAlphabet {
-    public static List<String> words = new ArrayList<>(Arrays.asList("это", "она", "так", "же", "по", "но", "мне", "бы", "быть",
+public class RuAlphabet implements Alphabet {
+    private static List<String> words = new ArrayList<>(Arrays.asList("это", "она", "так", "же", "по", "но", "мне", "бы", "быть",
             "все", "за", "сказать", "они", "мы", "один", "который", "привет",
             "только", "еще", "себя", "когда", "уже", "для", "вот", "нет", "да",
             "со", "ты", "если", "или", "там", "где", "ну", "потом", "время",
@@ -36,6 +39,23 @@ public class RuAlphabet {
             "человек", "работать", "второй", "мысли", "знаю", "каждый", "ответ", "последний", "первый",
             "грусть", "воздух", "говорить", "нельзя", "каждый", "человек", "работать", "второй"));
 
-    private static final String RU_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-    public static final char[] CHARS = (RU_ALPHABET + OtherSymbols.NUMBERS + OtherSymbols.SYMBOLS).toCharArray();
+    private final String RU_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private final String NUMBERS = "0123456789";
+    private final String SYMBOLS = "`~!@#$%^&*(){}[]<>;:'\\|?., -_+\"";
+    private final String SYMBOL_CHARS = (NUMBERS + SYMBOLS);
+    private final char[] CHARS = (RU_ALPHABET + SYMBOL_CHARS).toCharArray();
+
+    @Override
+    public char[] getChars() {
+        return CHARS;
+    }
+
+    @Override
+    public List<String> getWords() {
+        return words;
+    }
+
+    public RuAlphabet(){
+        Arrays.sort(CHARS);
+    }
 }
