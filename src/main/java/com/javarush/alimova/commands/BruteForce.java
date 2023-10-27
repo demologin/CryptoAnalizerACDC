@@ -36,7 +36,7 @@ public class BruteForce extends Coding{
     @Override
     protected void codingText(String[] parameters) {
 
-        Path input = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
+        Path input = getPathToFile(parameters[0]);
 
         try (SeekableByteChannel scb = Files.newByteChannel(input)) {
             ByteBuffer buffer = ByteBuffer.allocate(2048);
@@ -47,7 +47,7 @@ public class BruteForce extends Coding{
             for (int i = 1; i < Alphabet.SIZE; i++) {
                 buffer.position(0);
                 String lineFile = decodeLine(Charset.forName(encoding).decode(buffer).toString(), i);
-                if (keyValidity(lineFile)) {
+                if (checkKeyValidity(lineFile)) {
                     validKey = i;
                     break;
                 }
@@ -78,7 +78,7 @@ public class BruteForce extends Coding{
         return lineFile.toString();
     }
 
-    protected boolean keyValidity(String lineFile) {
+    protected boolean checkKeyValidity(String lineFile) {
         for (String example :
                 errorSyntax) {
             if (lineFile.contains(example)) return false;

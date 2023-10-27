@@ -6,40 +6,66 @@ import com.javarush.alimova.dictionary.Const;
 import com.javarush.alimova.exception.AppException;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class StaticAnalyzer extends Coding{
 
-    private int keyCoding = -1;
     @Override
     protected int getIndex(int index, int key) {
-        if (index - key < 0) {
-            return Alphabet.CHARS.length + (index - key);
-        }
-        return index - key;
+        return 0;
     }
 
     @Override
     protected Result getResult(Path inputFile, Path outputFile) {
-        return new Result(true, CommandContainer.ANALYZER, inputFile, outputFile, keyCoding);
+        return new Result(true, CommandContainer.ANALYZER, inputFile, outputFile);
     }
 
     @Override
     protected void codingText(String[] parameters) {
 
-        Path input = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
-        Path pathSource = Path.of(System.getProperty("user.dir"), "text", parameters[2]);
+        Path input = getPathToFile(parameters[0]);
+        Path output = getPathToFile(parameters[1]);
+        Path pathSource = getPathToFile(parameters[2]);
 
-        int validKey = keySelection(input, pathSource);
-        keyCoding = validKey;
-        super.codingText(new String[]{parameters[0], parameters[1], String.valueOf(validKey)});
+        try {
+            Files.deleteIfExists(output);
+            Files.createFile(output);
+        } catch (IOException e) {
+            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
+        }
+
+        long[] freqArraySource = countingFreq(pathSource);
+        long[] freqArrayText = countingFreq(input);
+
+        Map<Character, Character> compareAlphabet = compareFreq(freqArrayText, freqArraySource);
+
+        try (BufferedReader reader = Files.newBufferedReader(input);
+             BufferedWriter writer = Files.newBufferedWriter(output, StandardOpenOption.WRITE)) {
+            int symbol;
+            while((symbol = reader.read()) > -1) {
+                char value = (char)Character.toLowerCase(symbol);
+                if (!Alphabet.symbol.containsKey(value)) {
+                    continue;
+                }
+                writer.write(compareAlphabet.get(value));
+            }
+
+        }
+        catch (IOException e) {
+            throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
+
+        }
 
     }
 
-    private void countingFreq(Path inputFile, long[] freqArray) {
+    private long[] countingFreq(Path inputFile) {
+        long[] freqArray = new long[Alphabet.CHARS.length];
+        Arrays.fill(freqArray, 0);
         long sizeText = 0;
         try (BufferedReader reader = Files.newBufferedReader(inputFile)) {
             int symbol;
@@ -54,7 +80,7 @@ public class StaticAnalyzer extends Coding{
             }
 
             for (int i = 0; i < freqArray.length; i++) {
-                freqArray[i] = freqArray[i] / (sizeText / 1000);
+                freqArray[i] = freqArray[i]/ (sizeText / 5000);
             }
 
         }
@@ -62,48 +88,34 @@ public class StaticAnalyzer extends Coding{
             throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
 
         }
+        return freqArray;
     }
 
-    private double avgSquaredDeviation(long[] freqArrayText, long[] freqArraySource) {
-        double avgSql = 0;
+    private Map<Character, Character> compareFreq(long[] freqArrayText, long[] freqArraySource) {
+        List<Map.Entry<Character, Long>> charFrequencySource = new ArrayList<>();
+        List<Map.Entry<Character, Long>> charFrequencyText = new ArrayList<>();
+
+        for (int i = 0; i < freqArraySource.length; i++) {
+            charFrequencySource.add(new AbstractMap.SimpleEntry<>(Alphabet.CHARS[i], freqArraySource[i]));
+        }
+
+        charFrequencySource.sort(Map.Entry.comparingByValue());
+
         for (int i = 0; i < freqArrayText.length; i++) {
-            double value = freqArraySource[i] - freqArrayText[i];
-            avgSql += value * value;
+            charFrequencyText.add(new AbstractMap.SimpleEntry<>(Alphabet.CHARS[i], freqArrayText[i]));
         }
-        avgSql /= freqArrayText.length;
-        return avgSql;
-    }
 
-    private void shiftArray(long[] freqArray) {
-        long tmp = freqArray[0];
-        for (int i = 0; i < freqArray.length - 1; i++) {
-            freqArray[i] = freqArray[i + 1];
+        charFrequencyText.sort(Map.Entry.comparingByValue());
+
+        Map<Character, Character> compareAlphabet = new HashMap<>();
+
+        for (int i = 0; i < Alphabet.CHARS.length; i++) {
+            Character inputChar = charFrequencyText.get(i).getKey();
+            Character outputChar = charFrequencySource.get(i).getKey();
+            compareAlphabet.put(inputChar, outputChar);
         }
-        freqArray[freqArray.length - 1] = tmp;
-    }
 
-    private int keySelection(Path pathInput, Path pathSource) {
-        int validKey = 0;
+        return compareAlphabet;
 
-        long[] freqArraySource = new long[Alphabet.SIZE];
-        Arrays.fill(freqArraySource, 0);
-        countingFreq(pathSource, freqArraySource);
-
-        long[] freqArrayText = new long[Alphabet.SIZE];
-        Arrays.fill(freqArrayText, 0);
-        countingFreq(pathInput, freqArrayText);
-
-        double minDeviation = avgSquaredDeviation(freqArrayText, freqArraySource);
-
-        for (int i = 1; i < Alphabet.SIZE; i++) {
-            shiftArray(freqArrayText);
-            double value = avgSquaredDeviation(freqArrayText, freqArraySource);
-
-            if (value < minDeviation) {
-                minDeviation = value;
-                validKey = i;
-            }
-        }
-        return validKey;
     }
 }

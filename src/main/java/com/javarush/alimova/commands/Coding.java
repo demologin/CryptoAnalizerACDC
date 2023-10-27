@@ -28,8 +28,9 @@ public abstract class Coding implements Command{
 
     protected void codingText(String[] parameters) {
 
-        Path input = Path.of(System.getProperty("user.dir"), "text", parameters[0]);
-        Path output = Path.of(System.getProperty("user.dir"), "text", parameters[1]);
+        Path input = getPathToFile(parameters[0]);
+        Path output = getPathToFile(parameters[1]);
+
 
         try {
             Files.deleteIfExists(output);
@@ -62,4 +63,12 @@ public abstract class Coding implements Command{
     protected abstract int getIndex(int index, int key);
 
     protected abstract Result getResult(Path inputFile, Path outputFile);
+
+    protected Path getPathToFile(String fileName) {
+        Path path = Path.of(fileName);
+        if (!path.isAbsolute()) {
+            return Path.of(System.getProperty("user.dir"), "text", fileName);
+        }
+        return path;
+    }
 }
