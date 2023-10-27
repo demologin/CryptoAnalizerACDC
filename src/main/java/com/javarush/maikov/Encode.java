@@ -12,18 +12,26 @@ public class Encode {
                 char target = (char) reader.read();
                 if (target == 'ё'){    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
                     index = 6;
+                    if (index + key >= Constants.ALPHABET.length - 1) {
+                        result.append(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
+                    } else {
                         result.append(Constants.ALPHABET[index + key]);
+                    }
                     continue;
                 }
                 if (target == 'Ё'){    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
                     index = 6;
-                    result.append(Constants.CAPITALLETTER[index + key]);
+                    if (index + key >= Constants.CAPITALLETTER.length - 1) {
+                        result.append(Constants.CAPITALLETTER[(index + key) % Constants.ALPHABET.length]);
+                    } else {
+                        result.append(Constants.CAPITALLETTER[index + key]);
+                    }
                     continue;
                 }
-                boolean isCharAlphabet = Arrays.binarySearch(Constants.ALPHABET, target) >= 0 ? true : false;
-                boolean isCharCapital = Arrays.binarySearch(Constants.CAPITALLETTER, target) >= 0 ? true : false;
+                boolean isCharAlphabet = Arrays.binarySearch(Constants.ALPHABET, target) >= 0;
+                boolean isCharCapital = Arrays.binarySearch(Constants.CAPITALLETTER, target) >= 0;
                 if (isCharAlphabet) {
-                   index = Arrays.binarySearch(Constants.ALPHABET, target);;
+                    index = Arrays.binarySearch(Constants.ALPHABET, target);
                     if (index + key >= Constants.ALPHABET.length - 1) {
                         result.append(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
                     } else {
