@@ -2,14 +2,15 @@ package com.javarush.maikov;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
 public class Decode {
-    public Decode(String link, int key) {
-        StringBuilder result = new StringBuilder();
+    public Decode(String linkIn, String linkOut, int key) {
         key = key > Constants.ALPHABET.length ? key % Constants.ALPHABET.length : key;
-        try (FileReader reader = new FileReader(link)) {
+        try (FileReader reader = new FileReader(linkIn);
+             FileWriter writer = new FileWriter(linkOut)) {
             while (reader.ready()) {
                 int index;
                 char target = (char) reader.read();
@@ -17,9 +18,9 @@ public class Decode {
                     index = 6;
                     if (index - key < 0) {
                         int different = key - index;
-                        result.append(Constants.ALPHABET[(Constants.ALPHABET.length - different)]);
+                        writer.write(Constants.ALPHABET[(Constants.ALPHABET.length - different)]);
                     } else {
-                        result.append(Constants.ALPHABET[index - key]);
+                        writer.write(Constants.ALPHABET[index - key]);
                     }
                     continue;
                 }
@@ -27,9 +28,9 @@ public class Decode {
                     index = 6;
                     if (index - key < 0) {
                         int different = key - index;
-                        result.append(Constants.CAPITALLETTER[(Constants.CAPITALLETTER.length - different)]);
+                        writer.write(Constants.CAPITALLETTER[(Constants.CAPITALLETTER.length - different)]);
                     } else {
-                        result.append(Constants.CAPITALLETTER[index - key]);
+                        writer.write(Constants.CAPITALLETTER[index - key]);
                     }
                     continue;
                 }
@@ -39,9 +40,9 @@ public class Decode {
                     index = Arrays.binarySearch(Constants.ALPHABET, target);
                     if (index - key < 0) {
                         int different = key - index;
-                        result.append(Constants.ALPHABET[(Constants.ALPHABET.length - different)]);
+                        writer.write(Constants.ALPHABET[(Constants.ALPHABET.length - different)]);
                     } else {
-                        result.append(Constants.ALPHABET[index - key]);
+                        writer.write(Constants.ALPHABET[index - key]);
                     }
                     continue;
                 }
@@ -49,19 +50,18 @@ public class Decode {
                     index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
                     if (index - key < 0) {
                         int different = key - index;
-                        result.append(Constants.CAPITALLETTER[(Constants.CAPITALLETTER.length - different)]);
+                        writer.write(Constants.CAPITALLETTER[(Constants.CAPITALLETTER.length - different)]);
                     } else {
-                        result.append(Constants.CAPITALLETTER[index - key]);
+                        writer.write(Constants.CAPITALLETTER[index - key]);
                     }
                     continue;
                 }
-                result.append(target);
+                writer.write(target);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(result);
     }
 }

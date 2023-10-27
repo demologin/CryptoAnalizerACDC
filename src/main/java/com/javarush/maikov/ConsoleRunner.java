@@ -32,17 +32,21 @@ public class ConsoleRunner {
 
     private static void encoder() {
         System.out.println("Введите ссылку на файл, который вы хотите зашифровать");
-        String link = input.next();
+        String linkIn = input.next();
+        System.out.println("Введите ссылку на файл, в который вы хотите записать зашифрованнй текст");
+        String linkOut = input.next();
         System.out.println("Введите ключ, которым вы хотите зашифровать файл");
         int key = input.nextInt();
-        Encode encode = new Encode(link, key);
+        Encode encode = new Encode(linkIn, linkOut, key);
     }
     private static void decoder(){
         System.out.println("Введите ссылку на файл, который вы хотите расшифровать");
-        String link = input.next();
+        String linkIn = input.next();
+        System.out.println("Введите ссылку на файл, в который вы хотите записать расшифрованный текст");
+        String linkOut = input.next();
         System.out.println("Введите ключ, для расшифровки");
         int key = input.nextInt();
-        Decode decode = new Decode(link, key);
+        Decode decode = new Decode(linkIn, linkOut, key);
     }
 }
 

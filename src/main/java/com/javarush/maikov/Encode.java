@@ -1,30 +1,31 @@
 package com.javarush.maikov;
+
 import java.io.*;
 import java.util.Arrays;
 
 
 public class Encode {
-    public Encode(String link, int key) {
-        StringBuilder result = new StringBuilder();
-        try (FileReader reader = new FileReader(link)) {
+    public Encode(String linkIn, String linkOut, int key) {
+        try (FileReader reader = new FileReader(linkIn);
+             FileWriter writer = new FileWriter(linkOut)) {
             while (reader.ready()) {
                 int index;
                 char target = (char) reader.read();
-                if (target == 'ё'){    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
+                if (target == 'ё') {    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
                     index = 6;
                     if (index + key >= Constants.ALPHABET.length - 1) {
-                        result.append(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
+                        writer.write(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
                     } else {
-                        result.append(Constants.ALPHABET[index + key]);
+                        writer.write(Constants.ALPHABET[index + key]);
                     }
                     continue;
                 }
-                if (target == 'Ё'){    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
+                if (target == 'Ё') {    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
                     index = 6;
                     if (index + key >= Constants.CAPITALLETTER.length - 1) {
-                        result.append(Constants.CAPITALLETTER[(index + key) % Constants.ALPHABET.length]);
+                        writer.write(Constants.CAPITALLETTER[(index + key) % Constants.ALPHABET.length]);
                     } else {
-                        result.append(Constants.CAPITALLETTER[index + key]);
+                        writer.write(Constants.CAPITALLETTER[index + key]);
                     }
                     continue;
                 }
@@ -33,29 +34,28 @@ public class Encode {
                 if (isCharAlphabet) {
                     index = Arrays.binarySearch(Constants.ALPHABET, target);
                     if (index + key >= Constants.ALPHABET.length - 1) {
-                        result.append(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
+                        writer.write(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
                     } else {
-                        result.append(Constants.ALPHABET[index + key]);
+                        writer.write(Constants.ALPHABET[index + key]);
                     }
                     continue;
                 }
                 if (isCharCapital) {
                     index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
                     if (index + key >= Constants.CAPITALLETTER.length - 1) {
-                        result.append(Constants.CAPITALLETTER[(index + key) % Constants.CAPITALLETTER.length]);
+                        writer.write(Constants.CAPITALLETTER[(index + key) % Constants.CAPITALLETTER.length]);
                     } else {
-                        result.append(Constants.CAPITALLETTER[index + key]);
+                        writer.write(Constants.CAPITALLETTER[index + key]);
                     }
                     continue;
                 }
-                result.append(target);
+                writer.write(target);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(result);
     }
 }
 
