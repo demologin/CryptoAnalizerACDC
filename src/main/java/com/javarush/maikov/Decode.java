@@ -59,7 +59,7 @@ public class Decode {
                 writer.write(target);
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("Файл не найден, укажите путь к действующему файлу");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
