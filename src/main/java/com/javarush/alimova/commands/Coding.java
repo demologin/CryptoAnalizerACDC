@@ -38,7 +38,7 @@ public abstract class Coding implements Command{
             throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
         }
 
-        int key = Integer.parseInt(parameters[2]);      //надо подумать, как сделать покрасивше (но может не выйти)
+        int key = Integer.parseInt(parameters[2]);
         try (BufferedReader reader = Files.newBufferedReader(input);
              BufferedWriter writer = Files.newBufferedWriter(output, StandardOpenOption.WRITE)) {
             int symbol;
@@ -55,11 +55,9 @@ public abstract class Coding implements Command{
         }
         catch (IOException e) {
             throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
-
         }
 
     }
-
 
     protected abstract int getIndex(int index, int key);
 

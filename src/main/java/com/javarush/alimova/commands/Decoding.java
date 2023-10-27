@@ -14,7 +14,6 @@ public class Decoding extends Coding{
         }
         return index - key;
     }
-
     @Override
     protected Result getResult(Path inputFile, Path outputFile) {
         return new Result(true, CommandContainer.DECODING, inputFile, outputFile);

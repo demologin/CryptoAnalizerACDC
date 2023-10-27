@@ -13,6 +13,7 @@ import java.util.*;
 
 public class StaticAnalyzer extends Coding{
 
+    private int keyCoding = -1;
     @Override
     protected int getIndex(int index, int key) {
         if (index - key < 0) {
@@ -23,7 +24,7 @@ public class StaticAnalyzer extends Coding{
 
     @Override
     protected Result getResult(Path inputFile, Path outputFile) {
-        return new Result(true, CommandContainer.ANALYZER, inputFile, outputFile);
+        return new Result(true, CommandContainer.ANALYZER, inputFile, outputFile, keyCoding);
     }
 
     @Override
@@ -33,6 +34,7 @@ public class StaticAnalyzer extends Coding{
         Path pathSource = Path.of(System.getProperty("user.dir"), "text", parameters[2]);
 
         int validKey = keySelection(input, pathSource);
+        keyCoding = validKey;
         super.codingText(new String[]{parameters[0], parameters[1], String.valueOf(validKey)});
 
     }

@@ -1,4 +1,4 @@
-package com.javarush.alimova.console;
+package com.javarush.alimova.view.console;
 
 import com.javarush.alimova.controller.CommandContainer;
 import com.javarush.alimova.controller.MainController;
@@ -174,7 +174,6 @@ public class ConsoleMenu {
 
 
     private boolean menuExit() {
-        //пока просто true, возможно, нужно что-то добавить
         return true;
     }
 }

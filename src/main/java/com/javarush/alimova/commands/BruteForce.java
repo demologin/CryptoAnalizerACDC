@@ -14,7 +14,7 @@ import java.nio.file.Path;
 
 public class BruteForce extends Coding{
 
-    private final String[] validSyntax = {", ", ". "};      //нужно подумать насчет проверки правильных кретериев (могут не сработать)
+    private final String[] validSyntax = {", ", ". "};
 
     private final String[] errorSyntax = {"\n!", "\n,", "\n?", ",,", ",!", "\n.", ",?"};
 
@@ -47,7 +47,6 @@ public class BruteForce extends Coding{
             for (int i = 1; i < Alphabet.SIZE; i++) {
                 buffer.position(0);
                 String lineFile = decodeLine(Charset.forName(encoding).decode(buffer).toString(), i);
-                //buffer.clear();
                 if (keyValidity(lineFile)) {
                     validKey = i;
                     break;
@@ -58,12 +57,10 @@ public class BruteForce extends Coding{
                 super.codingText(new String[]{parameters[0], parameters[1], String.valueOf(validKey)});
             }
 
-
         } catch (IOException e) {
             throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
         }
 
-        //определив кодировку, можно вызвать метод предка, чтобы перезаписать файл
     }
 
     protected String decodeLine(String charsetFile, int key) {
