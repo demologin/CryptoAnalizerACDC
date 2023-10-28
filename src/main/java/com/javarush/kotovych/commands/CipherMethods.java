@@ -22,4 +22,23 @@ public abstract class CipherMethods {
         }
 
     }
+
+    public char mostFrequentChar(char[] chars){
+        Map<Character, Integer> charCount = new HashMap<>();
+
+        for (char c : chars) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+        char mostRepeated = 0;
+        int maxCount = 0;
+
+        for (Map.Entry<Character, Integer> entry : charCount.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                mostRepeated = entry.getKey();
+                maxCount = entry.getValue();
+            }
+        }
+
+        return mostRepeated;
+    }
 }

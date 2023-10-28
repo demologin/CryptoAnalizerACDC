@@ -27,7 +27,7 @@ public class Encoder extends CipherMethods implements Action {
                         charLine[i] = textAlphabet[positionToReplace];
                     }
                 }
-                builder.append(new String(charLine) + '\n');
+                builder.append(new String(charLine)).append('\n');
                 writer.write(new String(charLine) + '\n');
             }
         } catch (IOException e){

@@ -1,9 +1,7 @@
 package com.javarush.kotovych.constants;
 
 import com.javarush.kotovych.containers.Alphabet;
-import com.javarush.kotovych.containers.AlphabetContainer;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
