@@ -6,11 +6,12 @@ import java.util.Scanner;
 public class ConsoleRunner {
     static Scanner input = new Scanner(System.in);
     static Boolean work = true;
+    private static Object Path;
 
     public static void main(String[] args) {
         while (work) {
             System.out.println(Constants.MENU);
-            switchMenu(input.nextInt());
+            switchMenu(Integer.parseInt(input.next()));
         }
     }
 
