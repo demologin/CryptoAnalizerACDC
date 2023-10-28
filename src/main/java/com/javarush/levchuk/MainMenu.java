@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class MainMenu {
-    private final static String TEXT_MAIN_MENU = "\nPlease select mode:\n" +
+    private final static String TEXT_MAIN_MENU = "Please select mode:\n" +
             "1. Encrypt\n" +
             "2. Decrypt\n" +
             "3. Brute force\n" +
