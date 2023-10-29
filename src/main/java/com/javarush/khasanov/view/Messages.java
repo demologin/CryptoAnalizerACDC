@@ -30,5 +30,5 @@ public class Messages {
     public static final String INCORRECT_FILE = "Incorrect file";
 
     public static final String OPERATION_COMPLETE = "Operation complete";
-    public static final String INCORRECT_ACTION_NAME = "\"Incorrect action name\"";
+    public static final String INCORRECT_ACTION_NAME = "Incorrect action name";
 }

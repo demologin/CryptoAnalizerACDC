@@ -2,18 +2,16 @@ package com.javarush.khasanov.entity;
 
 public class Result {
     public final ResultCode code;
-    public final String description;
+    public final String message;
 
-    public Result(ResultCode code, String description) {
+    public Result(ResultCode code, String message) {
         this.code = code;
-        this.description = description;
+        this.message = message;
     }
 
     @Override
     public String toString() {
-        return "Result{" +
-                "code=" + code +
-                ", description='" + description + '\'' +
-                '}';
+        return "Result: " + code +
+                "\nMessage: " + message;
     }
 }

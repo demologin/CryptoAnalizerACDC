@@ -27,4 +27,5 @@ public class Application {
             args = new String[0];
         } while (result.code == ResultCode.ERROR);
     }
+
 }
