@@ -1,8 +1,7 @@
-package com.javarush.khasanov;
+package com.javarush.khasanov.view;
 
 import com.javarush.khasanov.controller.*;
-import com.javarush.khasanov.entity.Result;
-import com.javarush.khasanov.exception.AppException;
+import com.javarush.khasanov.entity.*;
 
 import java.util.Arrays;
 
@@ -16,14 +15,18 @@ public class Application {
     }
 
     public void run(String[] args) {
-        if (args.length > 0) {
+        if (args.length == 0) {
+            args = menu.getArgs();
+        }
+        Result result;
+        do {
             String action = args[0];
             String[] parameters = Arrays.copyOfRange(args, 1, args.length);
-            Result result = mainController.doAction(action, parameters);
+            result = mainController.doAction(action, parameters);
             System.out.println(result);
-        } else {
-            throw new AppException("args is empty");
-        }
+        } while (result.code == ResultCode.ERROR);
+
+
     }
 
 

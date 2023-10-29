@@ -1,8 +1,8 @@
 package com.javarush.khasanov.entity;
 
 public class Result {
-    private final ResultCode code;
-    private final String description;
+    public final ResultCode code;
+    public final String description;
 
     public Result(ResultCode code, String description) {
         this.code = code;

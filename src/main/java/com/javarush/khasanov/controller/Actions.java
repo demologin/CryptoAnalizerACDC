@@ -14,10 +14,11 @@ public enum Actions {
     }
 
     public static Action get(String actionName) {
-        if (!actionName.isBlank()) {
+        try {
             Actions found = Actions.valueOf(actionName.toUpperCase());
             return found.action;
+        } catch (IllegalArgumentException e) {
+            throw new AppException("Incorrect action name");
         }
-        throw new AppException("Incorrect action name");
     }
 }
