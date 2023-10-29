@@ -15,20 +15,16 @@ public class Application {
     }
 
     public void run(String[] args) {
-        if (args.length == 0) {
-            args = menu.getArgs();
-        }
         Result result;
         do {
+            if (args.length == 0) {
+                args = menu.getArgs();
+            }
             String action = args[0];
             String[] parameters = Arrays.copyOfRange(args, 1, args.length);
             result = mainController.doAction(action, parameters);
             System.out.println(result);
+            args = new String[0];
         } while (result.code == ResultCode.ERROR);
-
-
     }
-
-
-
 }

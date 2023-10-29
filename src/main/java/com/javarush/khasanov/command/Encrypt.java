@@ -8,18 +8,21 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.Arrays;
 
+import static com.javarush.khasanov.util.PathBuilder.getPath;
+import static com.javarush.khasanov.view.Messages.*;
+
 public class Encrypt implements Action {
 
     @Override
     public Result execute(String[] parameters) {
-        Path sourceText = Path.of(DefaultPath.TXT_FOLDER + parameters[0]);
-        Path targetText = Path.of(DefaultPath.TXT_FOLDER + parameters[1]);
-        int key = Integer.parseInt(parameters[2]);
+        Path sourceText = getPath(parameters[0]);
+        Path targetText = getPath(parameters[1]);
 
         try (
                 BufferedReader reader = Files.newBufferedReader(sourceText);
                 BufferedWriter writer = Files.newBufferedWriter(targetText)
         ) {
+            int key = Integer.parseInt(parameters[2]);
             while (reader.ready()) {
                 char sourceChar = (char) reader.read();
                 int indexSourceChar = getIndexSourceChar(sourceChar);
@@ -31,11 +34,13 @@ public class Encrypt implements Action {
                 writer.write(offsetChar);
             }
 
+        } catch (NumberFormatException e) {
+            throw new AppException(INCORRECT_KEY);
         } catch (IOException e) {
-            throw new AppException(e);
+            throw new AppException(INCORRECT_FILE);
         }
 
-        return new Result(ResultCode.OK, "Encrypt called");
+        return new Result(ResultCode.OK, OPERATION_COMPLETE);
     }
 
     private int getIndexSourceChar(char sourceChar) {
