@@ -5,6 +5,7 @@ import com.javarush.kotovych.commands.BruteForce;
 import com.javarush.kotovych.commands.Decoder;
 import com.javarush.kotovych.commands.Encoder;
 import com.javarush.kotovych.commands.Nothing;
+import com.javarush.kotovych.constants.Constants;
 
 public enum ActionContainer {
     ENCODE(new Encoder()),
@@ -21,9 +22,9 @@ public enum ActionContainer {
 
     public static Action get(String actionName){
         return switch (actionName){
-            case "ENCODE" -> ENCODE.action;
-            case "DECODE" ->DECODE.action;
-            case "BRUTE_FORCE" -> BRUTE_FORCE.action;
+            case Constants.ENCODE -> ENCODE.action;
+            case Constants.DECODE ->DECODE.action;
+            case Constants.BRUTE_FORCE -> BRUTE_FORCE.action;
             default -> NOTHING.action;
         };
     }

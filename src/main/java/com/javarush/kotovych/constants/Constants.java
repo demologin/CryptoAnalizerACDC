@@ -1,9 +1,9 @@
 package com.javarush.kotovych.constants;
 
 public class Constants {
-    public static final String BRUTE_FORCE = "BRUTE_FORCE";
-    public static final String ENCODE = "ENCODE";
-    public static final String DECODE = "DECODE";
-    public static final String RU = "RU";
-    public static final String EN = "EN";
+    public static final String BRUTE_FORCE = "BruteForce";
+    public static final String ENCODE = "Encode";
+    public static final String DECODE = "Decode";
+    public static final String RU = "Russian";
+    public static final String EN = "English";
 }

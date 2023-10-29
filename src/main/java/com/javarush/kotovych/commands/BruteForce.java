@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class BruteForce extends Decoder implements Action {
     @Override
@@ -21,21 +22,25 @@ public class BruteForce extends Decoder implements Action {
         int mostSpaces = 0;
         char[] textAlphabet = alphabet.getChars();
         try(BufferedReader reader = Files.newBufferedReader(input)) {
-
-            while (reader.ready()) {
-                String line = reader.readLine();
-                for (int i = -textAlphabet.length; i < textAlphabet.length; i++) {
-                    String decodedLine = decodeString(line, i, alphabet);
+            StringBuilder builder = new StringBuilder();
+            List<String> lines = reader.lines().toList();
+            for(String line : lines){
+                builder.append(line);
+            }
+            String text = builder.toString();
+            for(int i = 0; i < lines.size(); i++) {
+                for (int k = -textAlphabet.length; k < textAlphabet.length; k++) {
+                    String decodedLine = decodeString(text, k, alphabet);
                     String[] charLine = decodedLine.split(" ");
                     for (String s : charLine) {
                         if (alphabet.getWords().contains(s)) {
-                            return i;
+                            return k;
                         }
                     }
                     int spaces = countChar(decodedLine.toCharArray(), ' ');
                     if (spaces > mostSpaces) {
                         mostSpaces = spaces;
-                        key = i;
+                        key = k;
                     }
                 }
             }

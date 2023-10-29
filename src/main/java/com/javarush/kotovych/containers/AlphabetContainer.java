@@ -1,5 +1,6 @@
 package com.javarush.kotovych.containers;
 
+import com.javarush.kotovych.constants.Constants;
 import com.javarush.kotovych.constants.EnAlphabet;
 import com.javarush.kotovych.constants.NoAlphabet;
 import com.javarush.kotovych.constants.RuAlphabet;
@@ -18,8 +19,8 @@ public enum AlphabetContainer {
 
     public static Alphabet get(String alphabetName){
         return switch (alphabetName){
-            case "RU" -> RU_ALPHABET.alphabet;
-            case "EN" -> EN_ALPHABET.alphabet;
+            case Constants.RU -> RU_ALPHABET.alphabet;
+            case Constants.EN -> EN_ALPHABET.alphabet;
             default -> NO_ALPHABET.alphabet;
         };
     }

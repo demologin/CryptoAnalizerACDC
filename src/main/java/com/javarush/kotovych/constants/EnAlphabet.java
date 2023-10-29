@@ -45,7 +45,7 @@ public class EnAlphabet implements Alphabet {
             "family", "it's"));
     private final String EN_ALPHABET = "abcdefghijklmnopqrstuvwxyz";
     private final String NUMBERS = "0123456789";
-    private final String SYMBOLS = "`~!@#$%^&*(){}[]<>;:'\\|?., -_+\"";
+    private final String SYMBOLS = "\n`~!@#$%^&*(){}[]<>;:'\\|?., -_+\"";
     private final String SYMBOL_CHARS = (NUMBERS + SYMBOLS);
     private final char[] CHARS = (EN_ALPHABET + SYMBOL_CHARS).toCharArray();
 

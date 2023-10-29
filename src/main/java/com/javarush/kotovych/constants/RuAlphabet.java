@@ -40,7 +40,7 @@ public class RuAlphabet implements Alphabet {
 
     private final String RU_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     private final String NUMBERS = "0123456789";
-    private final String SYMBOLS = "`~!@#$%^&*(){}[]<>;:'\\|?., -_+\"";
+    private final String SYMBOLS = "\n`~!@#$%^&*(){}[]<>;:'\\|?., -_+\"";
     private final String SYMBOL_CHARS = (NUMBERS + SYMBOLS);
     private final char[] CHARS = (RU_ALPHABET + SYMBOL_CHARS).toCharArray();
 
