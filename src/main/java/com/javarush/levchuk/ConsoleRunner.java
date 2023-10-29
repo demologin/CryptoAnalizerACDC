@@ -1,13 +1,12 @@
 package com.javarush.levchuk;
 
 
-import java.util.Scanner;
+import com.javarush.levchuk.menu.MainMenu;
 
 public class ConsoleRunner {
     public static void main(String[] args) {
-        Scanner enter = new Scanner(System.in);
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.selectNumberMode(enter);
+        MainMenu mainMenu=new MainMenu();
     }
 }
+
 
