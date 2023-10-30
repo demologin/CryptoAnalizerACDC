@@ -4,19 +4,20 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 
 
 public class CaesarCipher {
     public static void main(String[] args) {
-        char[] russianAlphabet = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', ':', '!', '?', ' '};
+        char[] russianAlphabet = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
         int shift = getShiftFromConsole();
         String inputFilename = "text.txt";
         String outputFilename = "output.txt";
 
         try {
-            String plaintext = readFromFile(inputFilename);
+            String plaintext = readFromFile(inputFilename).toLowerCase();
             String ciphertext = encrypt(plaintext, shift, russianAlphabet);
             writeToFile(outputFilename, ciphertext);
             System.out.println("Шифрованный текст успешно записан в файл " + outputFilename);
@@ -43,11 +44,11 @@ public class CaesarCipher {
     }
     //Для работы с файлами используются методы readFromFile и writeToFile, которые считывают данные из файла и записывают данные в файл соответственно.
     public static String readFromFile(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("text.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
+            stringBuilder.append(line.toLowerCase());
         }
         reader.close();
         return stringBuilder.toString();
