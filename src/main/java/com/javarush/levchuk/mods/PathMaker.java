@@ -1,14 +1,25 @@
 package com.javarush.levchuk.mods;
 
+import com.javarush.levchuk.constant.UtilConstants;
+
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Scanner;
+
+import static com.javarush.levchuk.constant.UtilConstants.DEFAULT_FOLDER;
 
 public  interface PathMaker {
-    public static Path makePath(String enterName, String defaultName){
-        Path path=Path.of(System.getProperty("user.dir") + File.separator + "text" + File.separator + defaultName);
-        if (!enterName.equals("")) {
-             path=Path.of(enterName);
+
+     static Path makePath(String defaultName) {
+        Scanner scanner=new Scanner(System.in);
+        String enterName= scanner.nextLine();
+         Path path = Path.of(DEFAULT_FOLDER + defaultName);
+        if (!enterName.equals("")){
+            return path=Path.of(enterName);
         }
-        return path;
+
+        return path.toAbsolutePath();
     }
 }
+

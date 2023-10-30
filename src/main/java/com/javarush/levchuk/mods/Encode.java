@@ -8,12 +8,15 @@ import java.util.Scanner;
 public class Encode {
     public Encode() {
         Scanner input = new Scanner(System.in);
+
         System.out.println("\"Enter full source (Or Enter for text.txt) :");
         String defultSourceName = "text.txt";
-        Path source = PathMaker.makePath(input.nextLine(), defultSourceName);
+        Path source = PathMaker.makePath(defultSourceName);
+
         System.out.println("Enter destination (Or Enter for encrypted.txt) :");
         String defaultTargetName = "encrypted.txt";
-        Path target = PathMaker.makePath(input.nextLine(), defaultTargetName);
+        Path target = PathMaker.makePath(defaultTargetName);
+
         System.out.println("Enter key (int number OR Enter for key=1) :");
         int key = 1;
         String keyLine = input.nextLine();

@@ -11,9 +11,7 @@ public class PathBuilder {
 
     public static Path get(String filename) {
         Path path = Path.of(filename);
-        return path.isAbsolute()
-                ? path
-                : Path.of(Const.TXT_FOLDER + filename);
+        return path.isAbsolute() ? path : Path.of(Const.TXT_FOLDER + filename);
     }
 }
 

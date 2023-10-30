@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 
 import static com.javarush.levchuk.constant.Alphabet.*;
 
@@ -18,7 +19,7 @@ public interface Coding {
                 if (alphabetMap.containsKey(charByNumber)) {
                     charByNumber = Character.toLowerCase(charByNumber);
                     int index = getIndexByChar(charByNumber);
-                    index = (getAlphabetSize() + (index + key)) % getAlphabetSize();
+                    index = (getAlphabetSize()* Math.abs(key) + (index + key)) % getAlphabetSize();
                     writer.write(getChar(index));
                 } else if (!alphabetMap.containsKey(charByNumber)){
                     writer.write(charByNumber);
