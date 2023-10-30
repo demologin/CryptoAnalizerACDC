@@ -1,42 +1,51 @@
 package com.javarush.alimova.view.console;
 
+import com.javarush.alimova.commands.Result;
 import com.javarush.alimova.controller.CommandContainer;
 import com.javarush.alimova.controller.MainController;
-import com.javarush.alimova.dictionary.Const;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleMenu {
-    public ConsoleMenu() {
+
+    MainController mainController;
+    public ConsoleMenu(MainController mainController) {
+        this.mainController = mainController;
     }
 
 
     public void startMenu() {
-        ConsoleMenu menu = new ConsoleMenu();
 
         boolean loopMenu = false;
         while (!loopMenu) {
-            menu.printMenu();
-            loopMenu = menu.parserInputData();
+            printMenu();
+            loopMenu = parserInputData();
         }
 
     }
 
-    public void printMenu() {
-        System.out.println(Const.START_PROGRAM);
+    private void printMenu() {
+        System.out.println(ConsoleConst.START_PROGRAM);
         for (int i = 0; i < CommandContainer.commandSet.length; i++) {
             System.out.printf("%d. %s\n", i + 1, CommandContainer.commandSet[i]);
         }
     }
 
-    public boolean parserInputData() {
+    private boolean parserInputData() {
         Scanner console = new Scanner(System.in);
-        int numbAction = console.nextInt();
-        while (numbAction > CommandContainer.commandSet.length) {
-            System.out.println(Const.INCORRECT_COMMAND);
-            //тут надо бы ожидать верный ввод
+        int numbAction;
+        try {
             numbAction = console.nextInt();
+        } catch(InputMismatchException e) {
+            System.out.println(ConsoleConst.INCORRECT_COMMAND);
+            return false;
         }
+        if (numbAction > CommandContainer.commandSet.length || numbAction < 0) {
+            System.out.println(ConsoleConst.INCORRECT_COMMAND);
+            return false;
+        }
+
         boolean readArg = switch(numbAction) {
             case 1 -> menuEncoding();
             case 2 -> menuDecoding();
@@ -47,7 +56,7 @@ public class ConsoleMenu {
         };
 
         if (!readArg) {
-            System.out.println(Const.CONSOLE_INPUT_ERROR);        //как-то зациклить (сейчас выходит из меню)
+            System.out.println(ConsoleConst.CONSOLE_INPUT_ERROR);        //как-то зациклить (сейчас выходит из меню)
         }
         return readArg;
 
@@ -55,31 +64,41 @@ public class ConsoleMenu {
 
     private boolean menuEncoding() {
         Scanner console = new Scanner(System.in);
-        System.out.println(Const.MENU_ENCODING_ARG_ONE);
+        System.out.println(ConsoleConst.MENU_ENCODING_ARG_ONE);
         String fileInput = console.nextLine();
         if (fileInput.isEmpty()) {
-            fileInput = Const.ENCODING_DEFAULT_INPUTFILE;
+            fileInput = ConsoleConst.ENCODING_DEFAULT_INPUTFILE;
         } else if (!fileInput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_ENCODING_ARG_TWO);
+        System.out.println(ConsoleConst.MENU_ENCODING_ARG_TWO);
         String fileOutput = console.nextLine();
         if (fileOutput.isEmpty()) {
-            fileOutput = Const.ENCODING_DEFAULT_OUTPUTFILE;
+            fileOutput = ConsoleConst.ENCODING_DEFAULT_OUTPUTFILE;
         } else if (!fileOutput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_ENCODING_ARG_THREE);
+        System.out.println(ConsoleConst.MENU_ENCODING_ARG_THREE);
         String keyString = console.nextLine();
         if (keyString.isEmpty()) {
-            keyString = Const.ENCODING_DEFAULT_KEY;
+            keyString = ConsoleConst.ENCODING_DEFAULT_KEY;
         }
-        if (Integer.parseInt(keyString) < 0) {
+        try {
+            if (Integer.parseInt(keyString) < 0) {
+                System.out.println(ConsoleConst.INCORRECT_KEY);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(ConsoleConst.INCORRECT_KEY);
             return false;
         }
-        MainController.giveCommand(CommandContainer.ENCODING.name(), new String[]{fileInput, fileOutput, keyString});
+
+        Result result = mainController.giveCommand(CommandContainer.ENCODING.name(), new String[]{fileInput, fileOutput, keyString});
+        mainController.printResultCommand(result);
 
         return true;
 
@@ -89,31 +108,40 @@ public class ConsoleMenu {
     private boolean menuDecoding() {
 
         Scanner console = new Scanner(System.in);
-        System.out.println(Const.MENU_DECODING_ARG_ONE);
+        System.out.println(ConsoleConst.MENU_DECODING_ARG_ONE);
         String fileInput = console.nextLine();
         if (fileInput.isEmpty()) {
-            fileInput = Const.DECODING_DEFAULT_INPUTFILE;
+            fileInput = ConsoleConst.DECODING_DEFAULT_INPUTFILE;
         } else if (!fileInput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_DECODING_ARG_TWO);
+        System.out.println(ConsoleConst.MENU_DECODING_ARG_TWO);
         String fileOutput = console.nextLine();
         if (fileOutput.isEmpty()) {
-            fileOutput = Const.DECODING_DEFAULT_OUTPUTFILE;
+            fileOutput = ConsoleConst.DECODING_DEFAULT_OUTPUTFILE;
         } else if (!fileOutput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_DECODING_ARG_THREE);
+        System.out.println(ConsoleConst.MENU_DECODING_ARG_THREE);
         String keyString = console.nextLine();
         if (keyString.isEmpty()) {
-            keyString = Const.DECODING_DEFAULT_KEY;
+            keyString = ConsoleConst.DECODING_DEFAULT_KEY;
         }
-        if (Integer.parseInt(keyString) < 0) {
+        try {
+            if (Integer.parseInt(keyString) < 0) {
+                System.out.println(ConsoleConst.INCORRECT_KEY);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(ConsoleConst.INCORRECT_KEY);
             return false;
         }
-        MainController.giveCommand(CommandContainer.DECODING.name(), new String[]{fileInput, fileOutput, keyString});
+        Result result = mainController.giveCommand(CommandContainer.DECODING.name(), new String[]{fileInput, fileOutput, keyString});
+        mainController.printResultCommand(result);
 
         return true;
     }
@@ -121,53 +149,60 @@ public class ConsoleMenu {
     private boolean menuBruteForce() {
         //нужно тут переопределить всё
         Scanner console = new Scanner(System.in);
-        System.out.println(Const.MENU_BRUTE_FORCE_ARG_ONE);
+        System.out.println(ConsoleConst.MENU_BRUTE_FORCE_ARG_ONE);
         String fileInput = console.nextLine();
         if (fileInput.isEmpty()) {
-            fileInput = Const.BRUTE_FORCE_DEFAULT_INPUTFILE;
+            fileInput = ConsoleConst.BRUTE_FORCE_DEFAULT_INPUTFILE;
         } else if (!fileInput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_BRUTE_FORCE_ARG_TWO);
+        System.out.println(ConsoleConst.MENU_BRUTE_FORCE_ARG_TWO);
         String fileOutput = console.nextLine();
         if (fileOutput.isEmpty()) {
-            fileOutput = Const.BRUTE_FORCE_DEFAULT_OUTPUTFILE;
+            fileOutput = ConsoleConst.BRUTE_FORCE_DEFAULT_OUTPUTFILE;
         } else if (!fileOutput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        MainController.giveCommand(CommandContainer.BRUTEFORCE.name(), new String[]{fileInput, fileOutput});
+        Result result = mainController.giveCommand(CommandContainer.BRUTEFORCE.name(), new String[]{fileInput, fileOutput});
+        mainController.printResultCommand(result);
         return true;
     }
 
     private boolean menuStaticAnalyzer() {
 
         Scanner console = new Scanner(System.in);
-        System.out.println(Const.MENU_STATIC_ANALYZER_ARG_ONE);
+        System.out.println(ConsoleConst.MENU_STATIC_ANALYZER_ARG_ONE);
         String fileInput = console.nextLine();
         if (fileInput.isEmpty()) {
-            fileInput = Const.STATIC_ANALYZER_DEFAULT_INPUTFILE;
+            fileInput = ConsoleConst.STATIC_ANALYZER_DEFAULT_INPUTFILE;
         } else if (!fileInput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_STATIC_ANALYZER_ARG_TWO);
+        System.out.println(ConsoleConst.MENU_STATIC_ANALYZER_ARG_TWO);
         String fileOutput = console.nextLine();
         if (fileOutput.isEmpty()) {
-            fileOutput = Const.STATIC_ANALYZER_DEFAULT_OUTPUTFILE;
+            fileOutput = ConsoleConst.STATIC_ANALYZER_DEFAULT_OUTPUTFILE;
         } else if (!fileOutput.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
 
-        System.out.println(Const.MENU_STATIC_ANALYZER_ARG_THREE);
+        System.out.println(ConsoleConst.MENU_STATIC_ANALYZER_ARG_THREE);
         String fileSource = console.nextLine();
         if (fileSource.isEmpty()) {
-            fileSource = Const.STATIC_ANALYZER_DEFAULT_SOURCE;
+            fileSource = ConsoleConst.STATIC_ANALYZER_DEFAULT_SOURCE;
         } else if (!fileSource.endsWith(".txt")) {
+            System.out.println(ConsoleConst.INCORRECT_FILE);
             return false;
         }
-        MainController.giveCommand(CommandContainer.ANALYZER.name(), new String[]{fileInput, fileOutput, fileSource});
+        Result result = mainController.giveCommand(CommandContainer.ANALYZER.name(), new String[]{fileInput, fileOutput, fileSource});
+        mainController.printResultCommand(result);
 
         return true;
     }

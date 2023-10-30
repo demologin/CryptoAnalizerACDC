@@ -6,7 +6,7 @@ import com.javarush.alimova.exception.AppException;
 
 public class MainController {
 
-    public static void giveCommand(String nameCommand, String[] args) {
+    public Result giveCommand(String nameCommand, String[] args) {
         Command command = CommandContainer.getCommand(nameCommand);
         Result result;
         try {
@@ -15,19 +15,20 @@ public class MainController {
         catch (AppException e) {
             result = new Result(false, e.getMessage());
         }
-
-        System.out.println(resultCommand(result));
+        return result;
     }
 
-    public static String resultCommand(Result result) {
+    public void printResultCommand(Result result) {
         if (result.correctCommand && result.keyCoding != -1) {
-            return "Operation completed successfully.\nInput file: " + result.inputFile +
+            System.out.println("Operation completed successfully.\nInput file: " + result.inputFile +
                     "\nOutput file: " + result.outputFile +
-                    "\nEncoding key: " + result.keyCoding;
+                    "\nEncoding key: " + result.keyCoding);
         } else if (result.correctCommand) {
-            return "Operation completed successfully.\nInput file: " + result.inputFile +
-                    "\nOutput file: " + result.outputFile;
+            System.out.println("Operation completed successfully.\nInput file: " + result.inputFile +
+                    "\nOutput file: " + result.outputFile);
+        } else {
+            System.out.println("The operation failed with an error:\n" + result.message);
         }
-        return "The operation failed with an error:\n" + result.message;
+
     }
 }

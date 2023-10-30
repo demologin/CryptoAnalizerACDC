@@ -39,7 +39,15 @@ public abstract class Coding implements Command{
             throw new AppException(Const.ERROR_FILE + ": " + e.getMessage(), e);
         }
 
-        int key = Integer.parseInt(parameters[2]);
+        int key;
+        try {
+            key = Integer.parseInt(parameters[2]);
+        } catch (NumberFormatException e) {
+            throw new AppException(Const.ERROR_FILE + ":\n" +
+                    Const.INCORRECT_KEY +
+                    ". " + e.getMessage(), e);
+        }
+
         try (BufferedReader reader = Files.newBufferedReader(input);
              BufferedWriter writer = Files.newBufferedWriter(output, StandardOpenOption.WRITE)) {
             int symbol;
