@@ -12,7 +12,7 @@ public class CaesarCipher {
     public static void main(String[] args) {
         char[] russianAlphabet = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', ':', '!', '?', ' '};
         int shift = getShiftFromConsole();
-        String inputFilename = "input.txt";
+        String inputFilename = "text.txt";
         String outputFilename = "output.txt";
 
         try {
@@ -23,11 +23,17 @@ public class CaesarCipher {
 
             String decryptedText = decrypt(ciphertext, shift, russianAlphabet);
             System.out.println("Расшифрованный текст: " + decryptedText);
+
+            char mostFrequentLetter = findMostFrequentLetter(decryptedText, russianAlphabet);
+            int mostFrequentIndex = indexOf(russianAlphabet, mostFrequentLetter);
+            int statisticalShift = (mostFrequentIndex - indexOf(russianAlphabet, 'о') + russianAlphabet.length) % russianAlphabet.length;
+            String statisticalDecryptedText = decrypt(ciphertext, statisticalShift, russianAlphabet);
+            System.out.println("Расшифрованный текст методом статистического анализа: " + statisticalDecryptedText);
         } catch (IOException e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
-    //функция getShiftFromConsole(), позволяет пользователю ввести размер сдвига с консоли
+    //функция getShiftFromConsole(), позволяет пользователю ввести размер сдвига с консоли.
     public static int getShiftFromConsole() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите размер сдвига: ");
@@ -37,7 +43,7 @@ public class CaesarCipher {
     }
     //Для работы с файлами используются методы readFromFile и writeToFile, которые считывают данные из файла и записывают данные в файл соответственно.
     public static String readFromFile(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
+        BufferedReader reader = new BufferedReader(new FileReader("text.txt"));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
@@ -88,6 +94,25 @@ public class CaesarCipher {
             }
         }
         return -1;
+    }
+    //Функция findMostFrequentLetter(), находит наиболее часто встречающуюся букву в тексте.
+    //Затем  использует эту информацию для вычисления сдвига методом статистического анализа и расшифровки текста.
+    public static char findMostFrequentLetter(String text, char[] alphabet) {
+        int[] frequency = new int[alphabet.length];
+        for (int i = 0; i < text.length(); i++) {
+            char currentChar = text.charAt(i);
+            int index = indexOf(alphabet, currentChar);
+            if (index != -1) {
+                frequency[index]++;
+            }
+        }
+        int maxFrequencyIndex = 0;
+        for (int i = 1; i < frequency.length; i++) {
+            if (frequency[i] > frequency[maxFrequencyIndex]) {
+                maxFrequencyIndex = i;
+            }
+        }
+        return alphabet[maxFrequencyIndex];
     }
 }
 
