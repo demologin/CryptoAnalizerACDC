@@ -1,7 +1,6 @@
 package com.javarush.boyarinov.constats;
 
 import java.io.File;
-import java.nio.file.Path;
 
 public class Constant {
 
