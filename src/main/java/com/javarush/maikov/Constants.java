@@ -14,7 +14,7 @@ public interface Constants {
              2. Дешифровка файла.\s
              3. Выход из программы
             =============================""";
-    String TXT_FOLDER = System.getProperty("C:") + File.separator + "OracleOpen" + File.separator + "CryptoAnalizerACDC"
-            + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator +
-            "com" + File.separator + "javarush" + File.separator + "maikov" + File.separator;
+    String TXT_FOLDER = System.getProperty("user.dir") + File.separator + File.separator + "src" + File.separator + "main"
+            + File.separator + "java" + File.separator + "com" + File.separator + "javarush" + File.separator + "maikov" +
+            File.separator;
 }
