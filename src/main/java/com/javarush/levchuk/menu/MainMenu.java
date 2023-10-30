@@ -13,7 +13,6 @@ import static com.javarush.levchuk.constant.UtilConstants.TEXT_MAIN_MENU;
 
 public class MainMenu {
     public MainMenu() {
-        printMainMenu();
     }
 
     public void printMainMenu() {
