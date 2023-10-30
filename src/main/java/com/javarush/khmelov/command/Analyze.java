@@ -1,18 +1,17 @@
 package com.javarush.khmelov.command;
 
-import com.javarush.khmelov.constant.Alphabet;
 import com.javarush.khmelov.entity.Result;
 import com.javarush.khmelov.entity.ResultCode;
 import com.javarush.khmelov.exception.AppException;
 import com.javarush.khmelov.util.PathBuilder;
+import com.javarush.khmelov.util.Statistics;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class Analyze extends AbstractAction {
     @Override
@@ -46,38 +45,14 @@ public class Analyze extends AbstractAction {
         return new Result(ResultCode.OK, analyzedFilename);
     }
 
-    private List<Character> getSortedChars(String encryptedFile) {
-        Map<Character, Integer> map = createStartMap();
-        Path path = PathBuilder.get(encryptedFile);
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            int value;
-            while ((value = reader.read()) > -1) {
-                char character = (char) value;
-                character = Character.toLowerCase(character);
-                if (map.containsKey(character)) {
-                    Integer i = map.get(character);
-                    map.put(character, ++i);
-                }
-            }
-        } catch (IOException e) {
-            throw new AppException(e.getMessage(), e);
-        }
-
-        return map.entrySet()
-                .stream()
-                .sorted(Comparator.comparingInt(Map.Entry::getValue))
-                .map(Map.Entry::getKey)
+    private List<Character> getSortedChars(String filename) {
+        double[][] biGramStat = Statistics.getBiGramStat(PathBuilder.get(filename));
+        char[] sortedChars = Statistics.getSortedChars(biGramStat);
+        return String.valueOf(sortedChars)
+                .chars()
+                .mapToObj(c -> (char) c)
                 .toList();
     }
 
-    private Map<Character, Integer> createStartMap() {
-        return Alphabet.index.keySet()
-                .stream()
-                .collect(Collectors.toMap(
-                        character -> character,
-                        character -> 0, (a, b) -> b,
-                        LinkedHashMap::new
-                ));
-    }
 
 }
