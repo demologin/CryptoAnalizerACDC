@@ -18,10 +18,11 @@ public class KeyForCode {
             if (key < AlphaBet.arrayAlphaBet.length && key > 0) {
                 return key;
             }
-            System.out.println("Вы ввели ключ выходящий за грани допустимого значения");
+            System.err.println("Вы ввели ключ выходящий за грани допустимого значения\n" +
+                    "Попробуйте ещё раз");
             return getKey();
         } catch (Exception e) {
-            System.out.println("Вы ввели не корректный ключ попробуёте ещё раз");
+            System.err.println("Вы ввели не корректный ключ попробуёте ещё раз");
             return getKey();
         }
     }

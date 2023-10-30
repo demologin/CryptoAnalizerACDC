@@ -9,26 +9,30 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 public class Decode {
-    public static void decodingCesar() {
+    private static final Logger logger = Logger.getLogger(Decode.class.getName());
+
+    public static void decodingCaesar() {
         Path pathReadFile = FilePathForDecode.getPathReadFile();
         Path pathWriteFile = FilePathForDecode.getPathWriteFile();
         int key = KeyForCode.getKey();
-
         try (BufferedReader reader = Files.newBufferedReader(pathReadFile);
              BufferedWriter writer = Files.newBufferedWriter(pathWriteFile)
         ) {
-            FilePathForDecode.getPathReadFile();
             decodingProcess(key, reader, writer);
+            System.out.println("\nУспешно\n");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            logger.severe("Произошла ошибка " + e);
+            System.out.println("попробуйте ещё раз");
         }
     }
 
-    private static void decodingProcess(int key, BufferedReader reader, BufferedWriter writer) throws IOException {
+    static void decodingProcess(int key, BufferedReader reader, BufferedWriter writer) throws IOException {
         while (reader.ready()) {
             char symbol = (char) reader.read();
+            symbol = Character.toLowerCase(symbol);
             if (AlphaBet.alphaBet.containsKey(symbol)) {
                 int index = AlphaBet.alphaBet.get(symbol);
                 if (index - key < 0) {

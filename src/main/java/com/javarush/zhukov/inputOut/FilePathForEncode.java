@@ -4,27 +4,25 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class FilePathForEncode {
-    public static Path getPathReadFile(){
-        Path pathFile;
+    public static Path getPathReadFile() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя файла(по умлочанию будет dict.txt.)");
+        System.out.println("Введите путь к файлу для чтения(по умолчанию будет dict.txt.)");
         String scanPath = scanner.nextLine();
-        if (!scanPath.isEmpty()){
-            pathFile= Path.of(scanPath);
-        }else {
-            pathFile= Path.of("text","dict.txt");
+        if (!scanPath.isEmpty()) {
+            return Path.of(scanPath);
+        } else {
+            return Path.of("text", "dict.txt");
         }
-        return  pathFile;
-    }public static Path getPathWriteFile(){
-        Path pathFile;
+    }
+
+    public static Path getPathWriteFile() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя файла(по умлочанию будет result.txt)");
+        System.out.println("Введите путь к файлу для записи(по умолчанию будет encode.txt)");
         String scanPath = scanner.nextLine();
-        if (!scanPath.isEmpty()){
-            pathFile= Path.of(scanPath);
-        }else {
-            pathFile= Path.of("text","result.txt");
+        if (!scanPath.isEmpty()) {
+            return Path.of(scanPath);
+        } else {
+            return Path.of("text", "encode.txt");
         }
-        return  pathFile;
     }
 }
