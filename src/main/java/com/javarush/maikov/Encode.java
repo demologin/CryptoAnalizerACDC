@@ -1,13 +1,14 @@
 package com.javarush.maikov;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.Arrays;
 
 
 public class Encode {
     public Encode(String linkIn, String linkOut, int key) {
         try (FileReader reader = new FileReader(linkIn);
-             FileWriter writer = new FileWriter(linkOut)) {
+             FileWriter writer = new FileWriter(String.valueOf(PathBuilder.getPath(linkOut)))) {
             while (reader.ready()) {
                 int index;
                 char target = (char) reader.read();

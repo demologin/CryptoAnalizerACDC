@@ -1,13 +1,15 @@
 package com.javarush.maikov;
 
+import java.net.URI;
 import java.nio.file.Path;
 
 public class PathBuilder {
     private PathBuilder() {
     }
-    public static Path getPath (String link){
-        Path path = Path.of(link);
-        return path.isAbsolute() ?  path : Path.of(Constants.TXT_FOLDER + link);
+    public static Path getPath (String fileName){
+        Path path = Path.of(fileName);
+        return path.isAbsolute() ?  path : Path.of(URI.create(Constants.TXT_FOLDER + fileName));
+
     }
 
 }

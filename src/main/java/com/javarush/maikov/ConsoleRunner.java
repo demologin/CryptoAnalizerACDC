@@ -1,5 +1,6 @@
 package com.javarush.maikov;
 
+import java.nio.file.Path;
 import java.util.Scanner;
 
 
@@ -37,7 +38,7 @@ public class ConsoleRunner {
         System.out.println("Введите ссылку на файл, в который вы хотите записать зашифрованнй текст");
         String linkOut = input.next();
         System.out.println("Введите ключ, которым вы хотите зашифровать файл");
-        int key = input.nextInt();
+        int key = Integer.parseInt(input.next());
         Encode encode = new Encode(linkIn, linkOut, key);
     }
     private static void decoder(){
