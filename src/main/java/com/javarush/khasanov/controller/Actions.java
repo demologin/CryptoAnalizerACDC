@@ -7,7 +7,9 @@ import static com.javarush.khasanov.view.Messages.INCORRECT_ACTION_NAME;
 
 public enum Actions {
     ENCRYPT(new Encrypt()),
-    DECRYPT(new Decrypt());
+    DECRYPT(new Decrypt()),
+    BRUTEFORCE(new BruteForce()),
+    EXIT(new Exit());
 
     private final Action action;
 

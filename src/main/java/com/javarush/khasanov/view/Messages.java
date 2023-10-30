@@ -15,6 +15,11 @@ public class Messages {
                     {"Enter key (int number OR Enter for key=1) :", "1"},
             },
             {
+                    {"Bruteforce"},
+                    {"Enter source (full path OR only filename OR Enter for encrypted.txt) :", "encrypted.txt"},
+                    {"Enter destination (full path OR only filename OR Enter for bruteforce.txt) :", "bruteforce.txt"},
+            },
+            {
                     {"Exit"},
             }
     };
@@ -29,6 +34,7 @@ public class Messages {
     public static final String INCORRECT_KEY = "Incorrect key";
     public static final String INCORRECT_FILE = "Incorrect file";
 
-    public static final String OPERATION_COMPLETE = "Operation complete";
     public static final String INCORRECT_ACTION_NAME = "Incorrect action name";
+    public static final String OPERATION_COMPLETE = "Operation complete";
+    public static final String APPLICATION_CLOSED = "Application is closed";
 }

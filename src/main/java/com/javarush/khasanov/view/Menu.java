@@ -1,6 +1,5 @@
 package com.javarush.khasanov.view;
 
-import com.javarush.khasanov.controller.Actions;
 import com.javarush.khasanov.exception.AppException;
 
 import java.util.Scanner;
@@ -17,9 +16,8 @@ public class Menu {
 
     private int selectAction() {
         StringBuilder actions = new StringBuilder();
-        Actions[] values = Actions.values();
-        for (int i = 0; i < values.length; i++) {
-            actions.append(i + 1).append(". ").append(values[i]);
+        for (int i = 0; i < QUESTIONS.length; i++) {
+            actions.append(i + 1).append(". ").append(QUESTIONS[i][0][0]);
             actions.append("\n");
         }
         System.out.printf(Messages.MESSAGE_SELECT_ACTION, actions);
