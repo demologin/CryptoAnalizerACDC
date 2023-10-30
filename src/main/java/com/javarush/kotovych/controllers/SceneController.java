@@ -1,5 +1,6 @@
 package com.javarush.kotovych.controllers;
 
+import com.javarush.kotovych.commands.CipherMethods;
 import com.javarush.kotovych.constants.Constants;
 import com.javarush.kotovych.containers.Action;
 import com.javarush.kotovych.containers.ActionContainer;
@@ -10,29 +11,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-public class SceneController implements Initializable {
+public class SceneController extends CipherMethods implements Initializable {
 
-    @FXML
-    private Button outputFilePathPreviewButton;
-
-    @FXML
-    private Button inputFilePathPreviewButton;
-
-    @FXML
-    private TextField char1Input;
-
-    @FXML
-    private TextField char2Input;
 
     @FXML
     private TextField inputPathTextField;
@@ -49,16 +39,10 @@ public class SceneController implements Initializable {
     @FXML
     private TextField outputPathTextField;
 
-    @FXML
-    private Button startButton;
-
-    @FXML
-    private Button swapButton;
 
     @FXML
     private TextArea textPreview;
 
-    String previewing;
 
 
     @Override
@@ -69,8 +53,10 @@ public class SceneController implements Initializable {
 
     @FXML
     void onStartButtonClick(ActionEvent event) {
-        boolean normal = checkFile(Path.of(inputPathTextField.getText()));
-        if(normal) {
+        boolean normalInput = checkFile(Path.of(inputPathTextField.getText()));
+        boolean normalOutput = checkFile(Path.of(outputPathTextField.getText()));
+
+        if(normalInput && normalOutput) {
             Path inputFilePath = Path.of(inputPathTextField.getText());
             Path ouputFilePath = Path.of(outputPathTextField.getText());
             Action mode = getMode();
@@ -78,53 +64,50 @@ public class SceneController implements Initializable {
             int key = getKey();
 
             try {
-                mode.execute(inputFilePath, key, ouputFilePath, language);
-            } catch (AppException | NullPointerException npe) {
-                showError("Error", "Something went wrong");
+                String text = mode.execute(inputFilePath, key, ouputFilePath, language);
+                textPreview.setText(text);
+            } catch (AppException ae) {
+                showError("An exception occurred while running", ae);
             }
-        }
-    }
-
-    @FXML
-    void onSwapButtonClick(ActionEvent event) {
-        Path path = Path.of(previewing.equals("Output") ? outputPathTextField.getText() : inputPathTextField.getText());
-        try(BufferedWriter writer = Files.newBufferedWriter(path)){
-
-            char[] text = textPreview.getText().toCharArray();
-            char[] chars = getCharToSwap();
-            List<Integer> indexesOfChanging = getIndexes(chars[0], text);
-            for(int i = 0; i < indexesOfChanging.size(); i++){
-                text[indexesOfChanging.get(i)] = chars[1];
-            }
-
-            writer.write(new String(text));
-            onPreviewInputButtonClick(new ActionEvent());
-
-        } catch (NullPointerException npe){
-            showError("Error", "Chars cannot be null");
-        } catch (Exception e){
-            showError("Error", "Something went wrong");
-            e.printStackTrace();
+        } else{
+            showError("Input or output text field is empty or is a directory");
         }
     }
 
     @FXML
     void onPreviewOutputButtonClick(ActionEvent event){
-        String text = getTextFromFile(Path.of(outputPathTextField.getText()));
-        textPreview.setText(text);
-        previewing = "Output";
+        try {
+            String text = getTextFromFile(Path.of(outputPathTextField.getText()));
+            textPreview.setText(text);
+        } catch (AppException e){
+            showError("An exception occurred while running", e);
+        }
     }
 
     @FXML
     void onPreviewInputButtonClick(ActionEvent event){
-        String text = getTextFromFile(Path.of(inputPathTextField.getText()));
-        textPreview.setText(text);
-        previewing = "Input";
+        try {
+            String text = getTextFromFile(Path.of(inputPathTextField.getText()));
+            textPreview.setText(text);
+        } catch (AppException e){
+            showError("An exception occurred while running", e);
+        }
     }
 
-    private void showError(String title, String message){
+
+    @FXML
+    void onSwitchPathsButtonClick(ActionEvent event){
+        String inputText = inputPathTextField.getText();
+        String outputText = outputPathTextField.getText();
+
+        inputPathTextField.setText(outputText);
+        outputPathTextField.setText(inputText);
+    }
+
+
+    private void showError(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
 
@@ -133,80 +116,74 @@ public class SceneController implements Initializable {
 
     private Alphabet getLanguage(){
         try {
-            Alphabet language = AlphabetContainer.get(languageChoose.getValue());
-            return language;
+            return AlphabetContainer.get(languageChoose.getValue());
         } catch (Exception e){
-            showError("Language", "Language cannot be null");
+            showError("Language cannot be null");
             return null;
         }
     }
 
     private Action getMode(){
         try {
-            Action mode = ActionContainer.get(modeChoose.getValue());
-            return mode;
+            return ActionContainer.get(modeChoose.getValue());
         } catch (Exception e){
-            showError("Mode", "Mode cannot be null");
+            showError("Mode cannot be null");
             return null;
         }
     }
 
-    private int getKey(){
+    private int getKey() {
         try {
-            int key = Integer.parseInt(keyInput.getText());
-            return key;
-        } catch (NumberFormatException nfe){
-            showError("Type error", "Key cannot be a string");
-            return 0;
-        } catch (Exception e){
-            showError("Key", "Key cannot be null");
-            return 0;
-        }
-    }
-
-    private String getTextFromFile(Path path){
-        try(BufferedReader reader = Files.newBufferedReader(path)){
-            StringBuilder builder = new StringBuilder();
-            List<String> lines = reader.lines().toList();
-            for(String line : lines){
-                builder.append(line).append('\n');
+            String key = keyInput.getText();
+            if(key.isBlank() || key.isEmpty()){
+                showError("Key cannot be empty");
+                return 0;
             }
-            String text = builder.toString();
-            return text;
-        } catch (Exception e){
-            showError("Error", "Something went wrong");
-            return null;
+            return Integer.parseInt(key);
+        } catch (NumberFormatException nfe) {
+            showError("Key cannot be a string");
+            return 0;
+        } catch (NullPointerException npe) {
+            showError("Key cannot be null");
+            return 0;
+        } catch (Exception e) {
+            showError("An exception occurred while running", e);
+            return 0;
         }
-    }
-
-    private char[] getCharToSwap(){
-        try {
-            char[] chars = new char[2];
-            chars[0] = char1Input.getText().charAt(0);
-            chars[1] = char2Input.getText().charAt(0);
-            return chars;
-        } catch (Exception e){
-            showError("Error", "Something went wrong");
-        }
-        return null;
-    }
-
-    private List<Integer> getIndexes(char ch, char[] text){
-        List<Integer> indexes = new ArrayList<>();
-        for(int i = 0; i < text.length; i++){
-            if(text[i] == ch){
-                indexes.add(i);
-            }
-        }
-        return indexes;
     }
 
     private boolean checkFile(Path path){
-        if(Files.exists(path) && Files.isRegularFile(path)){
-            return true;
-        } else {
-            showError("Error", "There is a problem with file");
-            return false;
-        }
+        return Files.exists(path) && Files.isRegularFile(path);
+    }
+
+    private void showError(String message, Exception ex){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        ex.printStackTrace(pw);
+        String exceptionText = sw.toString();
+
+        Label label = new Label("The exception stacktrace was:");
+
+        TextArea textArea = new TextArea(exceptionText);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        GridPane.setVgrow(textArea, Priority.ALWAYS);
+        GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+        GridPane expContent = new GridPane();
+        expContent.setMaxWidth(Double.MAX_VALUE);
+        expContent.add(label, 0, 0);
+        expContent.add(textArea, 0, 1);
+        alert.getDialogPane().setExpandableContent(expContent);
+
+        alert.showAndWait();
     }
 }

@@ -17,35 +17,28 @@ public class BruteForce extends Decoder implements Action {
         return super.execute(input, validKey, output, alphabet);
     }
 
-    private int findValidKey(Path input, Alphabet alphabet){
+    private int findValidKey(Path input, Alphabet alphabet) {
         int key = 0;
         int mostSpaces = 0;
         char[] textAlphabet = alphabet.getChars();
-        try(BufferedReader reader = Files.newBufferedReader(input)) {
+        try (BufferedReader reader = Files.newBufferedReader(input)) {
             StringBuilder builder = new StringBuilder();
             List<String> lines = reader.lines().toList();
-            for(String line : lines){
+            for (String line : lines) {
                 builder.append(line);
             }
             String text = builder.toString();
-            for(int i = 0; i < lines.size(); i++) {
-                for (int k = -textAlphabet.length; k < textAlphabet.length; k++) {
-                    String decodedLine = decodeString(text, k, alphabet);
-                    String[] charLine = decodedLine.split(" ");
-                    for (String s : charLine) {
-                        if (alphabet.getWords().contains(s)) {
-                            return k;
-                        }
-                    }
-                    int spaces = countChar(decodedLine.toCharArray(), ' ');
-                    if (spaces > mostSpaces) {
-                        mostSpaces = spaces;
-                        key = k;
-                    }
+            for (int k = -textAlphabet.length; k < textAlphabet.length; k++) {
+                String decodedLine = decodeString(text, k, alphabet);
+                String[] charLine = decodedLine.split(" ");
+                int spaces = charLine.length - 1;
+                if (spaces > mostSpaces) {
+                    mostSpaces = spaces;
+                    key = k;
                 }
             }
             return key;
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new AppException(e);
         }
     }

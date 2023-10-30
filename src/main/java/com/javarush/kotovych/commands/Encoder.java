@@ -28,7 +28,7 @@ public class Encoder extends CipherMethods implements Action {
                     }
                 }
                 builder.append(new String(charLine)).append('\n');
-                writer.write(new String(charLine));
+                writer.write(new String(charLine) + '\n');
             }
         } catch (IOException e){
             throw new AppException(e);
