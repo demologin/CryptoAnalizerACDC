@@ -16,7 +16,7 @@ public class BruteForce extends AbstractAction {
         double[][] standardStat = Statistics.getBiGramStat(PathBuilder.get("dict.txt"));
         double[][] encryptedStat = Statistics.getBiGramStat(PathBuilder.get(encryptedFilename));
         for (int key = Alphabet.CHARS.length; key >= 0; key--) {
-            double destination = Statistics.destination(encryptedStat, standardStat);
+            double destination = Statistics.calcDistance(encryptedStat, standardStat);
             if (destination < bestDestination) {
                 bestDestination = destination;
                 bestKey = key;

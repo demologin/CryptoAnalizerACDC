@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>The phrase "мама#мыла#раму#" has the alphabet like this: "маылру#"
@@ -74,7 +75,7 @@ public class Statistics {
      * @return |firstMatrix-secondMatrix|
      * @see com.javarush.khmelov.util.Statistics (what is the biGram)
      */
-    public static double destination(double[][] firstMatrix, double[][] secondMatrix) {
+    public static double calcDistance(double[][] firstMatrix, double[][] secondMatrix) {
         double destination = 0;
         if (firstMatrix.length == secondMatrix.length
             && firstMatrix.length != 0
@@ -93,32 +94,41 @@ public class Statistics {
         return Math.sqrt(destination);
     }
 
-    public static char[] getSortedChars(double[][] matrix) {
+    /**
+     * Simple genetic algorithm
+     *
+     * @param genom    - biGram text
+     * @param original - biGram dictionary
+     * @return best alphabet as array
+     * @see com.javarush.khmelov.util.Statistics (what is the biGram)
+     */
+    public static char[] getCharsByRandomSwapper(double[][] genom, double[][] original) {
         char[] chars = Alphabet.CHARS.clone();
-        if (chars.length == matrix.length && chars.length == matrix[0].length) {
-            for (int i = 0; i < chars.length - 1; i++) {
-                for (int j = 0; j < chars.length - 1; j++) {
-                    if (calcWeight(matrix, j) < calcWeight(matrix, j + 1)) {
-                        swap(matrix, j, j + 1);
-                        char ch = chars[j];
-                        chars[j] = chars[j + 1];
-                        chars[j + 1] = ch;
-                    }
+        int skipSwapCounter = 0;
+        double bestDistance = Double.MAX_VALUE;
+        while (skipSwapCounter < genom.length * genom.length) {
+            ThreadLocalRandom random = ThreadLocalRandom.current();
+            int i = random.nextInt(genom.length);
+            int j = random.nextInt(genom.length);
+            if (i != j) {
+                swap(genom, i, j);
+                double distance = calcDistance(genom, original);
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    skipSwapCounter = 0;
+                    char ch = chars[j];
+                    chars[j] = chars[i];
+                    chars[i] = ch;
+                    System.out.println("Best distance = " + bestDistance);
+                } else {
+                    swap(genom, j, i); //revert
+                    skipSwapCounter++;
                 }
             }
-        } else {
-            throw new AppException("matrix size not equals Alphabet size");
         }
         return chars;
     }
 
-    private static double calcWeight(double[][] matrix, int index) {
-        double weightLetter = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            weightLetter += matrix[i][index] + matrix[index][i];
-        }
-        return weightLetter;
-    }
 
     /**
      * Modify biGram like this: маылру# -> аылру#м

@@ -1,5 +1,6 @@
 package com.javarush.khmelov.command;
 
+import com.javarush.khmelov.constant.Alphabet;
 import com.javarush.khmelov.entity.Result;
 import com.javarush.khmelov.entity.ResultCode;
 import com.javarush.khmelov.exception.AppException;
@@ -20,8 +21,8 @@ public class Analyze extends AbstractAction {
         String dictionaryFilename = parameters[1];
         String analyzedFilename = parameters[2];
 
-        List<Character> dictChar = getSortedChars(dictionaryFilename);
-        List<Character> sourceChar = getSortedChars(encryptedFilename);
+        List<Character> dictChar = getCharacterList(Alphabet.CHARS);
+        List<Character> sourceChar = findBestVersionAlphabet(encryptedFilename, dictionaryFilename);
 
         Path source = PathBuilder.get(encryptedFilename);
         Path target = PathBuilder.get(analyzedFilename);
@@ -45,10 +46,15 @@ public class Analyze extends AbstractAction {
         return new Result(ResultCode.OK, analyzedFilename);
     }
 
-    private List<Character> getSortedChars(String filename) {
-        double[][] biGramStat = Statistics.getBiGramStat(PathBuilder.get(filename));
-        char[] sortedChars = Statistics.getSortedChars(biGramStat);
-        return String.valueOf(sortedChars)
+    private List<Character> findBestVersionAlphabet(String encryptedFilename, String dictionaryFilename) {
+        double[][] matrix = Statistics.getBiGramStat(PathBuilder.get(encryptedFilename));
+        double[][] original = Statistics.getBiGramStat(PathBuilder.get(dictionaryFilename));
+        char[] chars = Statistics.getCharsByRandomSwapper(matrix, original);
+        return getCharacterList(chars);
+    }
+
+    private static List<Character> getCharacterList(char[] chars) {
+        return String.valueOf(chars)
                 .chars()
                 .mapToObj(c -> (char) c)
                 .toList();
