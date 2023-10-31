@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -15,18 +16,19 @@ public interface Coding {
              BufferedWriter writer = Files.newBufferedWriter(target)) {
             int numberChar;
             while ((numberChar = reader.read()) > -1) {
-                char charByNumber =Character.toLowerCase ((char) numberChar);
+                char charByNumber = Character.toLowerCase((char) numberChar);
                 if (alphabetMap.containsKey(charByNumber)) {
                     charByNumber = Character.toLowerCase(charByNumber);
                     int index = getIndexByChar(charByNumber);
-                    index = (getAlphabetSize()* Math.abs(key) + (index + key)) % getAlphabetSize();
-                    writer.write(getChar(index));
-                } else if (!alphabetMap.containsKey(charByNumber)){
+                    index = (getAlphabetSize() * Math.abs(key) + (index + key)) % getAlphabetSize();
+                } else if (!alphabetMap.containsKey(charByNumber)) {
                     writer.write(charByNumber);
                 }
             }
-        } catch (IOException e) {
-            System.err.println(e);
+        }catch (NoSuchFileException e) {
+            System.err.println("Incorrect file path has been entered");
+        }catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

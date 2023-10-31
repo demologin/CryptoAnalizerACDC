@@ -7,7 +7,7 @@ public class Decode {
     public Decode() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("\"Enter full source (Or Enter for encrypted.txt) :");
+        System.out.println("\"Enter source (Or Enter for encrypted.txt) :");
         String defultSourceName = "encrypted.txt";
         Path source = PathMaker.makePath(defultSourceName);
 
@@ -23,6 +23,5 @@ public class Decode {
         }
 
         Coding.processingToFile(source, target, -1 * key);
-        System.out.println("COMPLIED");
     }
 }

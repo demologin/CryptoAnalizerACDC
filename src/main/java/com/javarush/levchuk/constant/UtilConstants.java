@@ -3,7 +3,9 @@ package com.javarush.levchuk.constant;
 import java.io.File;
 
 public interface UtilConstants {
-    String TEXT_MAIN_MENU = "Please select mode:\n" +
+    String TEXT_MAIN_MENU =
+            "___________________________\n" +
+            "Please select mode:\n" +
             "1. Encrypt\n" +
             "2. Decrypt\n" +
             "3. Brute force\n" +
