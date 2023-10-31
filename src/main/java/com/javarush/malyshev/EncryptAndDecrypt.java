@@ -13,23 +13,23 @@ public class EncryptAndDecrypt {
     }
 
     public void Encryption() throws IOException {
-        String rowText = ReadAndWrite.readAndWrite.readTheFile().toLowerCase();
+        String rawText = ReadAndWrite.readAndWrite.readTheFile().toLowerCase();
         StringBuilder modifiedText = new StringBuilder();
 
         System.out.println("encrypting, encrypting, encrypting..");
 
-        for (int i = 0; i < rowText.length(); i++) {
-            if (ALPHABET.contains(rowText.charAt(i) + "")) {
-                char symbol = rowText.charAt(i);
+        for (int i = 0; i < rawText.length(); i++) {
+            if (ALPHABET.contains(rawText.charAt(i) + "")) {
+                char symbol = rawText.charAt(i);
                 int index = ALPHABET.indexOf(symbol) + this.key;
                 if (index > ALPHABET.length() - 1) {
                     index -= ALPHABET.length();
                 }
                 modifiedText.append(ALPHABET.charAt(index));
-            } else if (rowText.charAt(i) == '\n') {
-                modifiedText.append(rowText.charAt(i));
+            } else if (rawText.charAt(i) == '\n') {
+                modifiedText.append(rawText.charAt(i));
             } else {
-                modifiedText.append(rowText.charAt(i));
+                modifiedText.append(rawText.charAt(i));
             }
         }
 
