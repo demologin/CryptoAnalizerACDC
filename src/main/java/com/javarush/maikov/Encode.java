@@ -5,10 +5,8 @@ import java.util.Arrays;
 
 public class Encode {
     public Encode(String linkIn, String linkOut, int key) {
-        linkIn = String.valueOf(PathBuilder.getPath(linkIn));
-        linkOut = String.valueOf(PathBuilder.getPath(linkOut));
-        try (FileReader reader = new FileReader(linkIn);
-             FileWriter writer = new FileWriter(linkOut)) {
+        try (FileReader reader = new FileReader(String.valueOf(PathBuilder.getPath(linkIn)));
+             FileWriter writer = new FileWriter(String.valueOf(PathBuilder.getPath(linkOut)))) {
             while (reader.ready()) {
                 int index;
                 char target = (char) reader.read();

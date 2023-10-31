@@ -9,8 +9,8 @@ import java.util.Arrays;
 public class Decode {
     public Decode(String linkIn, String linkOut, int key) {
         key = key > Constants.ALPHABET.length ? key % Constants.ALPHABET.length : key;
-        try (FileReader reader = new FileReader(linkIn);
-             FileWriter writer = new FileWriter(linkOut)) {
+        try (FileReader reader = new FileReader(String.valueOf(PathBuilder.getPath(linkIn)));
+             FileWriter writer = new FileWriter(String.valueOf(PathBuilder.getPath(linkOut)))) {
             while (reader.ready()) {
                 int index;
                 char target = (char) reader.read();
