@@ -1,10 +1,16 @@
 package com.javarush.maikov;
 
+import com.javarush.maikov.bruteforce.BruteForce;
+import com.javarush.maikov.bruteforce.BruteForcer;
+import com.javarush.maikov.constatns.Constants;
+import com.javarush.maikov.decode.Decoder;
+import com.javarush.maikov.encode.Encoder;
+
 import java.util.Scanner;
 
 
 public class ConsoleRunner {
-    static Scanner input = new Scanner(System.in);
+    public static Scanner input = new Scanner(System.in);
     static Boolean work = true;
 
     public static void main(String[] args) {
@@ -18,40 +24,18 @@ public class ConsoleRunner {
     private static void switchMenu(int choice) {
         switch (choice) {
             case 1:
-                encoder();
+                new Encoder();
                 break;
             case 2:
-                decoder();
+                new Decoder();
                 break;
             case 3:
                 work = false;
+                break;
+            case 4: new BruteForcer();
             default:
                 System.out.println("Пожалуйста, введите цифру нужного вам действия");
         }
-
-    }
-
-    private static void encoder() {
-        System.out.println("Введите ссылку на файл, который вы хотите зашифровать");
-        String linkIn = input.next();
-        System.out.println("Введите ссылку на файл или имя файла, в который вы хотите записать зашифрованнй текст. " +
-                "если файла с таким именем не существует, он будет создан");
-        String linkOut = input.next();
-        System.out.println("Введите ключ, которым вы хотите зашифровать файл");
-        int key = Integer.parseInt(input.next());
-        Encode encode = new Encode(linkIn, linkOut, key);
-    }
-
-    private static void decoder() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Введите ссылку на файл, который вы хотите расшифровать");
-        String linkIn = input.next();
-        System.out.println("Введите ссылку на файл или имя файла, в который вы хотите записать расшифрованный текст. " +
-                "если файла с таким именем не существует, он будет создан");
-        String linkOut = input.next();
-        System.out.println("Введите ключ, для расшифровки");
-        int key = input.nextInt();
-        Decode decode = new Decode(linkIn, linkOut, key);
     }
 }
 

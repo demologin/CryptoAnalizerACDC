@@ -1,10 +1,17 @@
-package com.javarush.maikov;
-import java.io.*;
+package com.javarush.maikov.decode;
+
+import com.javarush.maikov.constatns.Constants;
+import com.javarush.maikov.util.PathBuilder;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
-
-public class Encode {
-    public Encode(String linkIn, String linkOut, int key) {
+public class Decode {
+    public Decode(String linkIn, String linkOut, int key) {
+        key = key > Constants.ALPHABET.length ? key % Constants.ALPHABET.length : key;
         try (FileReader reader = new FileReader(String.valueOf(PathBuilder.getPath(linkIn)));
              FileWriter writer = new FileWriter(String.valueOf(PathBuilder.getPath(linkOut)))) {
             while (reader.ready()) {
@@ -12,19 +19,21 @@ public class Encode {
                 char target = (char) reader.read();
                 if (target == 'ё') {    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
                     index = 6;
-                    if (index + key >= Constants.ALPHABET.length - 1) {
-                        writer.write(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
+                    if (index - key < 0) {
+                        int different = key - index;
+                        writer.write(Constants.ALPHABET[(Constants.ALPHABET.length - different)]);
                     } else {
-                        writer.write(Constants.ALPHABET[index + key]);
+                        writer.write(Constants.ALPHABET[index - key]);
                     }
                     continue;
                 }
                 if (target == 'Ё') {    // я не смог пока справиться с ё при бинарном поиске, сбивается порядок
                     index = 6;
-                    if (index + key >= Constants.CAPITALLETTER.length - 1) {
-                        writer.write(Constants.CAPITALLETTER[(index + key) % Constants.ALPHABET.length]);
+                    if (index - key < 0) {
+                        int different = key - index;
+                        writer.write(Constants.CAPITALLETTER[(Constants.CAPITALLETTER.length - different)]);
                     } else {
-                        writer.write(Constants.CAPITALLETTER[index + key]);
+                        writer.write(Constants.CAPITALLETTER[index - key]);
                     }
                     continue;
                 }
@@ -32,19 +41,21 @@ public class Encode {
                 boolean isCharCapital = Arrays.binarySearch(Constants.CAPITALLETTER, target) >= 0;
                 if (isCharAlphabet) {
                     index = Arrays.binarySearch(Constants.ALPHABET, target);
-                    if (index + key >= Constants.ALPHABET.length - 1) {
-                        writer.write(Constants.ALPHABET[(index + key) % Constants.ALPHABET.length]);
+                    if (index - key < 0) {
+                        int different = key - index;
+                        writer.write(Constants.ALPHABET[(Constants.ALPHABET.length - different)]);
                     } else {
-                        writer.write(Constants.ALPHABET[index + key]);
+                        writer.write(Constants.ALPHABET[index - key]);
                     }
                     continue;
                 }
                 if (isCharCapital) {
                     index = Arrays.binarySearch(Constants.CAPITALLETTER, target);
-                    if (index + key >= Constants.CAPITALLETTER.length - 1) {
-                        writer.write(Constants.CAPITALLETTER[(index + key) % Constants.CAPITALLETTER.length]);
+                    if (index - key < 0) {
+                        int different = key - index;
+                        writer.write(Constants.CAPITALLETTER[(Constants.CAPITALLETTER.length - different)]);
                     } else {
-                        writer.write(Constants.CAPITALLETTER[index + key]);
+                        writer.write(Constants.CAPITALLETTER[index - key]);
                     }
                     continue;
                 }
@@ -57,4 +68,3 @@ public class Encode {
         }
     }
 }
-

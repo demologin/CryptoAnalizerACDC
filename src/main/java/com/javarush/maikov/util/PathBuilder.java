@@ -1,4 +1,6 @@
-package com.javarush.maikov;
+package com.javarush.maikov.util;
+import com.javarush.maikov.constatns.Constants;
+
 import java.nio.file.Path;
 
 public class PathBuilder {

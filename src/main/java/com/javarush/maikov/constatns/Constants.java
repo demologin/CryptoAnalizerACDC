@@ -1,4 +1,4 @@
-package com.javarush.maikov;
+package com.javarush.maikov.constatns;
 
 import java.io.File;
 
