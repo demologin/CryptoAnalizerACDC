@@ -1,5 +1,7 @@
 package com.javarush.levchuk.mods;
 
+import com.javarush.levchuk.constant.Alphabet;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,6 +23,8 @@ public interface Coding {
                     charByNumber = Character.toLowerCase(charByNumber);
                     int index = getIndexByChar(charByNumber);
                     index = (getAlphabetSize() * Math.abs(key) + (index + key)) % getAlphabetSize();
+                    writer.write(getChar(index));
+
                 } else if (!alphabetMap.containsKey(charByNumber)) {
                     writer.write(charByNumber);
                 }
