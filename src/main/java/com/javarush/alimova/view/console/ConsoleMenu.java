@@ -52,11 +52,11 @@ public class ConsoleMenu {
             case 3 -> menuBruteForce();
             case 4 -> menuStaticAnalyzer();
             case 5 -> menuExit();
-            default -> false;       //подобного варианта не должно быть в теории
+            default -> false;
         };
 
         if (!readArg) {
-            System.out.println(ConsoleConst.CONSOLE_INPUT_ERROR);        //как-то зациклить (сейчас выходит из меню)
+            System.out.println(ConsoleConst.CONSOLE_INPUT_ERROR);
         }
         return readArg;
 
