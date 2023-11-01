@@ -1,13 +1,10 @@
 package com.javarush.maikov.bruteforce;
-
 import com.javarush.maikov.constatns.Constants;
 import com.javarush.maikov.decode.Decode;
 import com.javarush.maikov.util.PathBuilder;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.javarush.maikov.ConsoleRunner.input;
 
 public class BruteForce {
