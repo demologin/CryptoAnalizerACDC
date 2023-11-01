@@ -1,4 +1,4 @@
-package com.javarush.levchuk.mods;
+package com.javarush.levchuk.mods.tools;
 
 import com.javarush.levchuk.constant.UtilConstants;
 
@@ -9,9 +9,9 @@ import java.util.Scanner;
 
 import static com.javarush.levchuk.constant.UtilConstants.DEFAULT_FOLDER;
 
-public interface PathMaker {
+public abstract class PathMaker {
 
-    static Path makePath(String defaultName) {
+    public static Path makePath(String defaultName) {
         Scanner scanner = new Scanner(System.in);
         String enterName = scanner.nextLine();
         Path path = Path.of(DEFAULT_FOLDER + defaultName);

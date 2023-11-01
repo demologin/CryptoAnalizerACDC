@@ -1,7 +1,9 @@
 package com.javarush.levchuk.mods;
 
 
-import java.io.File;
+import com.javarush.levchuk.mods.tools.Coding;
+import com.javarush.levchuk.mods.tools.PathMaker;
+
 import java.nio.file.Path;
 import java.util.Scanner;
 
@@ -9,11 +11,11 @@ public class Encode {
     public Encode() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("\"Enter source (Or Enter for text.txt) :");
-        String defultSourceName = "text.txt";
-        Path source = PathMaker.makePath(defultSourceName);
+        System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for text.txt) :");
+        String defaultSourceName = "text.txt";
+        Path source = PathMaker.makePath(defaultSourceName);
 
-        System.out.println("Enter destination (Or Enter for encrypted.txt) :");
+        System.out.println("Enter the path or name for the output file (Or Enter for encrypted.txt) :");
         String defaultTargetName = "encrypted.txt";
         Path target = PathMaker.makePath(defaultTargetName);
 
