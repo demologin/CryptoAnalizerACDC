@@ -12,7 +12,8 @@ public interface Constants {
             Выберите необходимое действие:
              1. Шифровка файла.
              2. Дешифровка файла.\s
-             3. Выход из программы
+             3. Дешифровка файла с помощью BruteForce.
+             4. Выход из программы.
             =============================""";
     String TXT_FOLDER = System.getProperty("user.dir") + File.separator + File.separator + "src" + File.separator + "main"
             + File.separator + "java" + File.separator + "com" + File.separator + "javarush" + File.separator + "maikov" +

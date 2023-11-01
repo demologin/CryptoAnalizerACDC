@@ -1,6 +1,5 @@
 package com.javarush.maikov;
 
-import com.javarush.maikov.bruteforce.BruteForce;
 import com.javarush.maikov.bruteforce.BruteForcer;
 import com.javarush.maikov.constatns.Constants;
 import com.javarush.maikov.decode.Decoder;
@@ -30,9 +29,10 @@ public class ConsoleRunner {
                 new Decoder();
                 break;
             case 3:
-                work = false;
+                new BruteForcer();
                 break;
-            case 4: new BruteForcer();
+            case 4:
+                work = false;
             default:
                 System.out.println("Пожалуйста, введите цифру нужного вам действия");
         }

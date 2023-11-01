@@ -1,7 +1,5 @@
 package com.javarush.maikov.bruteforce;
 
-import com.javarush.maikov.decode.Decode;
-
 import java.util.Scanner;
 
 public class BruteForcer {
