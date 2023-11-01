@@ -7,9 +7,9 @@ import com.javarush.alimova.exception.AppException;
 public class MainController {
 
     public Result giveCommand(String nameCommand, String[] args) {
-        Command command = CommandContainer.getCommand(nameCommand);
         Result result;
         try {
+            Command command = CommandContainer.getCommand(nameCommand);
             result = command.startCommand(args);
         }
         catch (AppException e) {

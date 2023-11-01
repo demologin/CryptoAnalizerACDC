@@ -25,8 +25,7 @@ public enum CommandContainer {
             CommandContainer instance = CommandContainer.valueOf(commandName.toUpperCase());
             return instance.command;
         } catch (IllegalArgumentException e) {
-            System.out.println("Невалидное наименование");
-            throw new AppException();
+            throw new AppException("Execution error: No execution command found", e);
         }
     }
 
