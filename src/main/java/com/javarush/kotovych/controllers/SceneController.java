@@ -57,17 +57,16 @@ public class SceneController extends CipherMethods implements Initializable {
         boolean normalOutput = checkFile(Path.of(outputPathTextField.getText()));
 
         if(normalInput && normalOutput) {
-            Path inputFilePath = Path.of(inputPathTextField.getText());
-            Path ouputFilePath = Path.of(outputPathTextField.getText());
-            Action mode = getMode();
-            Alphabet language = getLanguage();
-            int key = getKey();
-
             try {
+                Path inputFilePath = Path.of(inputPathTextField.getText());
+                Path ouputFilePath = Path.of(outputPathTextField.getText());
+                Action mode = getMode();
+                Alphabet language = getLanguage();
+                int key = getKey();
                 String text = mode.execute(inputFilePath, key, ouputFilePath, language);
                 textPreview.setText(text);
-            } catch (AppException ae) {
-                showError("An exception occurred while running", ae);
+            } catch (AppException e){
+                showError(e.getMessage(), e);
             }
         } else{
             showError("Input or output text field is empty or is a directory");
@@ -118,8 +117,7 @@ public class SceneController extends CipherMethods implements Initializable {
         try {
             return AlphabetContainer.get(languageChoose.getValue());
         } catch (Exception e){
-            showError("Language cannot be null");
-            return null;
+            throw new AppException("Language cannot be null", e);
         }
     }
 
@@ -127,8 +125,7 @@ public class SceneController extends CipherMethods implements Initializable {
         try {
             return ActionContainer.get(modeChoose.getValue());
         } catch (Exception e){
-            showError("Mode cannot be null");
-            return null;
+            throw new AppException("Mode cannot be null", e);
         }
     }
 
@@ -136,19 +133,11 @@ public class SceneController extends CipherMethods implements Initializable {
         try {
             String key = keyInput.getText();
             if(key.isBlank() || key.isEmpty()){
-                showError("Key cannot be empty");
-                return 0;
+                throw new AppException("Key cannot be empty");
             }
             return Integer.parseInt(key);
         } catch (NumberFormatException nfe) {
-            showError("Key cannot be a string");
-            return 0;
-        } catch (NullPointerException npe) {
-            showError("Key cannot be null");
-            return 0;
-        } catch (Exception e) {
-            showError("An exception occurred while running", e);
-            return 0;
+            throw new AppException("Key cannot be a string", nfe);
         }
     }
 

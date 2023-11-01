@@ -23,7 +23,7 @@ public class Encoder extends CipherMethods implements Action {
                 for (int i = 0; i < charLine.length; i++) {
                     int position = findPosition(textAlphabet, charLine[i]);
                     if (position > -1) {
-                        int positionToReplace = (position + key + textAlphabet.length) % textAlphabet.length;
+                        int positionToReplace = ((position % textAlphabet.length + key % textAlphabet.length + textAlphabet.length) % textAlphabet.length);
                         charLine[i] = textAlphabet[positionToReplace];
                     }
                 }
@@ -43,7 +43,7 @@ public class Encoder extends CipherMethods implements Action {
         for (int i = 0; i < str.length; i++) {
             int position = findPosition(textAlphabet, str[i]);
             if(position > -1){
-                str[i] = textAlphabet[(position + key + textAlphabet.length) % textAlphabet.length];
+                str[i] = textAlphabet[((position % textAlphabet.length + key % textAlphabet.length + textAlphabet.length) % textAlphabet.length)];
             }
         }
         return new String(str);
