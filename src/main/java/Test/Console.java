@@ -20,7 +20,6 @@ public class Console {
 //        int key = 12;
 //        file.runFile(source,dest,key);
 //        file.runFile(dest, decrypt, -1*key);
-
         Scanner console = new Scanner(System.in);
         Menu menu = new Menu(console);
         menu.run();
