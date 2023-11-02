@@ -1,5 +1,6 @@
 package com.javarush.afanasenko;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class PathBuilder {
@@ -14,10 +15,8 @@ public class PathBuilder {
     }
 
     public PathBuilder(String path) {
-        try {
-            this.path = Path.of(path);
-        }catch(RuntimeException ex){
-            throw new CryptoException("Ошибка при создании пути к файлу");
-        }
+        this.path = Path.of(path);
+        if(!Files.exists(this.path)) throw new CryptoException("По данному пути файла не существует");
+
     }
 }
