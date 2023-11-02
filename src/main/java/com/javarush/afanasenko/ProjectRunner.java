@@ -60,6 +60,6 @@ public class ProjectRunner {
         }catch(CryptoException ex){
             ex.getMessage();
         }
-            throw  new CryptoException("Путь к файлу введен некорректно, попробуйте еще раз");
+            throw  new CryptoException();
     }
 }
