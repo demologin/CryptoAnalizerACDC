@@ -3,31 +3,37 @@ package com.javarush.levchuk.mods;
 import com.javarush.levchuk.mods.tools.Coding;
 import com.javarush.levchuk.mods.tools.PathMaker;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+import static com.javarush.levchuk.constant.UtilConstants.*;
+
 public class Decode {
     public Decode() {
-        Scanner input = new Scanner(System.in);
 
         System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for encrypted.txt) :");
-        String defultSourceName = "encrypted.txt";
-        Path source = PathMaker.makePath(defultSourceName);
+        Path source = PathMaker.makePath(DEFAULT_ENCRYPT_FILE_NAME);
 
         System.out.println("Enter the path or name for the output file (Or Enter for decrypted.txt ) :");
-        String defaultTargetName = "decrypted.txt";
-        Path target = PathMaker.makePath(defaultTargetName);
+        Path target = PathMaker.makePath(DEFAULT_DECRYPT_FILE_NAME);
 
         System.out.println("Enter key (int number OR Enter for key=1) :");
+
+        int key = enterKey();
+        Coding.processingToFile(source, target, -1 * key);
+    }
+
+    public int enterKey(){
         int key = 1;
-        try {
-            String keyLine = input.nextLine();
+        try (Scanner scanner=new Scanner(System.in)) {
+            String keyLine = scanner.nextLine();
             if (!keyLine.equals("")) {
                 key = Integer.parseInt(keyLine);
             }
-        } catch (NumberFormatException e){
-            System.err.println("Incorrect key format");
+        } catch (Exception e){
+            throw new RuntimeException();
         }
-        Coding.processingToFile(source, target, -1 * key);
+        return key;
     }
 }

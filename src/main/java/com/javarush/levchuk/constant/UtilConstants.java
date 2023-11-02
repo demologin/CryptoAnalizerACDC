@@ -1,6 +1,7 @@
 package com.javarush.levchuk.constant;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public interface UtilConstants {
     String TEXT_MAIN_MENU =
@@ -9,10 +10,10 @@ public interface UtilConstants {
             "1. Encrypt\n" +
             "2. Decrypt\n" +
             "3. Brute force\n" +
-            "4. Analyze\n" +
-            "5. Exit\n";
+            "4. Exit\n";
     String DEFAULT_FOLDER = System.getProperty("user.dir") + File.separator + "text" + File.separator;
-    String DICTIONARY_TEXT_SOURCE = System.getProperty("user.dir") + File.separator + "text"+ File.separator + "dict.txt";
-
+    String DEFAULT_ENCRYPT_FILE_NAME="encrypted.txt";
+    String DEFAULT_DECRYPT_FILE_NAME="decrypted.txt";
+    String DEFAULT_BRUTEFORCE_FILE_NAME="bruteDecrypted.txt";
 
 }

@@ -7,6 +7,8 @@ import com.javarush.levchuk.mods.tools.PathMaker;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+import static com.javarush.levchuk.constant.UtilConstants.*;
+
 public class Encode {
     public Encode() {
         Scanner input = new Scanner(System.in);
@@ -16,7 +18,7 @@ public class Encode {
         Path source = PathMaker.makePath(defaultSourceName);
 
         System.out.println("Enter the path or name for the output file (Or Enter for encrypted.txt) :");
-        String defaultTargetName = "encrypted.txt";
+        String defaultTargetName = DEFAULT_ENCRYPT_FILE_NAME;
         Path target = PathMaker.makePath(defaultTargetName);
 
         System.out.println("Enter key (int number OR Enter for key=1) :");
