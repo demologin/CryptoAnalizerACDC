@@ -17,7 +17,6 @@ import javafx.scene.layout.Priority;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ResourceBundle;
 
@@ -53,23 +52,16 @@ public class SceneController extends CipherMethods implements Initializable {
 
     @FXML
     void onStartButtonClick(ActionEvent event) {
-        boolean normalInput = checkFile(Path.of(inputPathTextField.getText()));
-        boolean normalOutput = checkFile(Path.of(outputPathTextField.getText()));
-
-        if(normalInput && normalOutput) {
-            try {
-                Path inputFilePath = Path.of(inputPathTextField.getText());
-                Path ouputFilePath = Path.of(outputPathTextField.getText());
-                Action mode = getMode();
-                Alphabet language = getLanguage();
-                int key = getKey();
-                String text = mode.execute(inputFilePath, key, ouputFilePath, language);
-                textPreview.setText(text);
-            } catch (AppException e){
-                showError(e.getMessage(), e);
-            }
-        } else{
-            showError("Input or output text field is empty or is a directory");
+        try {
+            Path inputFilePath = Path.of(inputPathTextField.getText());
+            Path ouputFilePath = Path.of(outputPathTextField.getText());
+            Action mode = getMode();
+            Alphabet language = getLanguage();
+            int key = getKey();
+            String text = mode.execute(inputFilePath, key, ouputFilePath, language);
+            textPreview.setText(text);
+        } catch (AppException e) {
+            showError(e.getMessage(), e);
         }
     }
 
@@ -79,7 +71,7 @@ public class SceneController extends CipherMethods implements Initializable {
             String text = getTextFromFile(Path.of(outputPathTextField.getText()));
             textPreview.setText(text);
         } catch (AppException e){
-            showError("An exception occurred while running", e);
+            showError(e.getMessage(), e);
         }
     }
 
@@ -89,7 +81,7 @@ public class SceneController extends CipherMethods implements Initializable {
             String text = getTextFromFile(Path.of(inputPathTextField.getText()));
             textPreview.setText(text);
         } catch (AppException e){
-            showError("An exception occurred while running", e);
+            showError(e.getMessage(), e);
         }
     }
 
@@ -101,16 +93,6 @@ public class SceneController extends CipherMethods implements Initializable {
 
         inputPathTextField.setText(outputText);
         outputPathTextField.setText(inputText);
-    }
-
-
-    private void showError(String message){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-
-        alert.showAndWait();
     }
 
     private Alphabet getLanguage(){
@@ -141,9 +123,6 @@ public class SceneController extends CipherMethods implements Initializable {
         }
     }
 
-    private boolean checkFile(Path path){
-        return Files.exists(path) && Files.isRegularFile(path);
-    }
 
     private void showError(String message, Exception ex){
         Alert alert = new Alert(Alert.AlertType.ERROR);

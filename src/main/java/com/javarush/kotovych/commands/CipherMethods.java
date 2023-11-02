@@ -4,6 +4,7 @@ import com.javarush.kotovych.exceptions.AppException;
 
 import java.io.BufferedReader;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -19,10 +20,11 @@ public abstract class CipherMethods {
             for(String line : lines){
                 builder.append(line).append('\n');
             }
-            String text = builder.toString();
-            return text;
+            return builder.toString();
+        } catch (NoSuchFileException e){
+            throw new AppException("File does not exist", e);
         } catch (Exception e){
-            throw new AppException(e);
+            throw new AppException(e.getMessage(), e);
         }
     }
 }
