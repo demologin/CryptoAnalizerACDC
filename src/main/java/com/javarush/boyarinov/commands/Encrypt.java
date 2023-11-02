@@ -1,4 +1,4 @@
-package com.javarush.boyarinov.comands;
+package com.javarush.boyarinov.commands;
 
 import com.javarush.boyarinov.AppException;
 import com.javarush.boyarinov.CreatePath;
@@ -9,11 +9,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class Decrypt {
+public class Encrypt {
 
-    public void decode(String input, String output, int key) {
+    public void encode(String input, String output, int key) {
         CreatePath path = new CreatePath();
-
         try (BufferedReader bufferedReader = Files.newBufferedReader(path.getPath(input));
              BufferedWriter bufferedWriter = Files.newBufferedWriter(path.getPath(output))) {
 
@@ -33,11 +32,11 @@ public class Decrypt {
         char symbol = Character.toLowerCase((char) read);
         for (int i = 0; i < Constant.ALPHABET.length; i++) {
             if (symbol == Constant.ALPHABET[i]) {
-                if ((i - setKey) < 0) {
-                    int i2 = (i - setKey) + Constant.ALPHABET.length;
+                if ((i + setKey) > Constant.ALPHABET.length - 1) {
+                    int i2 = (i + setKey) - Constant.ALPHABET.length;
                     return Constant.ALPHABET[i2];
                 } else {
-                    return Constant.ALPHABET[i - setKey];
+                    return Constant.ALPHABET[i + setKey];
                 }
             }
         }
