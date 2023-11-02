@@ -1,6 +1,5 @@
 package com.javarush.berezovskiy.cryptoanalizer.controller;
 
-import com.javarush.berezovskiy.command.*;
 import com.javarush.berezovskiy.cryptoanalizer.command.*;
 import com.javarush.berezovskiy.cryptoanalizer.constant.Const;
 import com.javarush.berezovskiy.cryptoanalizer.exception.AppException;

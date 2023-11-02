@@ -1,12 +1,10 @@
 package Test.commands;
 
-
 import Test.files.FileProcessor;
 import Test.menu.Menu;
 import Test.menu.MenuValuesGetter;
 
-public class Encrypt extends FileProcessor {
-
+public class Decrypt extends FileProcessor {
     @Override
     public void runFile() {
         MenuValuesGetter parameters = Menu.parameterGetter;
@@ -14,7 +12,6 @@ public class Encrypt extends FileProcessor {
         String destFile = parameters.getDestFile();
         int key = parameters.getKey();
 
-        runFile(sourceFile,destFile,key);
+        runFile(sourceFile,destFile,-1*key);
     }
-
 }

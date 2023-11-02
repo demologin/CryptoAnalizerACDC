@@ -1,8 +1,10 @@
 package Test.files;
 
+import Test.commands.FileAction;
 import Test.constant.Alphabet;
 import Test.constant.Constant;
 import Test.exceptions.TextException;
+import Test.messages.Message;
 import Test.util.PathBuilder;
 import com.javarush.berezovskiy.cryptoanalizer.constant.Const;
 
@@ -13,8 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 
-public class FileProcessor {
-
+public abstract class FileProcessor implements FileAction {
     public void runFile(String sourceFile, String destFile, int key) {
         Path source = PathBuilder.pathname(sourceFile);
         Path target = PathBuilder.pathname(destFile);
@@ -34,7 +35,7 @@ public class FileProcessor {
                 }
             }
         } catch (IOException e) {
-            throw new TextException(Constant.FILE_EXCEPTION);
+            throw new TextException(Message.FILE_EXCEPTION);
         }
 
     }
