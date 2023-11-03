@@ -10,9 +10,7 @@ import java.util.Scanner;
 import static com.javarush.levchuk.constant.UtilConstants.*;
 
 public class Encode {
-    public Encode() {
-        Scanner input = new Scanner(System.in);
-
+    public void runEncode() {
         System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for text.txt) :");
         String defaultSourceName = "text.txt";
         Path source = PathMaker.makePath(defaultSourceName);
@@ -24,6 +22,7 @@ public class Encode {
         System.out.println("Enter key (int number OR Enter for key=1) :");
         int key = 1;
         try {
+            Scanner input = new Scanner(System.in);
             String keyLine = input.nextLine();
             if (!keyLine.equals("")) {
                 key = Integer.parseInt(keyLine);

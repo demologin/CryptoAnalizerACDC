@@ -1,6 +1,6 @@
 package com.javarush.levchuk.mods;
 
-import com.javarush.levchuk.constant.Alphabet;
+
 import com.javarush.levchuk.mods.tools.Coding;
 import com.javarush.levchuk.mods.tools.PathMaker;
 
@@ -16,7 +16,7 @@ import static com.javarush.levchuk.constant.UtilConstants.*;
 
 
 public class BruteForce {
-    public BruteForce() {
+    public void runBruteForce() {
         System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for encrypted.txt) :");
         Path source = PathMaker.makePath(DEFAULT_ENCRYPT_FILE_NAME);
 

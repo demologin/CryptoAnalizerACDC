@@ -10,7 +10,7 @@ import java.util.Scanner;
 import static com.javarush.levchuk.constant.UtilConstants.*;
 
 public class Decode {
-    public Decode() {
+    public void runDecode() {
 
         System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for encrypted.txt) :");
         Path source = PathMaker.makePath(DEFAULT_ENCRYPT_FILE_NAME);
@@ -19,21 +19,12 @@ public class Decode {
         Path target = PathMaker.makePath(DEFAULT_DECRYPT_FILE_NAME);
 
         System.out.println("Enter key (int number OR Enter for key=1) :");
-
-        int key = enterKey();
-        Coding.processingToFile(source, target, -1 * key);
-    }
-
-    public int enterKey(){
+        Scanner scanner=new Scanner(System.in);
+        String keyLine = scanner.nextLine();
         int key = 1;
-        try (Scanner scanner=new Scanner(System.in)) {
-            String keyLine = scanner.nextLine();
-            if (!keyLine.equals("")) {
-                key = Integer.parseInt(keyLine);
-            }
-        } catch (Exception e){
-            throw new RuntimeException();
+        if (!keyLine.equals("")) {
+            key = Integer.parseInt(keyLine);
         }
-        return key;
+        Coding.processingToFile(source, target, -1 * key);
     }
 }
