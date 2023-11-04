@@ -52,6 +52,7 @@ public class TextHandler {
                     if (symbolMap.get(i) != null) output.write(symbolMap.get(i));
                 }
             }
+            System.out.println("Cоздан новый файл, путь к нему:" + pathTo);
         } catch (IOException ex) {
             throw new CryptoException("Ошибка при создании нового файла");
         }
