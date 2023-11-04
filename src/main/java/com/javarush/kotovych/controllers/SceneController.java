@@ -99,7 +99,7 @@ public class SceneController extends CipherMethods implements Initializable {
         try {
             return AlphabetContainer.get(languageChoose.getValue());
         } catch (Exception e){
-            throw new AppException("Language cannot be null", e);
+            throw new AppException(Constants.NULL_LANGUAGE_EXCEPTION_TEXT, e);
         }
     }
 
@@ -107,7 +107,7 @@ public class SceneController extends CipherMethods implements Initializable {
         try {
             return ActionContainer.get(modeChoose.getValue());
         } catch (Exception e){
-            throw new AppException("Mode cannot be null", e);
+            throw new AppException(Constants.NULL_MODE_EXCEPTION_TEXT, e);
         }
     }
 
@@ -115,18 +115,18 @@ public class SceneController extends CipherMethods implements Initializable {
         try {
             String key = keyInput.getText();
             if(key.isBlank() || key.isEmpty()){
-                throw new AppException("Key cannot be empty");
+                throw new AppException(Constants.EMPTY_KEY_EXCEPTION_TEXT);
             }
             return Integer.parseInt(key);
         } catch (NumberFormatException nfe) {
-            throw new AppException("Key cannot be a string", nfe);
+            throw new AppException(Constants.STRING_KEY_EXCEPTION_TEXT, nfe);
         }
     }
 
 
     private void showError(String message, Exception ex){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle(Constants.ERROR);
         alert.setHeaderText(null);
         alert.setContentText(message);
 
@@ -135,7 +135,7 @@ public class SceneController extends CipherMethods implements Initializable {
         ex.printStackTrace(pw);
         String exceptionText = sw.toString();
 
-        Label label = new Label("The exception stacktrace was:");
+        Label label = new Label(Constants.EXCEPTION_STACKTRACE_WAS_TEXT);
 
         TextArea textArea = new TextArea(exceptionText);
         textArea.setEditable(false);
