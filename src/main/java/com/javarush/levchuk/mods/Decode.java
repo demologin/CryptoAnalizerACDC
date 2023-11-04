@@ -12,19 +12,15 @@ import static com.javarush.levchuk.constant.UtilConstants.*;
 public class Decode {
     public void runDecode() {
 
-        System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for encrypted.txt) :");
+        System.out.printf(CONTEXT_MESSAGES[0],DEFAULT_ENCRYPT_FILE_NAME);
         Path source = PathMaker.makePath(DEFAULT_ENCRYPT_FILE_NAME);
 
-        System.out.println("Enter the path or name for the output file (Or Enter for decrypted.txt ) :");
+        System.out.printf(CONTEXT_MESSAGES[1],DEFAULT_DECRYPT_FILE_NAME);
         Path target = PathMaker.makePath(DEFAULT_DECRYPT_FILE_NAME);
 
-        System.out.println("Enter key (int number OR Enter for key=1) :");
-        Scanner scanner=new Scanner(System.in);
-        String keyLine = scanner.nextLine();
-        int key = 1;
-        if (!keyLine.equals("")) {
-            key = Integer.parseInt(keyLine);
-        }
+        System.out.printf(CONTEXT_MESSAGES[2], DEFAULT_KEY);
+        int key = Coding.enterKey();
         Coding.processingToFile(source, target, -1 * key);
+
     }
 }

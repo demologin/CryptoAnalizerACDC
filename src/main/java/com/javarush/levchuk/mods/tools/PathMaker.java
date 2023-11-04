@@ -20,7 +20,7 @@ public abstract class PathMaker {
             if (userPath.isAbsolute()) {
                 path=userPath;
             } else {
-                path = Path.of(DEFAULT_FOLDER + enterName + ".txt");
+                path = Path.of(DEFAULT_FOLDER + enterName);
             }
         }
         return path;

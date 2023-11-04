@@ -16,11 +16,12 @@ import static com.javarush.levchuk.constant.UtilConstants.*;
 
 
 public class BruteForce {
+
     public void runBruteForce() {
-        System.out.println("Enter the path to the file or its name if it is in the default folder (Or Enter for encrypted.txt) :");
+        System.out.printf(CONTEXT_MESSAGES[0],DEFAULT_ENCRYPT_FILE_NAME);
         Path source = PathMaker.makePath(DEFAULT_ENCRYPT_FILE_NAME);
 
-        System.out.println("Enter the path or name for the output file (Or Enter for bruteDecrypted.txt ) :");
+        System.out.printf(CONTEXT_MESSAGES[1],DEFAULT_BRUTEFORCE_FILE_NAME);
         Path target = PathMaker.makePath(DEFAULT_BRUTEFORCE_FILE_NAME);
 
         int key = searchKey(source);

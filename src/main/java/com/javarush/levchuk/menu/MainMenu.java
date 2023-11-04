@@ -7,6 +7,7 @@ import com.javarush.levchuk.mods.Encode;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static com.javarush.levchuk.constant.UtilConstants.ERROR_MESSAGES;
 import static com.javarush.levchuk.constant.UtilConstants.TEXT_MAIN_MENU;
 import static com.javarush.levchuk.menu.Runner.*;
 
@@ -27,10 +28,10 @@ public class MainMenu {
                     case "2" -> getDecode().runDecode();
                     case "3" -> getBruteForce().runBruteForce();
                     case "4" -> System.out.println("Exit");
-                    default -> System.err.println("Incorrect selection");
+                    default -> System.err.println(ERROR_MESSAGES[1]);
                 }
             } catch (InputMismatchException e){
-                System.err.println("Please enter a numeric value");
+                System.err.println(ERROR_MESSAGES[1]);
             }
         } while (!input.equals("4"));
 

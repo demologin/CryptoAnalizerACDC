@@ -1,8 +1,11 @@
 package com.javarush.khmelov.view.console;
 
+import com.javarush.levchuk.constant.UtilConstants;
+
 import java.util.Scanner;
 
 import static com.javarush.khmelov.view.console.Messages.*;
+import static com.javarush.levchuk.constant.UtilConstants.ERROR_MESSAGES;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class Menu {
@@ -38,7 +41,7 @@ public class Menu {
                 case "4" -> 3;
                 case "5" -> 4;
                 default -> {
-                    System.out.println(INCORRECT_SELECTION);
+                    System.err.println(ERROR_MESSAGES[1]);
                     yield -1;
                 }
             };
