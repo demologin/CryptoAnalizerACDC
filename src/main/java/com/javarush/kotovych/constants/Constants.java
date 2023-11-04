@@ -12,4 +12,5 @@ public class Constants {
     public static final String EMPTY_KEY_EXCEPTION_TEXT = "Key cannot be empty";
     public static final String STRING_KEY_EXCEPTION_TEXT = "Key cannot be a string";
     public static final String EXCEPTION_STACKTRACE_WAS_TEXT = "The exception stacktrace was:";
+    public static final String FILE_DOES_NOT_EXIST_EXCEPTION_TEXT = "File does not exist";
 }

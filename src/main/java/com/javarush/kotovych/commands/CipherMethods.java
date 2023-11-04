@@ -1,5 +1,6 @@
 package com.javarush.kotovych.commands;
 
+import com.javarush.kotovych.constants.Constants;
 import com.javarush.kotovych.exceptions.AppException;
 
 import java.io.BufferedReader;
@@ -22,7 +23,7 @@ public abstract class CipherMethods {
             }
             return builder.toString();
         } catch (NoSuchFileException e){
-            throw new AppException("File does not exist", e);
+            throw new AppException(Constants.FILE_DOES_NOT_EXIST_EXCEPTION_TEXT, e);
         } catch (Exception e){
             throw new AppException(e.getMessage(), e);
         }
