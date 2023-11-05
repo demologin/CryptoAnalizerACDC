@@ -2,16 +2,21 @@ package com.javarush.boyarinov.commands;
 
 import com.javarush.boyarinov.view.Options;
 
-public class Commands {
+public class StartCommands {
 
 
     public void startEncrypt (Options options) {
-        Encrypt encrypt = new Encrypt();
+        Encrypt encrypt = Encrypt.getInstance();
         encrypt.encode(options.getSourceTxt(), options.getTargetTxt(), options.getKey());
     }
 
     public void startDecrypt (Options options) {
-        Decrypt decrypt = new Decrypt();
+        Decrypt decrypt = Decrypt.getInstance();
         decrypt.decode(options.getSourceTxt(), options.getTargetTxt(), options.getKey());
+    }
+
+    public void startExit () {
+        Exit exit = Exit.getInstance();
+        exit.stopApp();
     }
 }

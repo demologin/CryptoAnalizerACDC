@@ -1,6 +1,6 @@
 package com.javarush.boyarinov.commands;
 
-import com.javarush.boyarinov.AppException;
+import com.javarush.boyarinov.exceptions.AppException;
 import com.javarush.boyarinov.CreatePath;
 import com.javarush.boyarinov.constats.Constant;
 
@@ -10,6 +10,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class Decrypt {
+
+    private Decrypt() {
+
+    }
+
+    public static Decrypt getInstance() {
+        return new Decrypt();
+    }
 
     public void decode(String input, String output, int key) {
         CreatePath path = new CreatePath();

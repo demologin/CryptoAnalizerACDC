@@ -1,37 +1,69 @@
 package com.javarush.boyarinov.view;
 
 
+import com.javarush.boyarinov.commands.StartCommands;
+import com.javarush.boyarinov.constats.Messages;
 
-import com.javarush.boyarinov.commands.Commands;
 import java.util.Scanner;
 
 public class Selection {
 
     private final Scanner scanner;
-    private final Options options = new Options();
-    private final Commands commands = new Commands();
+    private final Options options;
+    private final StartCommands startCommands;
 
-    public Selection(Scanner scanner) {
+    public Selection(Scanner scanner, Options options, StartCommands startCommands) {
         this.scanner = scanner;
+        this.options = options;
+        this.startCommands = startCommands;
     }
 
-    public void selectionCommand() {
-        System.out.println("Приветствую. Введите номер команды.");
+    public void commandSelections() {
+        System.out.println(Messages.GREETINGS);
+        System.out.print(Messages.MENU);
 
-        System.out.print("""
-                1.\tШифрование
-                2.\tРасшифровка
-                3.\tВыход
-                """);
-        if (scanner.nextInt() == 1) {
-            System.out.println("Введите путь к текстовому файлу/название или нажмите ENTER для text.txt");
-            options.setSourceTxt(scanner.next());
-            System.out.println("Введите путь для вывода зашифрованного файла/название или нажмите ENTER для encrypt.txt");
-            options.setEncryptTxt(scanner.next());
-            System.out.println("Введите ключ");
-            options.setKey(scanner.nextInt());
-            commands.startEncrypt(options);
+        boolean stop = false;
+        while (!stop) {
+            int numberCommand = Integer.parseInt(scanner.nextLine()); //потому что некорректно работают следующие nextLine, если здесь nextInt
+            switch (numberCommand) {
+                case 1 -> stop = encrypt();
+                case 2 -> stop = decrypt();
+                case 3 -> stop = exit();
+                default -> System.out.println(Messages.INVALID_INPUT);
+            }
         }
+    }
 
+    private boolean encrypt() {
+        System.out.println(Messages.SOURCE_TEXT);
+        String source = scanner.nextLine();
+        options.setSourceTxt(source);
+        System.out.println(Messages.TARGET_ENCRYPT);
+        String target = scanner.nextLine();
+        options.setTargetEncryptTxt(target);
+        System.out.println(Messages.ENTER_KEY);
+        int key = Integer.parseInt(scanner.nextLine());
+        options.setKey(key);
+        startCommands.startEncrypt(options);
+        return true;
+    }
+
+    private boolean decrypt() {
+        System.out.println(Messages.SOURCE_ENCRYPT);
+        String source = scanner.nextLine();
+        options.setSourceEncryptTxt(source);
+        System.out.println(Messages.TARGET_DECRYPT);
+        String target = scanner.nextLine();
+        options.setTargetDecryptTxt(target);
+        System.out.println(Messages.ENTER_KEY);
+        int key = Integer.parseInt(scanner.nextLine());
+        options.setKey(key);
+        startCommands.startDecrypt(options);
+        return true;
+    }
+
+    private boolean exit() {
+        startCommands.startExit();
+        return true;
     }
 }

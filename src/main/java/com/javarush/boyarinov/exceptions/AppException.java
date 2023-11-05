@@ -1,4 +1,4 @@
-package com.javarush.boyarinov;
+package com.javarush.boyarinov.exceptions;
 
 public class AppException extends RuntimeException{
     public AppException() {

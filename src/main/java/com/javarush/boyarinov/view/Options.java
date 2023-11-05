@@ -13,19 +13,37 @@ public class Options {
     public void setSourceTxt(String sourceTxt) {
         if (sourceTxt.isEmpty()) {
             this.sourceTxt = "text.txt";
+        } else {
+            this.sourceTxt = sourceTxt;
         }
-        this.sourceTxt = sourceTxt;
+    }
+
+    public void setSourceEncryptTxt(String sourceTxt) {
+        if (sourceTxt.isEmpty()) {
+            this.sourceTxt = "encrypt.txt";
+        } else {
+            this.sourceTxt = sourceTxt;
+        }
     }
 
     public String getTargetTxt() {
         return targetTxt;
     }
 
-    public void setEncryptTxt(String targetTxt) {
+    public void setTargetEncryptTxt(String targetTxt) {
         if (targetTxt.isEmpty()) {
             this.targetTxt = "encrypt.txt";
+        } else {
+            this.targetTxt = targetTxt;
         }
-        this.targetTxt = targetTxt;
+    }
+
+    public void setTargetDecryptTxt(String targetTxt) {
+        if (targetTxt.isEmpty()) {
+            this.targetTxt = "decrypt.txt";
+        } else {
+            this.targetTxt = targetTxt;
+        }
     }
 
     public int getKey() {
