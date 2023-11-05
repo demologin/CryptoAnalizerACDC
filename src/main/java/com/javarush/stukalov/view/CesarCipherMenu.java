@@ -1,7 +1,5 @@
 package com.javarush.stukalov.view;
 
-import com.javarush.stukalov.services.Encoder;
-
 public class CesarCipherMenu extends AbstractMenu{
     private static CesarCipherMenu instance;
     private final String MENU =
