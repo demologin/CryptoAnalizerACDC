@@ -1,31 +1,40 @@
 package com.javarush.stukalov.view;
 
 import com.javarush.stukalov.constant.Messages;
-import com.javarush.stukalov.controller.AnalyzerController;
+import com.javarush.stukalov.controller.AbstractController;
+import com.javarush.stukalov.exceptions.TryAgainException;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleApp {
-    private final AnalyzerController ANALYZER_CONTROLLER = new AnalyzerController();
-    private final String MENU = new WelcomeScreen().getMENU();
+    private final AbstractController CONTROLLER;
+    private final AbstractMenu MENU;
     private final Scanner SCANNER;
     private int mode;
 
-    public ConsoleApp(Scanner SCANNER) {
+    public ConsoleApp(Scanner SCANNER, AbstractController controller, AbstractMenu menu) {
         this.SCANNER = SCANNER;
+        this.CONTROLLER = controller;
+        this.MENU = menu;
     }
+
     public void runApp() {
         while (true) {
             mode = getMode();
-            ANALYZER_CONTROLLER.run(mode, getParams(mode));
+            try {
+                CONTROLLER.run(mode, getParams(mode));
+            } catch (TryAgainException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
     }
+
     private int getMode() {
         do {
-            System.out.println(MENU);
+            MENU.runMenu();
             String input = SCANNER.nextLine();
             mode = switch (input) {
                 case "1" -> 1;
@@ -45,6 +54,7 @@ public class ConsoleApp {
         } while (mode < 0);
         return mode;
     }
+
     private List<String> getParams(int mode) {
         List<String> params;
         params = switch (mode) {
@@ -56,6 +66,7 @@ public class ConsoleApp {
         };
         return params;
     }
+
     private String[] getEncoderParams() {
         String[] encoderParams = new String[3];
         String source;
@@ -73,6 +84,7 @@ public class ConsoleApp {
 
         return encoderParams;
     }
+
     private String[] getDecoderParams() {
         String[] decoderParams = new String[3];
         String source;
@@ -90,6 +102,7 @@ public class ConsoleApp {
 
         return decoderParams;
     }
+
     private String[] getAnalyzerParams() {
         String[] analyzerParams = new String[2];
         String source;
@@ -103,6 +116,7 @@ public class ConsoleApp {
 
         return analyzerParams;
     }
+
     private String[] getBruteForcerParams() {
         String[] bruteForcerParams = new String[2];
         String source;
