@@ -1,4 +1,6 @@
-package com.javarush.afanasenko;
+package com.javarush.afanasenko.objects;
+
+import com.javarush.afanasenko.exception.CryptoException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

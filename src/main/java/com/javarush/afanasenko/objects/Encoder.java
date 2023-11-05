@@ -1,4 +1,7 @@
-package com.javarush.afanasenko;
+package com.javarush.afanasenko.objects;
+
+import com.javarush.afanasenko.exception.CryptoException;
+
 import java.util.HashMap;
 
 public class Encoder {
@@ -44,13 +47,13 @@ public class Encoder {
             else throw new CryptoException("неверная команда");
             code.put(ALPHABET[i], ALPHABET[k]);
         }
-        HashMap<Integer, Character> result = new HashMap(text.getSymbolMap());
+        HashMap<Integer, Character> result = new HashMap<>(text.getSymbolMap());
         for (int i = 0; i < result.size(); i++) {
             char symbol = Character.toLowerCase(result.get(i));
             if (code.containsKey(symbol)) result.put(i, code.get(symbol));
         }
 
-        if(isWriteToFile) {
+        if (isWriteToFile) {
             text.setSymbolMap(result);
             text.textToFile(pathTo);
         }
