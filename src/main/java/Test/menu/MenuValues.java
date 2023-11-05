@@ -1,6 +1,6 @@
 package Test.menu;
 
-public class MenuValuesGetter {
+public class MenuValues {
 
     private final String fileAction;
     private final String sourceFile;
@@ -8,7 +8,7 @@ public class MenuValuesGetter {
     private final int key;
 
 
-    public MenuValuesGetter(String[] parameters) {
+    public MenuValues(String[] parameters) {
         fileAction = parameters[0];
         sourceFile = parameters[1];
         destFile = parameters[2];

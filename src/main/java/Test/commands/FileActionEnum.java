@@ -1,8 +1,7 @@
 package Test.commands;
 
-import Test.exceptions.TextException;
+import Test.exceptions.ConsoleException;
 import Test.menu.Menu;
-import Test.menu.MenuValuesGetter;
 import Test.messages.Message;
 
 public enum FileActionEnum {
@@ -19,13 +18,21 @@ public enum FileActionEnum {
     }
 
     public static FileAction get() {
-        actionIndex = Integer.parseInt(Menu.parameterGetter.getFileAction());
+        actionName = Menu.parameterGetter.getFileAction();
+        actionIndex = Integer.parseInt(actionName);
         try {
             FileActionEnum value = enums[actionIndex];
             return value.fileAction;
         } catch (IllegalArgumentException e) {
-            throw new TextException(Message.INCORRECT_ACTION);
+            throw new ConsoleException(Message.INCORRECT_ACTION);
         }
     }
 
+    public static int getActionsArrayLength(){
+        return enums.length;
+    }
+
+    public static int getActionIndex(){
+        return actionIndex;
+    }
 }

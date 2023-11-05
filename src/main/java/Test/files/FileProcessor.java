@@ -1,12 +1,12 @@
 package Test.files;
 
 import Test.commands.FileAction;
+import Test.commands.FileActionEnum;
 import Test.constant.Alphabet;
-import Test.constant.Constant;
-import Test.exceptions.TextException;
+import Test.exceptions.ConsoleException;
 import Test.messages.Message;
 import Test.util.PathBuilder;
-import com.javarush.berezovskiy.cryptoanalizer.constant.Const;
+import Test.util.PathCheckEmpty;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,9 +16,13 @@ import java.nio.file.Path;
 
 
 public abstract class FileProcessor implements FileAction {
-    public void runFile(String sourceFile, String destFile, int key) {
-        Path source = PathBuilder.pathname(sourceFile);
-        Path target = PathBuilder.pathname(destFile);
+    public void runFileWithKey(String sourceFile, String destFile, int key, int actionIndex) {
+        PathCheckEmpty pathCheckEmpty = new PathCheckEmpty(sourceFile, destFile, actionIndex);
+        String sourcePath = pathCheckEmpty.defaultSourceFilePath();
+        String destPath = pathCheckEmpty.defaultDestinationFilePath();
+
+        Path source = PathBuilder.pathname(sourcePath);
+        Path target = PathBuilder.pathname(destPath);
         try (BufferedReader reader = Files.newBufferedReader(source);
              BufferedWriter writer = Files.newBufferedWriter(target)) {
             int value;
@@ -35,7 +39,7 @@ public abstract class FileProcessor implements FileAction {
                 }
             }
         } catch (IOException e) {
-            throw new TextException(Message.FILE_EXCEPTION);
+            throw new ConsoleException(Message.FILE_EXCEPTION);
         }
 
     }

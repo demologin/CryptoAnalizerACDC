@@ -1,13 +1,7 @@
 package Test;
 
-import Test.constant.Constant;
-import Test.files.FileProcessor;
 import Test.menu.Menu;
-import Test.menu.MenuValuesGetter;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Console {
@@ -20,6 +14,7 @@ public class Console {
 //        int key = 12;
 //        file.runFile(source,dest,key);
 //        file.runFile(dest, decrypt, -1*key);
+        //TODO String[] for parameters
         Scanner console = new Scanner(System.in);
         Menu menu = new Menu(console);
         menu.run();

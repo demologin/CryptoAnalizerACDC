@@ -13,6 +13,9 @@ public class Message {
     public static final String KEY = "Enter the key";
     public static final String ENCRYPT = "Encrypt";
     public static final String DECRYPT = "Decrypt";
+    public static final String INCORRECT_COMMAND_TEXT = "Incorrect command. Please enter only numbers";
+    public static final String INCORRECT_COMMAND_NUMBER = "Incorrect command number. Please enter the number under";
+
 
 
 
@@ -30,9 +33,9 @@ public class Message {
     public void showActionsNamesInMenu(){
         String actionsMessage = """
                ___________
-               %s - %d
-               %s - %d
+               %d - %s
+               %d - %s
                 """;
-        System.out.printf(actionsMessage,ENCRYPT, 0, DECRYPT, 1);
+        System.out.printf(actionsMessage,0, ENCRYPT, 1, DECRYPT);
     }
 }
