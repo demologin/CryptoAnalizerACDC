@@ -1,8 +1,9 @@
-package com.javarush.boyarinov.view;
+package com.javarush.boyarinov.controller;
 
 
 import com.javarush.boyarinov.commands.StartCommands;
 import com.javarush.boyarinov.constats.Messages;
+import com.javarush.boyarinov.container.Options;
 
 import java.util.Scanner;
 

@@ -2,8 +2,8 @@ package com.javarush.boyarinov;
 
 
 import com.javarush.boyarinov.commands.StartCommands;
-import com.javarush.boyarinov.view.Options;
-import com.javarush.boyarinov.view.Selection;
+import com.javarush.boyarinov.container.Options;
+import com.javarush.boyarinov.controller.Selection;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package com.javarush.boyarinov.view;
+package com.javarush.boyarinov.container;
 
 public class Options {
 
