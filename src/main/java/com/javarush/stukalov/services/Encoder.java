@@ -1,21 +1,40 @@
 package com.javarush.stukalov.services;
 
-import com.javarush.stukalov.constant.Alphabet;
+import com.javarush.stukalov.constant.RusAlphabet;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
 
 public class Encoder {
-    public static void encode(Path source, Path destination, int key)  {
-        List<Character> chars = Alphabet.getListOfCHARS();
+    private static Encoder instance;
+    private List<Character> alphabet = RusAlphabet.getAlphabet();
+    private Encoder() {
+    }
+    public static Encoder getInstance() {
+        if (instance == null) {
+            instance = new Encoder();
+        }
+        return instance;
+    }
+
+    public List<Character> getAlphabet() {
+        return alphabet;
+    }
+
+    public void setAlphabet(List<Character> alphabet) {
+        this.alphabet = alphabet;
+    }
+
+    public void encode(Path source, Path destination, int key)  {
         try(BufferedReader sourceFile = new BufferedReader(new FileReader(source.toFile()));
         BufferedWriter destinationFile = new BufferedWriter(new FileWriter(destination.toFile()))) {
             while (sourceFile.ready()) {
                 char sourceChar = Character.toLowerCase((char)sourceFile.read());
-                int oldIndex = chars.indexOf(sourceChar);
-                int newIndex = (oldIndex + key) % chars.size();
-                destinationFile.write(chars.get(newIndex));
+                int oldIndex = alphabet.indexOf(sourceChar);
+                int newIndex = (oldIndex + key) % alphabet.size();
+                destinationFile.write(alphabet.get(newIndex));
             }
+            System.out.println("Encoding has been completed");
 
         } catch (Throwable e) {
             if (e instanceof FileNotFoundException) {
