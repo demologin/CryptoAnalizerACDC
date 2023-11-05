@@ -3,7 +3,6 @@ package com.javarush.stukalov.view;
 import com.javarush.stukalov.constant.Messages;
 import com.javarush.stukalov.controller.AnalyzerController;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
