@@ -29,23 +29,21 @@ public class Encrypt {
                 bufferedWriter.write(symbol);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new AppException(e);
         }
     }
 
     private char replaceCharacter(BufferedReader bufferedReader, int key) throws IOException {
+        if (key == Constant.ALPHABET.length) {
+            key++;
+        }
         int read = bufferedReader.read();
-        int setKey = key % Constant.ALPHABET.length;
         char symbol = Character.toLowerCase((char) read);
         for (int i = 0; i < Constant.ALPHABET.length; i++) {
+            int index = (i + key) % Constant.ALPHABET.length;
             if (symbol == Constant.ALPHABET[i]) {
-                if ((i + setKey) > Constant.ALPHABET.length - 1) {
-                    int i2 = (i + setKey) - Constant.ALPHABET.length;
-                    return Constant.ALPHABET[i2];
-                } else {
-                    return Constant.ALPHABET[i + setKey];
-                }
+                return Constant.ALPHABET[index];
             }
         }
         return symbol;
