@@ -1,4 +1,4 @@
-package com.javarush.berezovskiy.cryptoAnalizer.menu;
+package com.javarush.cryptoAnalizer.menu;
 
 public class MenuValues {
 

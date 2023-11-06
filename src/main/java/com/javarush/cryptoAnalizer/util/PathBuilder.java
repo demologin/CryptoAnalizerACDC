@@ -1,4 +1,4 @@
-package com.javarush.berezovskiy.cryptoAnalizer.util;
+package com.javarush.cryptoAnalizer.util;
 
 import java.nio.file.Path;
 

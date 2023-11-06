@@ -1,6 +1,6 @@
-package com.javarush.berezovskiy.cryptoAnalizer.messages;
+package com.javarush.cryptoAnalizer.messages;
 
-import com.javarush.berezovskiy.cryptoAnalizer.constant.Constant;
+import com.javarush.cryptoAnalizer.constant.Constant;
 
 public class Message {
     public static final String FILE_EXCEPTION = "Problem with read/write txt file";

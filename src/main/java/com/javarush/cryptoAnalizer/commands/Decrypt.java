@@ -1,7 +1,7 @@
-package com.javarush.berezovskiy.cryptoAnalizer.commands;
+package com.javarush.cryptoAnalizer.commands;
 
-import com.javarush.berezovskiy.cryptoAnalizer.files.FileProcessor;
-import com.javarush.berezovskiy.cryptoAnalizer.menu.MenuValues;
+import com.javarush.cryptoAnalizer.files.FileProcessor;
+import com.javarush.cryptoAnalizer.menu.MenuValues;
 
 public class Decrypt extends FileProcessor {
     @Override

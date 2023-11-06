@@ -1,13 +1,13 @@
-package com.javarush.berezovskiy.cryptoAnalizer.files;
+package com.javarush.cryptoAnalizer.files;
 
-import com.javarush.berezovskiy.cryptoAnalizer.commands.FileAction;
-import com.javarush.berezovskiy.cryptoAnalizer.commands.FileActionEnum;
-import com.javarush.berezovskiy.cryptoAnalizer.constant.Alphabet;
-import com.javarush.berezovskiy.cryptoAnalizer.constant.Constant;
-import com.javarush.berezovskiy.cryptoAnalizer.exceptions.ConsoleException;
-import com.javarush.berezovskiy.cryptoAnalizer.messages.Message;
-import com.javarush.berezovskiy.cryptoAnalizer.util.PathBuilder;
-import com.javarush.berezovskiy.cryptoAnalizer.util.PathCheckEmpty;
+import com.javarush.cryptoAnalizer.commands.FileAction;
+import com.javarush.cryptoAnalizer.commands.FileActionEnum;
+import com.javarush.cryptoAnalizer.constant.Alphabet;
+import com.javarush.cryptoAnalizer.constant.Constant;
+import com.javarush.cryptoAnalizer.exceptions.ConsoleException;
+import com.javarush.cryptoAnalizer.messages.Message;
+import com.javarush.cryptoAnalizer.util.PathBuilder;
+import com.javarush.cryptoAnalizer.util.PathCheckEmpty;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
