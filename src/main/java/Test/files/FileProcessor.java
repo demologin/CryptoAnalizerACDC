@@ -96,6 +96,7 @@ public abstract class FileProcessor implements FileAction {
                 } else if (fileCharacter == '\n') {
                     bruteforceText.append(fileCharacter);
                 }
+
             }
             bruteforce = bruteforceText.toString();
             if (orText.equals(bruteforce)) {
