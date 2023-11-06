@@ -46,6 +46,14 @@ public class Options {
         }
     }
 
+    public void setTargetBruteForceTxt(String targetTxt) {
+        if (targetTxt.isEmpty()) {
+            this.targetTxt = "bruteforce.txt";
+        } else {
+            this.targetTxt = targetTxt;
+        }
+    }
+
     public int getKey() {
         return key;
     }

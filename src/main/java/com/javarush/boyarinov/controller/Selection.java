@@ -29,7 +29,8 @@ public class Selection {
             switch (numberCommand) {
                 case 1 -> stop = encrypt();
                 case 2 -> stop = decrypt();
-                case 3 -> stop = exit();
+                case 3 -> stop = bruteForce();
+                case 4 -> stop = exit();
                 default -> System.out.println(Messages.INVALID_INPUT);
             }
         }
@@ -60,6 +61,17 @@ public class Selection {
         int key = Integer.parseInt(scanner.nextLine());
         options.setKey(key);
         startCommands.startDecrypt(options);
+        return true;
+    }
+
+    private boolean bruteForce() {
+        System.out.println(Messages.SOURCE_ENCRYPT);
+        String source = scanner.nextLine();
+        options.setSourceEncryptTxt(source);
+        System.out.println(Messages.TARGET_BRUTE_FORCE);
+        String target = scanner.nextLine();
+        options.setTargetBruteForceTxt(target);
+        startCommands.startBruteForce(options);
         return true;
     }
 
