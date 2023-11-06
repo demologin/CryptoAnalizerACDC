@@ -12,12 +12,12 @@ public class Decoder {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Укажите полный путь до исходного файла (закодированный)");
-        String src = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/result.txt";
-        //String src = scanner.next();
+        //String src = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/result.txt";
+        String src = scanner.next();
 
         System.out.println("Укажите полный путь до файла с результатами (раскодированный)");
-        String dest = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/decoded_text.txt";
-        //String dest = scanner.next();
+        //String dest = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/decoded_text.txt";
+        String dest = scanner.next();
 
         System.out.println("Укажите номер ключа шифра в виде числа");
         int cipherKey = scanner.nextInt();
@@ -46,6 +46,7 @@ public class Decoder {
                 }
                 writer.write(buffer, 0, real);
             }
+            System.out.println("Текст успешно расшифрован");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

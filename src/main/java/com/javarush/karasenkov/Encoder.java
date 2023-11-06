@@ -5,19 +5,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Coder {
+public class Encoder {
     public static final char[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '«', '»', '"', '\'', ':', '!', ' '};
 
-    public static void codingText() {
+    public static void encodeText() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Укажите полный путь до исходного файла (не закодированный текст)");
-        String src = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/text.txt";
-        //String src = scanner.next();
+        //String src = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/text.txt";
+        String src = scanner.next();
 
         System.out.println("Укажите полный путь до файла с результатами (раскодированный текст)");
-        String dest = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/result.txt";
-        //String dest = scanner.next();
+        //String dest = "/Users/bkarasenkov/IdeaProjects/CryptoAnalizerACDC/text/result.txt";
+        String dest = scanner.next();
 
         System.out.println("Укажите номер ключа шифра в виде числа");
         int cipherKey = scanner.nextInt();
@@ -45,6 +45,7 @@ public class Coder {
                 }
                 writer.write(buffer, 0, real);
             }
+            System.out.println("Текст успешно зашифрован");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
