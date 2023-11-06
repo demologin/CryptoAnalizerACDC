@@ -35,7 +35,7 @@ public class PathCheckEmpty {
     public String defaultDestinationFilePath(){
         if(destPath.equals("")){
             switch (action){
-                case ENCRYPTED -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ENCRYPTED_FILEPATH;
+                case ENCRYPTED, BRUTEFORCE -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ENCRYPTED_FILEPATH;
                 case DECRYPTED -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_DECRYPTED_FILEPATH;
             }
         }

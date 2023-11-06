@@ -24,13 +24,6 @@ import java.util.Scanner;
 
 public class Console {
     public static void main(String[] args) {
-//        FileProcessor file = new FileProcessor();
-       String source = "/Users/sergeyberezovskiy/IdeaProjects/CryptoAnalizerACDC/text/text.txt";
-//        String dest = "/Users/sergeyberezovskiy/IdeaProjects/CryptoAnalizerACDC/text/dest.txt";
-        String encrypt = "/Users/sergeyberezovskiy/IdeaProjects/CryptoAnalizerACDC/text/encrypted.txt";
-        String bruteForced = "/Users/sergeyberezovskiy/IdeaProjects/CryptoAnalizerACDC/text/bruteForced.txt";
-//
-        //TODO String[] for parameters
         Scanner console = new Scanner(System.in);
         Menu menu = new Menu(console);
         menu.run();

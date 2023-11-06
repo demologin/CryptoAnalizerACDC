@@ -9,7 +9,7 @@ public class Decrypt extends FileProcessor {
         MenuValues parameters = DefineAction.getParameters();
         String sourceFile = parameters.getSourceFile();
         String destFile = parameters.getDestFile();
-        int key = parameters.getKey();
+        int key = Integer.parseInt(parameters.getKey());
 
         runFileWithKey(sourceFile,destFile,-1*key, FileActionEnum.DECRYPTED);
     }

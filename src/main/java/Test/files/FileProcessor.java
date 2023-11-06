@@ -52,11 +52,9 @@ public abstract class FileProcessor implements FileAction {
 
         Path originalTextPath = PathBuilder.pathname(sourcePath);
         Path encryptedTextPath = PathBuilder.pathname(encryptedPath);
-        Path bruteForcedTextPath = PathBuilder.pathname(brutePath);
 
         try (BufferedReader originalFile = Files.newBufferedReader(originalTextPath);
-             BufferedReader encryptedFile = Files.newBufferedReader(encryptedTextPath);
-             BufferedWriter bruteForcedFile = Files.newBufferedWriter(bruteForcedTextPath)
+             BufferedReader encryptedFile = Files.newBufferedReader(encryptedTextPath)
         ){
             StringBuilder origText = new StringBuilder();
             StringBuilder encryptText = new StringBuilder();
