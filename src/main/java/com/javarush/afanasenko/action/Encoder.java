@@ -1,15 +1,15 @@
-package com.javarush.afanasenko.objects;
+package com.javarush.afanasenko.action;
 
 import com.javarush.afanasenko.exception.CryptoException;
+import com.javarush.afanasenko.objects.TextHandler;
 
 import java.util.HashMap;
 
 public class Encoder {
     public static final Character[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
             'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
-            'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '};
-
-
+            'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' ', '-', '(',
+            ')', '\n', ';', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
     private TextHandler text;
     private int key;
 
@@ -34,7 +34,7 @@ public class Encoder {
         this.key = key;
     }
 
-    public HashMap<Integer, Character> encode(String typeOperation, String pathTo, boolean isWriteToFile) {
+    public StringBuilder encode(String typeOperation, String pathTo, boolean isWriteToFile) {
         if (key >= ALPHABET.length || key < 1)
             throw new CryptoException("Ключ должен быть не меньше единицы и не больше размера алфавита(" +
                     ALPHABET.length + ")");
@@ -47,16 +47,13 @@ public class Encoder {
             else throw new CryptoException("неверная команда");
             code.put(ALPHABET[i], ALPHABET[k]);
         }
-        HashMap<Integer, Character> result = new HashMap<>(text.getSymbolMap());
-        for (int i = 0; i < result.size(); i++) {
-            char symbol = Character.toLowerCase(result.get(i));
-            if (code.containsKey(symbol)) result.put(i, code.get(symbol));
-        }
 
-        if (isWriteToFile) {
-            text.setSymbolMap(result);
-            text.textToFile(pathTo);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < text.getSymbolMap().size(); i++) {
+            char symbol = Character.toLowerCase(text.getSymbolMap().get(i));
+            if (code.containsKey(symbol)) sb.append(code.get(symbol));
         }
-        return result;
+        if (isWriteToFile) text.textToFile(pathTo, sb);
+        return sb;
     }
 }

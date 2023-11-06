@@ -15,6 +15,5 @@ public class PathBuilder {
     public PathBuilder(String path) throws CryptoException {
         this.path = Path.of(path);
         if (!Files.exists(this.path)) throw new CryptoException("По данному пути файла не существует");
-
     }
 }

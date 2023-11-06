@@ -2,10 +2,11 @@ package com.javarush.afanasenko;
 
 import com.javarush.afanasenko.action.BruteForse;
 import com.javarush.afanasenko.exception.CryptoException;
-import com.javarush.afanasenko.objects.Encoder;
+import com.javarush.afanasenko.action.Encoder;
 import com.javarush.afanasenko.objects.PathBuilder;
 import com.javarush.afanasenko.objects.TextHandler;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ProjectRunner {
@@ -15,7 +16,7 @@ public class ProjectRunner {
             Scanner sc = new Scanner(System.in);
             String choice = sc.nextLine();
             switch (choice) {
-                case "1":
+                case "1" -> {
                     try {
                         Encoder encoder = createEncoder(sc, "text\\text.txt");
                         encoder.encode("encode", "text\\encodedFile.txt", true);
@@ -23,8 +24,8 @@ public class ProjectRunner {
                     } catch (CryptoException ex) {
                         System.out.println("\u001B[31m" + ex.getMessage());
                     }
-                    break;
-                case "2":
+                }
+                case "2" -> {
                     try {
                         Encoder encoder = createEncoder(sc, "text\\encodedFile.txt");
                         encoder.encode("decode", "text\\decodedFile.txt", true);
@@ -32,19 +33,19 @@ public class ProjectRunner {
                     } catch (CryptoException ex) {
                         System.out.println("\u001B[31m" + ex.getMessage());
                     }
-                    break;
-                case "3":
+                }
+                case "3" -> {
                     try {
                         BruteForse bruteForse = new BruteForse(createEncoder(sc, "text\\encodedFile.txt"));
                         bruteForse.hack();
                     } catch (CryptoException ex) {
                         System.out.println("\u001B[31m" + ex.getMessage());
                     }
-                    break;
-                case "4":
+                }
+                case "4" -> {
                     return;
-                default:
-                    System.out.println("\u001B[31m" + "Такой символ не поддерживается программой");
+                }
+                default -> System.out.println("\u001B[31m" + "Такой символ не поддерживается программой");
             }
         }
     }
@@ -63,7 +64,7 @@ public class ProjectRunner {
         String pathString = sc.nextLine();
         System.out.println("Введите ключ кодировки(для режима взлома нажмите любую цифру)");
         int key = sc.nextInt();
-        if (pathString=="")pathString = defaultPath;
+        if (Objects.equals(pathString, "")) pathString = defaultPath;
         PathBuilder builder = new PathBuilder(pathString);
         return new Encoder((new TextHandler(builder.getPath())), key);
     }

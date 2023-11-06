@@ -1,8 +1,7 @@
 package com.javarush.afanasenko.action;
 
-import com.javarush.afanasenko.objects.Encoder;
-
-import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BruteForse {
     private final Encoder encoder;
@@ -12,19 +11,18 @@ public class BruteForse {
     }
 
     public void hack() {
-
         int maxСoincidenceKey = -1;
         int maxСoincidence = -1;
         for (int i = 1; i < Encoder.ALPHABET.length; i++) {
             encoder.setKey(i);
-            HashMap<Integer, Character> variant = encoder.encode("decode", "", false);
+            StringBuilder variant = encoder.encode("decode", "", false);
             int quantityСoincidence = 0;
-            for (int j = 0; j < variant.size() - 1; j++) {
-                if ((variant.get(j).equals('.') && variant.get(j + 1).equals(' ')) ||
-                        (variant.get(j).equals(',') && variant.get(j + 1).equals(' ')))
-                    quantityСoincidence++;
-            }
 
+            Pattern concidienceType = Pattern.compile("[.,] ");
+            Matcher matcher = concidienceType.matcher(variant);
+            while (matcher.find()) {
+                quantityСoincidence++;
+            }
             if (quantityСoincidence > maxСoincidence) {
                 maxСoincidence = quantityСoincidence;
                 maxСoincidenceKey = i;

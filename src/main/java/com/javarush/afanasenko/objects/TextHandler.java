@@ -10,16 +10,10 @@ import java.util.HashMap;
 
 
 public class TextHandler {
-
-
-    private HashMap<Integer, Character> symbolMap;
+    private final HashMap<Integer, Character> symbolMap;
 
     public TextHandler(Path path) {
         symbolMap = textFromFile(path);
-    }
-
-    public void setSymbolMap(HashMap<Integer, Character> symbolMap) {
-        this.symbolMap = symbolMap;
     }
 
     public HashMap<Integer, Character> getSymbolMap() {
@@ -43,15 +37,15 @@ public class TextHandler {
         return text;
     }
 
-    public void textToFile(String pathString) throws CryptoException {
+    public void textToFile(String pathString, StringBuilder sb) throws CryptoException {
         try {
             Path pathTo = Path.of(pathString);
             if (Files.exists(pathTo)) Files.delete(pathTo);
             Path path = Files.createFile(pathTo);
 
             try (BufferedWriter output = Files.newBufferedWriter(path)) {
-                for (int i = 0; i < symbolMap.size(); i++) {
-                    if (symbolMap.get(i) != null) output.write(symbolMap.get(i));
+                for (int i = 0; i < sb.length(); i++) {
+                    output.write(sb.charAt(i));
                 }
             }
             System.out.println("Cоздан новый файл, путь к нему:" + pathTo);
