@@ -14,6 +14,9 @@ public class MenuValues {
         destFile = parameters[2];
         key = Integer.parseInt(parameters[3]);
     }
+    public MenuValues getParameters(){
+        return this;
+    }
 
 
     public String getFileAction() {return fileAction;}

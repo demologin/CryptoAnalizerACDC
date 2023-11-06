@@ -7,20 +7,27 @@ public class PathCheckEmpty {
 
     private String sourcePath;
     private String destPath;
-    private int action;
+    private String bruteForcePath;
+    private FileActionEnum action;
 
 
-    public PathCheckEmpty(String sourcePath, String destPath, int actionIndex){
+    public PathCheckEmpty(String sourcePath, String destPath, FileActionEnum action){
         this.sourcePath = sourcePath;
         this.destPath = destPath;
-        this.action = actionIndex;
+        this.action = action;
+    }
+    public PathCheckEmpty(String originalTextPath, String encryptedTextPath, String bruteForcedPath, FileActionEnum action){
+        this.sourcePath = originalTextPath;
+        this.destPath = encryptedTextPath;
+        this.bruteForcePath = bruteForcedPath;
+        this.action = action;
     }
 
     public String defaultSourceFilePath(){
         if(sourcePath.equals("")){
             switch (action){
-                case 0 -> sourcePath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ORIGINAL_FILEPATH;
-                case 1 -> sourcePath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ENCRYPTED_FILEPATH;
+                case ENCRYPTED, BRUTEFORCE -> sourcePath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ORIGINAL_FILEPATH;
+                case DECRYPTED -> sourcePath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ENCRYPTED_FILEPATH;
             }
         }
         return sourcePath;
@@ -28,10 +35,13 @@ public class PathCheckEmpty {
     public String defaultDestinationFilePath(){
         if(destPath.equals("")){
             switch (action){
-                case 0 -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ENCRYPTED_FILEPATH;
-                case 1 -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_DECRYPTED_FILEPATH;
+                case ENCRYPTED -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_ENCRYPTED_FILEPATH;
+                case DECRYPTED -> destPath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_DECRYPTED_FILEPATH;
             }
         }
         return destPath;
+    }
+    public String defaultDestinationBruteForcePath(){
+        return Constant.TXT_FOLDER + Constant.EMPTY_STRING_BRUTEFORCE_FILEPATH;
     }
 }

@@ -9,6 +9,8 @@ public class Constant {
     public static final String EMPTY_STRING_ENCRYPTED_FILEPATH = "encrypted.txt";
     public static final String EMPTY_STRING_ORIGINAL_FILEPATH = "text.txt";
     public static final String EMPTY_STRING_DECRYPTED_FILEPATH = "decrypted.txt";
+    public static final String EMPTY_STRING_BRUTEFORCE_FILEPATH = "bruteforce.txt";
+    public static final int KEY = 50;
 
 }
 
