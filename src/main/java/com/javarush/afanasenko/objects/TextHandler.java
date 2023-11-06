@@ -6,34 +6,36 @@ import com.javarush.afanasenko.exception.CryptoException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class TextHandler {
 
 
-    private HashMap<Integer, Character> symbolMap;
+    private List<String> symbolList;
 
     public TextHandler(Path path) {
-        symbolMap = textFromFile(path);
+        symbolList = textFromFile(path);
     }
 
-    public void setSymbolMap(HashMap<Integer, Character> symbolMap) {
-        this.symbolMap = symbolMap;
+    public void setsymbolList(List<String> symbolList) {
+        this.symbolList = symbolList;
     }
 
-    public HashMap<Integer, Character> getSymbolMap() {
-        return symbolMap;
+    public List<String> getsymbolList() {
+        return symbolList;
     }
 
-    public static HashMap<Integer, Character> textFromFile(Path path) throws CryptoException {
-        HashMap<Integer, Character> text = new HashMap<>();
+    public static List<String> textFromFile(Path path) throws CryptoException {
+        List<String> text = new ArrayList<>();
         if (Files.isRegularFile(path)) {
             try (BufferedReader buffer = Files.newBufferedReader(path)) {
                 int i = 0;
                 while (buffer.ready()) {
-                    Character c = (char) buffer.read();
-                    text.put(i, c);
+                    String c = new String(new char[]{(char)buffer.read()});
+                    text.add(c);
                     i++;
                 }
             } catch (IOException ex) {
@@ -49,9 +51,9 @@ public class TextHandler {
             if (Files.exists(pathTo)) Files.delete(pathTo);
             Path path = Files.createFile(pathTo);
 
-            try (BufferedWriter output = Files.newBufferedWriter(path)) {
-                for (int i = 0; i < symbolMap.size(); i++) {
-                    if (symbolMap.get(i) != null) output.write(symbolMap.get(i));
+            try (BufferedWriter bf = Files.newBufferedWriter(path)) {
+                for (int i = 0; i < symbolList.size(); i++) {
+                    if (symbolList.get(i) != null) bf.write(symbolList.get(i));
                 }
             }
             System.out.println("Cоздан новый файл, путь к нему:" + pathTo);
