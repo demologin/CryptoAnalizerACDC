@@ -12,19 +12,19 @@ import java.nio.file.Path;
 
 public class Encoder extends CipherMethods implements Action {
     @Override
-    public String execute(Path input, int key, Path output, Alphabet alphabet){
+    public String execute(Path input, int key, Path output, Alphabet language){
         StringBuilder builder = new StringBuilder();
-        char[] textAlphabet = alphabet.getChars();
+        char[] alphabet = language.getChars();
         try(BufferedReader reader = Files.newBufferedReader(input);
         BufferedWriter writer = Files.newBufferedWriter(output)) {
             while (reader.ready()) {
                 String line = reader.readLine();
                 char[] charLine = line.toLowerCase().toCharArray();
                 for (int i = 0; i < charLine.length; i++) {
-                    int position = findPosition(textAlphabet, charLine[i]);
+                    int position = findPosition(language.getChars(), charLine[i]);
                     if (position > -1) {
-                        int positionToReplace = ((position % textAlphabet.length + key % textAlphabet.length + textAlphabet.length) % textAlphabet.length);
-                        charLine[i] = textAlphabet[positionToReplace];
+                        int positionToReplace = ((position % alphabet.length + key % alphabet.length + alphabet.length) % alphabet.length);
+                        charLine[i] = alphabet[positionToReplace];
                     }
                 }
                 builder.append(new String(charLine)).append('\n');

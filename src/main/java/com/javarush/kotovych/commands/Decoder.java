@@ -7,8 +7,8 @@ import java.nio.file.Path;
 
 public class Decoder extends Encoder implements Action {
     @Override
-    public String execute(Path input, int key, Path output, Alphabet alphabet){
-        return super.execute(input, -key, output, alphabet);
+    public String execute(Path input, int key, Path output, Alphabet language){
+        return super.execute(input, -key, output, language);
     }
 
     public String decodeString(String text, int key, Alphabet alphabet){
