@@ -2,12 +2,7 @@ package com.javarush.afanasenko.action;
 
 import com.javarush.afanasenko.objects.Encoder;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class BruteForse {
     private final Encoder encoder;
@@ -22,18 +17,14 @@ public class BruteForse {
         int maxСoincidence = -1;
         for (int i = 1; i < Encoder.ALPHABET.length; i++) {
             encoder.setKey(i);
-            List<String> variant = encoder.encode("decode", "", false);
+            HashMap<Integer, Character> variant = encoder.encode("decode", "", false);
             int quantityСoincidence = 0;
-          /*  for (int j = 0; j < variant.size() - 1; j++) {
+            for (int j = 0; j < variant.size() - 1; j++) {
                 if ((variant.get(j).equals('.') && variant.get(j + 1).equals(' ')) ||
                         (variant.get(j).equals(',') && variant.get(j + 1).equals(' ')))
                     quantityСoincidence++;
-            }*/
-                Pattern coincidence = Pattern.compile("[.,]\s");
-                Matcher matcher = coincidence.matcher(String.join("", variant));
-                while(matcher.find()){
-                    quantityСoincidence++;
-                }
+            }
+
             if (quantityСoincidence > maxСoincidence) {
                 maxСoincidence = quantityСoincidence;
                 maxСoincidenceKey = i;
