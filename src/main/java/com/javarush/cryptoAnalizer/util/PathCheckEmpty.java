@@ -42,6 +42,9 @@ public class PathCheckEmpty {
         return destPath;
     }
     public String defaultDestinationBruteForcePath(){
-        return Constant.TXT_FOLDER + Constant.EMPTY_STRING_BRUTEFORCE_FILEPATH;
+        if(bruteForcePath.equals("")){
+            bruteForcePath = Constant.TXT_FOLDER + Constant.EMPTY_STRING_BRUTEFORCE_FILEPATH;
+        }
+        return bruteForcePath;
     }
 }
