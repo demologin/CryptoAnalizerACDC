@@ -44,6 +44,7 @@ public abstract class FileProcessor implements FileAction {
         }
 
     }
+
     public void runBruteForce(String originalText, String encryptedText, String bruteForcedText, FileActionEnum action) {
         PathCheckEmpty source = new PathCheckEmpty(originalText, encryptedText, bruteForcedText, action);
         String sourcePath = source.defaultSourceFilePath();
@@ -55,16 +56,16 @@ public abstract class FileProcessor implements FileAction {
 
         try (BufferedReader originalFile = Files.newBufferedReader(originalTextPath);
              BufferedReader encryptedFile = Files.newBufferedReader(encryptedTextPath)
-        ){
+        ) {
             StringBuilder origText = new StringBuilder();
             StringBuilder encryptText = new StringBuilder();
             int StringCountLines = 6;
-            while(StringCountLines > 0){
+            while (StringCountLines > 0) {
                 origText.append(originalFile.readLine().toLowerCase());
                 StringCountLines--;
             }
             StringCountLines = 6;
-            while(StringCountLines > 0){
+            while (StringCountLines > 0) {
                 encryptText.append(encryptedFile.readLine());
                 StringCountLines--;
             }
@@ -76,7 +77,8 @@ public abstract class FileProcessor implements FileAction {
         }
 
     }
-    public int returnKey(StringBuilder sourFile, StringBuilder encFile){
+
+    public int returnKey(StringBuilder sourFile, StringBuilder encFile) {
         StringBuilder bruteforceText = new StringBuilder();
         char[] encryptChar = encFile.toString().toCharArray();
         int key;
