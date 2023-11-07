@@ -1,9 +1,10 @@
-package com.javarush.cryptoAnalizer.commands;
+package com.javarush.berezovskiy.commands;
 
-import com.javarush.cryptoAnalizer.files.FileProcessor;
-import com.javarush.cryptoAnalizer.menu.MenuValues;
 
-public class Decrypt extends FileProcessor {
+import com.javarush.berezovskiy.files.FileProcessor;
+import com.javarush.berezovskiy.menu.MenuValues;
+
+public class Encrypt extends FileProcessor {
     @Override
     public void runFile() {
         MenuValues parameters = DefineAction.getParameters();
@@ -11,6 +12,7 @@ public class Decrypt extends FileProcessor {
         String destFile = parameters.getDestFile();
         int key = Integer.parseInt(parameters.getKey());
 
-        runFileWithKey(sourceFile,destFile,-1*key, FileActionEnum.DECRYPTED);
+        runFileWithKey(sourceFile,destFile,key, FileActionEnum.ENCRYPTED);
     }
+
 }

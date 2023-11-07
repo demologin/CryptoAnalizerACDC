@@ -1,5 +1,5 @@
-package com.javarush.cryptoAnalizer;
-import com.javarush.cryptoAnalizer.menu.Menu;
+package com.javarush.berezovskiy;
+import com.javarush.berezovskiy.menu.Menu;
 import java.util.Scanner;
 
 public class Console {

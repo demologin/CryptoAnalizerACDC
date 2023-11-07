@@ -1,7 +1,7 @@
-package com.javarush.cryptoAnalizer.menu;
+package com.javarush.berezovskiy.menu;
 
-import com.javarush.cryptoAnalizer.commands.DefineAction;
-import com.javarush.cryptoAnalizer.messages.Message;
+import com.javarush.berezovskiy.commands.DefineAction;
+import com.javarush.berezovskiy.messages.Message;
 
 import java.util.Scanner;
 

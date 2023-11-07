@@ -1,7 +1,7 @@
-package com.javarush.cryptoAnalizer.util;
+package com.javarush.berezovskiy.util;
 
-import com.javarush.cryptoAnalizer.commands.FileActionEnum;
-import com.javarush.cryptoAnalizer.constant.Constant;
+import com.javarush.berezovskiy.commands.FileActionEnum;
+import com.javarush.berezovskiy.constant.Constant;
 
 public class PathCheckEmpty {
 

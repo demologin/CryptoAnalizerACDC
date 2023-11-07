@@ -1,8 +1,8 @@
-package com.javarush.cryptoAnalizer.commands;
+package com.javarush.berezovskiy.commands;
 
-import com.javarush.cryptoAnalizer.exceptions.ConsoleException;
-import com.javarush.cryptoAnalizer.menu.MenuValues;
-import com.javarush.cryptoAnalizer.messages.Message;
+import com.javarush.berezovskiy.exceptions.ConsoleException;
+import com.javarush.berezovskiy.menu.MenuValues;
+import com.javarush.berezovskiy.messages.Message;
 
 public enum FileActionEnum {
     ENCRYPTED(new Encrypt()),

@@ -1,4 +1,4 @@
-package com.javarush.cryptoAnalizer.exceptions;
+package com.javarush.berezovskiy.exceptions;
 
 public class ConsoleException extends RuntimeException{
     public ConsoleException() {

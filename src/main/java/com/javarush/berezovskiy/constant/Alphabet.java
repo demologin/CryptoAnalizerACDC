@@ -1,4 +1,4 @@
-package com.javarush.cryptoAnalizer.constant;
+package com.javarush.berezovskiy.constant;
 
 import java.util.HashMap;
 import java.util.Map;

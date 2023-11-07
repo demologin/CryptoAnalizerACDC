@@ -1,4 +1,4 @@
-package com.javarush.cryptoAnalizer.constant;
+package com.javarush.berezovskiy.constant;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package com.javarush.cryptoAnalizer.commands;
+package com.javarush.berezovskiy.commands;
 
 
 public interface FileAction {

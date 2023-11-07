@@ -1,6 +1,6 @@
-package com.javarush.cryptoAnalizer.commands;
+package com.javarush.berezovskiy.commands;
 
-import com.javarush.cryptoAnalizer.menu.MenuValues;
+import com.javarush.berezovskiy.menu.MenuValues;
 
 public class DefineAction {
     FileAction fileAction;

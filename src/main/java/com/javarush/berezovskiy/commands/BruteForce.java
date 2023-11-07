@@ -1,7 +1,7 @@
-package com.javarush.cryptoAnalizer.commands;
+package com.javarush.berezovskiy.commands;
 
-import com.javarush.cryptoAnalizer.files.FileProcessor;
-import com.javarush.cryptoAnalizer.menu.MenuValues;
+import com.javarush.berezovskiy.files.FileProcessor;
+import com.javarush.berezovskiy.menu.MenuValues;
 
 public class BruteForce extends FileProcessor {
     @Override
