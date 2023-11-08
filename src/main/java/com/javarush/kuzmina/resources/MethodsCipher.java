@@ -22,7 +22,7 @@ public class MethodsCipher {
         for (int i = 0; i < textArr.length; i++) {
             char tempo = textArr[i];
             boolean check = check(tempo);
-            if (check == true) {
+            if (check) {
                 int ind = indexOf(tempo);
                 int sum = turn + ind;
                 int temp = rotate(sum);
