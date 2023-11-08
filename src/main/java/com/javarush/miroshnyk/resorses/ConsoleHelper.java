@@ -53,7 +53,7 @@ public class ConsoleHelper {
                 ConsoleHelper.print("No file name");
                 continue;
             } else if (fileName.equals("exit")) {
-                continue;
+                return "";
             }
             return fileName;
         }

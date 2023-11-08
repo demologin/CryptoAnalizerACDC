@@ -22,10 +22,9 @@ public class Runner {
     public static void main(String[] args) throws UnsupportedEncodingException {
 
         File currentClass = new File (URLDecoder.decode(Runner.class.getProtectionDomain().getCodeSource().getLocation().getPath()));
-        // из папки E:\JAVA\Projects\CryptoAnalizerACDC\target\classes не читает русские буквы
         directoryPathForWorkFileSave = currentClass.getPath().replaceAll("\\\\target\\\\classes", "\\\\src\\\\main\\\\java\\\\com\\\\javarush\\\\miroshnyk\\\\resorses\\\\workFiles") + "\\";
 
-        System.out.println(directoryPathForWorkFileSave);
+        System.out.println("Work Directory is " + directoryPathForWorkFileSave);
 
         ConsoleHelper consoleHelper = new ConsoleHelper();
         consoleHelper.askOperation();
