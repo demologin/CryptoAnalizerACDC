@@ -15,11 +15,11 @@ public interface Messages {
             "text" +
             File.separator;
     String INCORRECT_PATH = "Path is incorrect";
-    String KEY = "Please enter key";
+    String KEY = "Please enter key number";
     String DESTINATION_PATH = "Please enter destination path or filename";
-    String APPLICATION_CLOSED = "application closed";
-    String FILE_ENCRYPTED = "file has been encrypted!";
-    String FILE_DECRYPTED="file has been decrypted!";
-    String ERROR ="ERROR";
+    String APPLICATION_CLOSED = "Application closed";
+    String FILE_ENCRYPTED = "File has been encrypted!";
+    String FILE_DECRYPTED="File has been decrypted!";
+    String ERROR ="ERROR! Incorrect path or key(must be a number)";
 
 }

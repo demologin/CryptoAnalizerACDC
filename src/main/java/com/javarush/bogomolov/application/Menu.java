@@ -1,7 +1,6 @@
 package com.javarush.bogomolov.application;
 
 import com.javarush.bogomolov.command.Cipher;
-import com.javarush.bogomolov.exception.AppException;
 
 import java.util.Scanner;
 
@@ -51,7 +50,7 @@ public class Menu {
                 System.out.println(Messages.FILE_ENCRYPTED);
 
             } catch (Exception e) {
-                throw new AppException(Messages.ERROR);
+                System.out.println(Messages.ERROR);
             }
 
 
@@ -67,7 +66,7 @@ public class Menu {
                 System.out.println(Messages.FILE_DECRYPTED);
 
             } catch (Exception e) {
-                throw new AppException(Messages.ERROR);
+                System.out.println(Messages.ERROR);
 
             }
 

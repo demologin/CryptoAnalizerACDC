@@ -7,6 +7,7 @@ import com.javarush.bogomolov.util.PathBuilder;
 
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 
@@ -15,8 +16,8 @@ public class Cipher {
         Path source = PathBuilder.get(sourceFile);
         Path destination = PathBuilder.get(destFile);
         try (
-                FileReader reader = new FileReader(String.valueOf(source));
-                FileWriter writer = new FileWriter(String.valueOf(destination))) {
+                BufferedReader reader = Files.newBufferedReader(source);
+                BufferedWriter writer = Files.newBufferedWriter(destination)) {
             int length = Alphabet.CHARS.length;
             int value;
             while ((value = reader.read()) > -1) {
@@ -37,10 +38,12 @@ public class Cipher {
             throw new AppException(Messages.INCORRECT_PATH + e.getMessage(), e);
         }
 
+
     }
 
     public void decrypt(String sourceFile, String destFile, int key) {
         encrypt(sourceFile, destFile, -1 * key);
+
 
     }
 
