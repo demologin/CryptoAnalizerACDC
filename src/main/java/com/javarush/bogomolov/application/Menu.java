@@ -36,19 +36,9 @@ public class Menu {
     public void Action() {
         int option = getOption(scanner);
         Cipher cipher = new Cipher();
-        int key;
-        String sourceFile;
-        String destFile;
         if (option == 0) {
             try {
-                System.out.println(Messages.CHOOSE_FILE);
-                sourceFile = scanner.nextLine();
-                System.out.println(Messages.DESTINATION_PATH);
-                destFile = scanner.nextLine();
-                System.out.println(Messages.KEY);
-                key = scanner.nextInt();
-                cipher.encrypt(sourceFile, destFile, key);
-                System.out.println(Messages.FILE_ENCRYPTED);
+                Encode(cipher);
 
             } catch (AppException e) {
                 System.out.println(Messages.ERROR);
@@ -57,14 +47,7 @@ public class Menu {
 
         } else if (option == 1) {
             try {
-                System.out.println(Messages.CHOOSE_FILE);
-                sourceFile = scanner.nextLine();
-                System.out.println(Messages.DESTINATION_PATH);
-                destFile = scanner.nextLine();
-                System.out.println(Messages.KEY);
-                key = scanner.nextInt();
-                cipher.decrypt(sourceFile, destFile, key);
-                System.out.println(Messages.FILE_DECRYPTED);
+                Decode(cipher);
 
             } catch (AppException e) {
                 System.out.println(Messages.ERROR);
@@ -76,6 +59,34 @@ public class Menu {
         }
 
 
+    }
+
+    private void Decode(Cipher cipher) {
+        String destFile;
+        String sourceFile;
+        int key;
+        System.out.println(Messages.CHOOSE_FILE);
+        sourceFile = scanner.nextLine();
+        System.out.println(Messages.DESTINATION_PATH);
+        destFile = scanner.nextLine();
+        System.out.println(Messages.KEY);
+        key = scanner.nextInt();
+        cipher.decrypt(sourceFile, destFile, key);
+        System.out.println(Messages.FILE_DECRYPTED);
+    }
+
+    private void Encode(Cipher cipher) {
+        String destFile;
+        int key;
+        String sourceFile;
+        System.out.println(Messages.CHOOSE_FILE);
+        sourceFile = scanner.nextLine();
+        System.out.println(Messages.DESTINATION_PATH);
+        destFile = scanner.nextLine();
+        System.out.println(Messages.KEY);
+        key = scanner.nextInt();
+        cipher.encrypt(sourceFile, destFile, key);
+        System.out.println(Messages.FILE_ENCRYPTED);
     }
 
 
