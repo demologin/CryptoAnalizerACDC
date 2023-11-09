@@ -11,7 +11,7 @@ public class Menu {
         this.scanner = scanner;
     }
 
-    public int getOption(Scanner scanner) {
+    private int getOption(Scanner scanner) {
         int option;
         do {
 
