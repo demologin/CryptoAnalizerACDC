@@ -1,15 +1,23 @@
 package com.javarush.kuzmina.resources;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 import static com.javarush.kuzmina.resources.MethodsCipher.cipher;
 import static com.javarush.kuzmina.resources.MethodsDecipher.decipher;
 import static com.javarush.kuzmina.resources.Dialogue.*;
 import static com.javarush.kuzmina.resources.ExtraMethods.*;
 
 public class MethodsMain {
+
+    public static String readFile(String path) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
+        return reader.lines().collect(Collectors.joining(System.lineSeparator()));
+    }
 
 
     public static void ifAnswerCipher() {
@@ -72,11 +80,9 @@ public class MethodsMain {
         Scanner scanPath = new Scanner(System.in);
         String path = scanPath.nextLine();
         String textFile = null;
-        try (FileReader in = new FileReader(path);
-             BufferedReader reader = new BufferedReader(in)) {
-            while (reader.ready()) {
-                textFile = reader.readLine();
-            }
+        String content = null;
+        try {
+            textFile = readFile(path);
         } catch (IOException ex) {
             System.out.println(MISUNDERSTANDING);
         }
@@ -106,11 +112,8 @@ public class MethodsMain {
         Scanner scanPath = new Scanner(System.in);
         String path2 = scanPath.nextLine();
         String detextFile = null;
-        try (FileReader in = new FileReader(path2);
-             BufferedReader reader = new BufferedReader(in)) {
-            while (reader.ready()) {
-                detextFile = reader.readLine();
-            }
+        try {
+            detextFile = readFile(path2);
         } catch (IOException ex) {
             System.out.println(MISUNDERSTANDING);
         }
