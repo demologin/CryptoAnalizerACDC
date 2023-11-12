@@ -13,7 +13,6 @@ public class PathBuilder {
         Path path = Path.of(filename);
         return path.isAbsolute() ? path : Path.of(Const.TXT_FOLDER + filename);
     }
-
     public static Path getPath(String filename) {
         Path path = Path.of(filename);
         return path.isAbsolute() ? path : Path.of(Const.TXT_ENCRYPTED + filename);

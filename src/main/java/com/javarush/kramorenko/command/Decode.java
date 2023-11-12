@@ -31,8 +31,8 @@ public class Decode {
              BufferedWriter bufferedWriter = Files.newBufferedWriter(target)) {
             while (bufferedReader.ready()) {
                 String string = bufferedReader.readLine();
-                String encrypted = ceasarCipher.decryptText(string, key);
-                bufferedWriter.write(encrypted+System.lineSeparator());
+                String decrypted = ceasarCipher.decryptText(string, key);
+                bufferedWriter.write(decrypted+System.lineSeparator());
             }
         } catch (IOException e) {
             throw new AppException(Messages.INCORRECT_FILE + e.getMessage(), e);

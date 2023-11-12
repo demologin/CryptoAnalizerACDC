@@ -22,10 +22,10 @@ public class Menu {
 
     private int chooseAction() {
         int actionNumber = -1;
-        while (actionNumber < 0 || actionNumber > 4) {
+        while (actionNumber < 0 || actionNumber > 3) {
             try {
                 actionNumber = Integer.parseInt(scanner.nextLine());
-                if (actionNumber < 0 || actionNumber > 4) {
+                if (actionNumber < 0 || actionNumber > 3) {
                     throw new AppException();
                 }
             } catch (NumberFormatException e) {
@@ -40,8 +40,7 @@ public class Menu {
         switch (actionNumber) {
             case 1 -> new Encode().encode();
             case 2 -> new Decode().decode();
-            case 3 -> new BruteForce().bruteForce();
-            case 4 -> new Exit().exit();
+            case 3 -> new Exit().exit();
             default ->
                     System.out.println(Messages.INCORRECT_ACTION);
         }
