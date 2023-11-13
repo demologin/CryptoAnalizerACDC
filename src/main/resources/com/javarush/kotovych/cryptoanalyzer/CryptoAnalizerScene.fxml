@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="533.0" prefWidth="444.0" style="-fx-background-color: #3d3b3b;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javarush.kotovych.controllers.SceneController">
+   <children>
+      <TextField id="inputPath" fx:id="inputPathTextField" layoutX="16.0" layoutY="122.0" prefHeight="32.0" prefWidth="164.0" promptText="Enter input file path" style="-fx-border-color: #639ddb; -fx-border-width: 2; -fx-border-radius: 7; -fx-border-insets: -2; -fx-background-color: #706d6d; -fx-text-fill: white;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <Text fill="#a8c3e8" layoutX="20.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input file path" wrappingWidth="77.4541015625" />
+      <Text fill="#a8c3e8" layoutX="259.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output file path" />
+      <TextField id="outputPath" fx:id="outputPathTextField" layoutX="262.0" layoutY="122.0" prefHeight="32.0" prefWidth="164.0" promptText="Enter output file path" style="-fx-border-color: #639ddb; -fx-border-width: 2; -fx-border-radius: 7; -fx-background-color: #706d6d; -fx-border-insets: -2; -fx-text-fill: white;">
+         <font>
+            <Font size="16.0" />
+         </font></TextField>
+      <ChoiceBox id="modeChoose" fx:id="modeChoose" layoutX="23.0" layoutY="44.0" prefHeight="32.0" prefWidth="155.0" style="-fx-background-color: #706d6d; -fx-border-color: #639ddb; -fx-border-radius: 7; -fx-border-width: 2; -fx-border-insets: -2;" />
+      <Text fill="#a8c3e8" layoutX="79.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mode" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="64.0" layoutY="464.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="36.0" prefWidth="324.0" style="-fx-background-color: #706d6d; -fx-border-color: #8c2bed; -fx-border-insets: -2; -fx-border-radius: 7; -fx-border-width: 2;" text="Start" textAlignment="CENTER">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+      <TextField id="keyInput" fx:id="keyInput" layoutX="208.0" layoutY="182.0" prefHeight="31.0" prefWidth="46.0" style="-fx-border-color: #639ddb; -fx-text-fill: white; -fx-border-insets: -2; -fx-border-radius: 7; -fx-border-width: 2; -fx-background-color: #706d6d;">
+         <font>
+            <Font name="Regular" size="16.0" />
+         </font></TextField>
+      <Text fill="#e9f57e" layoutX="165.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Key:  " wrappingWidth="46.560546875">
+         <font>
+            <Font size="19.0" />
+         </font></Text>
+      <ChoiceBox id="languageChoose" fx:id="languageChoose" layoutX="270.0" layoutY="44.0" prefHeight="32.0" prefWidth="155.0" style="-fx-background-color: #706d6d; -fx-border-color: #639ddb; -fx-border-radius: 7; -fx-border-width: 2; -fx-border-insets: -2; -fx-text-fill: white;" />
+      <Text fill="#a8c3e8" layoutX="317.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language" />
+      <Button layoutX="101.0" layoutY="86.0" mnemonicParsing="false" onAction="#onPreviewInputButtonClick" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #706d6d; -fx-border-color: #f2e855; -fx-border-insets: -2; -fx-border-radius: 7; -fx-border-width: 1.85;" text="Preview" />
+      <Button layoutX="348.0" layoutY="86.0" mnemonicParsing="false" onAction="#onPreviewOutputButtonClick" prefHeight="26.0" prefWidth="77.0" style="-fx-background-color: #706d6d; -fx-border-color: #f2e855; -fx-border-insets: -2; -fx-border-radius: 7; -fx-border-width: 1.85;" text="Preview" />
+      <TextArea fx:id="textPreview" editable="false" layoutX="16.0" layoutY="233.0" prefHeight="202.0" prefWidth="411.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextArea>
+      <Button layoutX="198.0" layoutY="125.0" mnemonicParsing="false" onAction="#onSwitchPathsButtonClick" style="-fx-background-color: #706d6d; -fx-border-color: #5cedae; -fx-border-insets: -2; -fx-border-radius: 7; -fx-border-width: 1.85;" text="swap" />
+   </children>
+</AnchorPane>
