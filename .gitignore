@@ -5,6 +5,8 @@ target/
 !**/src/test/**/out/
 *.iml
 .idea/
+.khmelov/
+.ivanov/
 
 
 ### Mac OS ###
