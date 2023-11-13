@@ -3,7 +3,7 @@ package com.javarush.KGurov.command;
 import java.io.IOException;
 
 public class Cases {
-123
+
     public static void cases(int number) throws IOException {
         switch (number) {
             case (1):
