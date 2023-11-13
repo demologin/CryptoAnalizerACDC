@@ -7,10 +7,9 @@ target/
 .idea/
 .khmelov/
 .ivanov/
-.gitignore/
+.gitignore
 pom.xml
 README.MD
-
 
 ### Mac OS ###
 .DS_Store
