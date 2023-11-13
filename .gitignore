@@ -6,11 +6,11 @@ target/
 *.iml
 .idea/
 .khmelov/
-.src/main/java/com.javarush/ivanov
-.src/main/java/com.javarush/khmelov
-.src/main/java/com.javarush/gitignore
-.src/main/java/com.javarush/pom.xml
-.src/main/java/com.javarush/README.MD
+/ivanov
+/khmelov
+/gitignore
+/pom.xml
+/README.MD
 
 ### Mac OS ###
 .DS_Store
