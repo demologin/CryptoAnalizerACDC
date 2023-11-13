@@ -5,14 +5,14 @@ import com.javarush.khmelov.entity.Result;
 import com.javarush.khmelov.entity.ResultCode;
 import com.javarush.khmelov.exception.AppException;
 import com.javarush.khmelov.util.PathBuilder;
-import com.javarush.khmelov.util.Statistics;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Analyze extends AbstractAction {
     @Override
@@ -21,8 +21,8 @@ public class Analyze extends AbstractAction {
         String dictionaryFilename = parameters[1];
         String analyzedFilename = parameters[2];
 
-        List<Character> dictChar = getCharacterList(Alphabet.CHARS);
-        List<Character> sourceChar = findBestVersionAlphabet(encryptedFilename, dictionaryFilename);
+        List<Character> dictChar = getSortedChars(dictionaryFilename);
+        List<Character> sourceChar = getSortedChars(encryptedFilename);
 
         Path source = PathBuilder.get(encryptedFilename);
         Path target = PathBuilder.get(analyzedFilename);
@@ -46,19 +46,38 @@ public class Analyze extends AbstractAction {
         return new Result(ResultCode.OK, analyzedFilename);
     }
 
-    private List<Character> findBestVersionAlphabet(String encryptedFilename, String dictionaryFilename) {
-        double[][] matrix = Statistics.getBiGramStat(PathBuilder.get(encryptedFilename));
-        double[][] original = Statistics.getBiGramStat(PathBuilder.get(dictionaryFilename));
-        char[] chars = Statistics.getCharsByRandomSwapper(matrix, original);
-        return getCharacterList(chars);
-    }
+    private List<Character> getSortedChars(String encryptedFile) {
+        Map<Character, Integer> map = createStartMap();
+        Path path = PathBuilder.get(encryptedFile);
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            int value;
+            while ((value = reader.read()) > -1) {
+                char character = (char) value;
+                character = Character.toLowerCase(character);
+                if (map.containsKey(character)) {
+                    Integer i = map.get(character);
+                    map.put(character, ++i);
+                }
+            }
+        } catch (IOException e) {
+            throw new AppException(e.getMessage(), e);
+        }
 
-    private static List<Character> getCharacterList(char[] chars) {
-        return String.valueOf(chars)
-                .chars()
-                .mapToObj(c -> (char) c)
+        return map.entrySet()
+                .stream()
+                .sorted(Comparator.comparingInt(Map.Entry::getValue))
+                .map(Map.Entry::getKey)
                 .toList();
     }
 
+    private Map<Character, Integer> createStartMap() {
+        return Alphabet.index.keySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        character -> character,
+                        character -> 0, (a, b) -> b,
+                        LinkedHashMap::new
+                ));
+    }
 
 }
