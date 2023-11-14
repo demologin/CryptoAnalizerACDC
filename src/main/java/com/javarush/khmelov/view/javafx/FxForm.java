@@ -94,7 +94,7 @@ public class FxForm {
         message.setPadding(PADDING);
         message.setFont(Font.font(DEFAULT_FONT, FontWeight.BOLD, DEFAULT_FONT_SIZE));
         keyLabel = new Label();
-        key = new Slider(1, Alphabet.CHARS.length - 1, 1);
+        key = new Slider(1, Alphabet.charsArray.length - 1, 1);
         key.valueProperty().addListener(e -> updateKeyLabel());
         VBox vBox = new VBox(keyLabel, key, message);
         vBox.setPadding(PADDING);
