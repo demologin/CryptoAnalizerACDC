@@ -15,13 +15,16 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class Analyze extends AbstractAction {
+
+    public static final int COUNT_TRY_FIND = 10;
+
     @Override
     public Result execute(String[] parameters) {
         String encryptedFilename = parameters[0];
         String dictionaryFilename = parameters[1];
         String analyzedFilename = parameters[2];
 
-        List<Character> dictChar = getCharacterList(Alphabet.CHARS);
+        List<Character> dictChar = getCharacterList(Alphabet.charsArray);
         List<Character> sourceChar = findBestVersionAlphabet(encryptedFilename, dictionaryFilename);
 
         Path source = PathBuilder.get(encryptedFilename);
@@ -49,8 +52,21 @@ public class Analyze extends AbstractAction {
     private List<Character> findBestVersionAlphabet(String encryptedFilename, String dictionaryFilename) {
         double[][] matrix = Statistics.getBiGramStat(PathBuilder.get(encryptedFilename));
         double[][] original = Statistics.getBiGramStat(PathBuilder.get(dictionaryFilename));
-        char[] chars = Statistics.getCharsByRandomSwapper(matrix, original);
-        return getCharacterList(chars);
+        double bestDistance = Double.MAX_VALUE;
+        char[] bestChars = null;
+        System.out.println("\nAnalyze");
+        for (int i = COUNT_TRY_FIND; i > 0; i--) {
+            char[] chars = Alphabet.charsArray.clone();
+            double probeDistance = Statistics.getCharsByRandomSwapper(chars, matrix, original);
+            if (probeDistance < bestDistance) {
+                i += COUNT_TRY_FIND;
+                bestDistance = probeDistance;
+                bestChars = chars.clone();
+                //For debug only, here System.out.println - not the best solution. Here need the logger
+                System.out.println("Best distance = " + bestDistance);
+            }
+        }
+        return getCharacterList(bestChars);
     }
 
     private static List<Character> getCharacterList(char[] chars) {

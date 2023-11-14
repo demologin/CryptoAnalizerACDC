@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -40,7 +41,7 @@ public class Statistics {
      * @throws com.javarush.khmelov.exception.AppException common exception this project
      */
     public static double[][] getBiGramStat(Path path) {
-        int length = Alphabet.CHARS.length;
+        int length = Alphabet.charsArray.length;
         double[][] biGramStat = new double[length][length];
         char prefix = '\u0000';
         int value;
@@ -102,10 +103,13 @@ public class Statistics {
      * @return best alphabet as array
      * @see com.javarush.khmelov.util.Statistics (what is the biGram)
      */
-    public static char[] getCharsByRandomSwapper(double[][] genom, double[][] original) {
-        char[] chars = Alphabet.CHARS.clone();
+    public static double getCharsByRandomSwapper(char[] chars, double[][] genom, double[][] original) {
         int skipSwapCounter = 0;
-        double bestDistance = Double.MAX_VALUE;
+        double bestProbeDistance = Double.MAX_VALUE;
+        genom = genom.clone();
+        for (int i = 0; i < genom.length; i++) {
+            genom[i] = genom[i].clone();
+        }
         while (skipSwapCounter < genom.length * genom.length) {
             ThreadLocalRandom random = ThreadLocalRandom.current();
             int i = random.nextInt(genom.length);
@@ -113,20 +117,19 @@ public class Statistics {
             if (i != j) {
                 swap(genom, i, j);
                 double distance = calcDistance(genom, original);
-                if (distance < bestDistance) {
-                    bestDistance = distance;
+                if (distance < bestProbeDistance) {
+                    bestProbeDistance = distance;
                     skipSwapCounter = 0;
                     char ch = chars[j];
                     chars[j] = chars[i];
                     chars[i] = ch;
-                    System.out.println("Best distance = " + bestDistance);
                 } else {
                     swap(genom, j, i); //revert
                     skipSwapCounter++;
                 }
             }
         }
-        return chars;
+        return bestProbeDistance;
     }
 
 
