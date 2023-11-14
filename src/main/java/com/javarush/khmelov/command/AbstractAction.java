@@ -24,14 +24,14 @@ public abstract class AbstractAction implements Action{
                 BufferedWriter writer = Files.newBufferedWriter(target)
         ) {
             int value;
-            int length = Alphabet.CHARS.length;
+            int length = Alphabet.charsArray.length;
             while ((value = reader.read()) > -1) {
                 char character = (char) value;
                 character = Character.toLowerCase(character);
                 if (Alphabet.index.containsKey(character)) {
                     Integer index = Alphabet.index.get(character);
                     index = (index + key + Math.abs(key) * length) % length;
-                    writer.write(Alphabet.CHARS[index]);
+                    writer.write(Alphabet.charsArray[index]);
                 } else if (character == '\n') {
                     writer.write(character);
                 }

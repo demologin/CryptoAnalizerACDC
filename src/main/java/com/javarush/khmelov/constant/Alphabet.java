@@ -8,16 +8,16 @@ public class Alphabet {
     private Alphabet() {
     }
 
-    private static final String rus = "ЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮ";
-    private static final String symbols = "\n☮.,”’:-!? ";
+    private static final String RUS = "ЙЦУКЕНГШЩЗХЪЭЖДЛОРПАВЫФЯЧСМИТЬБЮ";
+    private static final String SYMBOLS = "\n☮.,”’:-!? ";
 
-    public static final char[] CHARS = (rus.toLowerCase() + symbols).toCharArray();
+    public static final char[] charsArray = (RUS.toLowerCase() + SYMBOLS).toCharArray();
 
     public final static Map<Character, Integer> index = new HashMap<>();
 
     static {
-        for (int i = 0; i < CHARS.length; i++) {
-            index.put(CHARS[i], i);
+        for (int i = 0; i < charsArray.length; i++) {
+            index.put(charsArray[i], i);
         }
     }
 }
