@@ -1,5 +1,8 @@
 package com.javarush.kudra;
 
+import com.javarush.kudra.commands.Decode;
+import com.javarush.kudra.commands.Encode;
+import com.javarush.kudra.commands.Exit;
 import com.javarush.kudra.exceptions.AppException;
 import com.javarush.kudra.constants.Constant;
 
@@ -13,7 +16,8 @@ public class Menu {
 
     public void runApplication(){
         System.out.println(Constant.CHOOSE_VARIANT);
-        chooseVariant();
+        int numberOfOption = chooseVariant();
+        executeOption(numberOfOption);
 
     }
 
@@ -31,7 +35,13 @@ public class Menu {
         }
         return numberOfOption;
     }
-    public void executeOption(){
+    public void executeOption(int numberOfOption){
+        switch (numberOfOption){
+            case 1-> new Encode();
+            case 2-> new Decode();
+            case 3-> new Exit();
+            default -> throw new AppException(Constant.NON_EXISTENT_NUMBER);
+        }
 
     }
 }
