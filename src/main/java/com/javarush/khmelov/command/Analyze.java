@@ -5,24 +5,27 @@ import com.javarush.khmelov.entity.Result;
 import com.javarush.khmelov.entity.ResultCode;
 import com.javarush.khmelov.exception.AppException;
 import com.javarush.khmelov.util.PathBuilder;
+import com.javarush.khmelov.util.Statistics;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class Analyze extends AbstractAction {
+
+    public static final int COUNT_TRY_FIND = 10;
+
     @Override
     public Result execute(String[] parameters) {
         String encryptedFilename = parameters[0];
         String dictionaryFilename = parameters[1];
         String analyzedFilename = parameters[2];
 
-        List<Character> dictChar = getSortedChars(dictionaryFilename);
-        List<Character> sourceChar = getSortedChars(encryptedFilename);
+        List<Character> dictChar = getCharacterList(Alphabet.charsArray);
+        List<Character> sourceChar = findBestVersionAlphabet(encryptedFilename, dictionaryFilename);
 
         Path source = PathBuilder.get(encryptedFilename);
         Path target = PathBuilder.get(analyzedFilename);
@@ -46,38 +49,32 @@ public class Analyze extends AbstractAction {
         return new Result(ResultCode.OK, analyzedFilename);
     }
 
-    private List<Character> getSortedChars(String encryptedFile) {
-        Map<Character, Integer> map = createStartMap();
-        Path path = PathBuilder.get(encryptedFile);
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            int value;
-            while ((value = reader.read()) > -1) {
-                char character = (char) value;
-                character = Character.toLowerCase(character);
-                if (map.containsKey(character)) {
-                    Integer i = map.get(character);
-                    map.put(character, ++i);
-                }
+    private List<Character> findBestVersionAlphabet(String encryptedFilename, String dictionaryFilename) {
+        double[][] matrix = Statistics.getBiGramStat(PathBuilder.get(encryptedFilename));
+        double[][] original = Statistics.getBiGramStat(PathBuilder.get(dictionaryFilename));
+        double bestDistance = Double.MAX_VALUE;
+        char[] bestChars = null;
+        System.out.println("\nAnalyze");
+        for (int i = COUNT_TRY_FIND; i > 0; i--) {
+            char[] chars = Alphabet.charsArray.clone();
+            double probeDistance = Statistics.getCharsByRandomSwapper(chars, matrix, original);
+            if (probeDistance < bestDistance) {
+                i += COUNT_TRY_FIND;
+                bestDistance = probeDistance;
+                bestChars = chars.clone();
+                //For debug only, here System.out.println - not the best solution. Here need the logger
+                System.out.println("Best distance = " + bestDistance);
             }
-        } catch (IOException e) {
-            throw new AppException(e.getMessage(), e);
         }
+        return getCharacterList(bestChars);
+    }
 
-        return map.entrySet()
-                .stream()
-                .sorted(Comparator.comparingInt(Map.Entry::getValue))
-                .map(Map.Entry::getKey)
+    private static List<Character> getCharacterList(char[] chars) {
+        return String.valueOf(chars)
+                .chars()
+                .mapToObj(c -> (char) c)
                 .toList();
     }
 
-    private Map<Character, Integer> createStartMap() {
-        return Alphabet.index.keySet()
-                .stream()
-                .collect(Collectors.toMap(
-                        character -> character,
-                        character -> 0, (a, b) -> b,
-                        LinkedHashMap::new
-                ));
-    }
 
 }
