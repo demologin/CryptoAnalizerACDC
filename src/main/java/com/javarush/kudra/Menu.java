@@ -13,16 +13,23 @@ public class Menu {
 
     public void runApplication(){
         System.out.println(Constant.CHOOSE_VARIANT);
+        chooseVariant();
 
+    }
+
+    private int chooseVariant() {
         int numberOfOption = 0;
-        try {
-            numberOfOption = Integer.parseInt(console.nextLine());
-           while (numberOfOption<1 || numberOfOption>3){
-               throw new AppException(Constant.NON_EXISTENT_NUMBER);
-           }
-        } catch (NumberFormatException e) {
-            throw new AppException(Constant.WRONG_FORMAT,e);
+        while (numberOfOption<1 || numberOfOption>3) {
+            try {
+                numberOfOption = Integer.parseInt(console.nextLine());
+                if (numberOfOption < 1 || numberOfOption > 3) {
+                    throw new AppException(Constant.NON_EXISTENT_NUMBER);
+                }
+            } catch (NumberFormatException e) {
+                throw new AppException(Constant.WRONG_FORMAT, e);
+            }
         }
+        return numberOfOption;
     }
 }
 
