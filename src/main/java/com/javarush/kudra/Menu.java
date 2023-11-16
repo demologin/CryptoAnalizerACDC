@@ -1,6 +1,6 @@
 package com.javarush.kudra;
 
-import com.javarush.kudra.Exceptions.AppException;
+import com.javarush.kudra.exceptions.AppException;
 import com.javarush.kudra.constants.Constant;
 
 import java.util.Scanner;
@@ -30,6 +30,9 @@ public class Menu {
             }
         }
         return numberOfOption;
+    }
+    public void executeOption(){
+
     }
 }
 

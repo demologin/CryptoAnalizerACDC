@@ -1,4 +1,4 @@
-package com.javarush.kudra.Exceptions;
+package com.javarush.kudra.exceptions;
 
 public class AppException extends RuntimeException{
     public AppException() {

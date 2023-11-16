@@ -1,6 +1,9 @@
-package com.javarush.kudra;
+package com.javarush.kudra.commands;
 
-import com.javarush.kudra.Exceptions.UncorrectFileNameException;
+import com.javarush.kudra.Execution;
+import com.javarush.kudra.PathBuilder;
+import com.javarush.kudra.Result;
+import com.javarush.kudra.exceptions.IncorrectFileNameException;
 import com.javarush.kudra.constants.Constant;
 
 import java.io.BufferedReader;
@@ -16,9 +19,10 @@ public abstract class AbstractActions implements Execution {
        try (BufferedReader bufferedReader = Files.newBufferedReader(sourceFileName);
             BufferedWriter bufferedWriter = Files.newBufferedWriter(destFileName)){
 
+
        }
        catch (IOException e){
-           throw new UncorrectFileNameException(Constant.UNCORRECT_FILE_NAME, e);
+           throw new IncorrectFileNameException(Constant.INCORRECT_FILE_NAME, e);
        }
 
     return null;

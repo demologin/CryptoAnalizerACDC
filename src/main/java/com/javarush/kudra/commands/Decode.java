@@ -1,4 +1,7 @@
-package com.javarush.kudra;
+package com.javarush.kudra.commands;
+
+import com.javarush.kudra.Result;
+import com.javarush.kudra.commands.AbstractActions;
 
 public class Decode extends AbstractActions {
     @Override
