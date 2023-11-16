@@ -1,5 +1,8 @@
 package com.javarush.kudra;
 
+import com.javarush.kudra.Exceptions.UncorrectFileNameException;
+import com.javarush.kudra.constants.Constant;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,7 +18,7 @@ public abstract class AbstractActions implements Execution {
 
        }
        catch (IOException e){
-           throw new UncorrectFileNameException(e);
+           throw new UncorrectFileNameException(Constant.UNCORRECT_FILE_NAME, e);
        }
 
     return null;

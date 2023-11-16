@@ -1,4 +1,4 @@
-package com.javarush.kudra;
+package com.javarush.kudra.Exceptions;
 
 public class UncorrectFileNameException extends RuntimeException{
     public UncorrectFileNameException() {
