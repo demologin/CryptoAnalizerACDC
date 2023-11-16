@@ -1,7 +1,8 @@
 package com.javarush.krylov.src;
 
-import Service.TextFromFileLoader;
-import Service.FileSaver;
+
+import com.javarush.krylov.src.Service.FileSaver;
+import com.javarush.krylov.src.Service.TextFromFileLoader;
 
 import java.util.*;
 
