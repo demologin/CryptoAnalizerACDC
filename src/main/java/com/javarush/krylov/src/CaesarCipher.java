@@ -1,4 +1,4 @@
-package com.javarush.krylov;
+package com.javarush.krylov.src;
 
 public class CaesarCipher {
     public String encrypt(String message, int key) {

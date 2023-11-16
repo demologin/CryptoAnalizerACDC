@@ -1,9 +1,9 @@
 package com.javarush.krylov.src;
 
-import Service.FileSaver;
 import Service.TextFromFileLoader;
+import Service.FileSaver;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class UI {
 
@@ -39,21 +39,21 @@ public class UI {
                 case 3 -> {
                     String inputPath = getInputPath();
                     String text = reader.getText(inputPath);
-                    String forceDecryptedText = bfc.simpleDecryption(text);
+                    String forceDecryptedText = bfc.getSimpleDecryptionResultAsString(text);
                     String outputPath = getOutputPath();
                     writer.saveText(forceDecryptedText, outputPath);
                 }
                 case 4 -> {
                     String inputPath = getInputPath();
                     String text = reader.getText(inputPath);
-                    String forceDecryptedText = bfc.noSpecCharsDecryption(text);
+                    String forceDecryptedText = bfc.getNoSpecCharsDecryptionResultAsString(text);
                     String outputPath = getOutputPath();
                     writer.saveText(forceDecryptedText, outputPath);
                 }
                 case 5 -> {
                     String inputPath = getInputPath();
                     String text = reader.getText(inputPath);
-                    String forceDecryptedText = bfc.smallTextDecryption(text);
+                    String forceDecryptedText = bfc.getSmallTextDecryptionResultAsString(text);
                     String outputPath = getOutputPath();
                     writer.saveText(forceDecryptedText, outputPath);
                 }
