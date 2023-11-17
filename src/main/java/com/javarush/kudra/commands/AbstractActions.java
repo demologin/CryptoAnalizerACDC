@@ -19,14 +19,14 @@ public abstract class AbstractActions implements Execution {
         Path destFileName = PathBuilder.getAbsoluteName(destFile);
        try (BufferedReader bufferedReader = Files.newBufferedReader(sourceFileName);
             BufferedWriter bufferedWriter = Files.newBufferedWriter(destFileName)){
-           int symbol = 0;
+           int symbol;
            while ((symbol=bufferedReader.read())>-1){
                Character character = (char) symbol;
                if (!Alphabet.SYMBOLS_CHAR.containsKey(character)){
                    continue;
                }
                Integer positionNumber = Alphabet.SYMBOLS_CHAR.get(character);
-               Integer searchedNumber = (positionNumber+key)%Alphabet.SIZE;
+               int searchedNumber = (positionNumber+key)%Alphabet.SIZE;
                bufferedWriter.write(Alphabet.ALPHABET[searchedNumber]);
            }
        }

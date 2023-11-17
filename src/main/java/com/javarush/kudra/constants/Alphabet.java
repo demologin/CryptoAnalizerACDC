@@ -7,7 +7,7 @@ public class Alphabet {
     private static final String symbols = ",. :;!?\"\n[]()<>";
     public static final char[]ALPHABET = (rusLetters+symbols).toLowerCase().toCharArray();
 
-    public static final HashMap<Character,Integer> SYMBOLS_CHAR = new HashMap<Character, Integer>();
+    public static final HashMap<Character,Integer> SYMBOLS_CHAR = new HashMap<>();
     static {
         for (int i = 0; i < ALPHABET.length; i++) {
             SYMBOLS_CHAR.put(ALPHABET[i], i);
