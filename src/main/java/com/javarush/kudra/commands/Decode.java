@@ -8,6 +8,6 @@ public class Decode extends AbstractActions {
         String encodedFile = parameters[0];
         String decodedFile = parameters[1];
         int key = Integer.parseInt(parameters[2]);
-        return changeWithKey(encodedFile,decodedFile,key);
+        return changeWithKey(encodedFile,decodedFile,key*-1);
     }
 }

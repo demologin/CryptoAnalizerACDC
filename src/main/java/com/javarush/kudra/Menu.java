@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class Menu {
     private final Scanner console;
+
     public Menu(Scanner console) {
         this.console = console;
     }
@@ -37,9 +38,9 @@ public class Menu {
     }
     public void executeOption(int numberOfOption){
         switch (numberOfOption){
-//            case 1-> ;
-//            case 2-> ;
-//            case 3-> ;
+            case 1-> new Encode();
+            case 2-> new Decode();
+            case 3-> new Exit() ;
             default -> throw new AppException(Constant.NON_EXISTENT_NUMBER);
         }
 
