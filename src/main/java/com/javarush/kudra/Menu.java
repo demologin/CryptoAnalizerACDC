@@ -37,9 +37,9 @@ public class Menu {
     }
     public void executeOption(int numberOfOption){
         switch (numberOfOption){
-            case 1-> new Encode();
-            case 2-> new Decode();
-            case 3-> new Exit();
+//            case 1-> ;
+//            case 2-> ;
+//            case 3-> ;
             default -> throw new AppException(Constant.NON_EXISTENT_NUMBER);
         }
 

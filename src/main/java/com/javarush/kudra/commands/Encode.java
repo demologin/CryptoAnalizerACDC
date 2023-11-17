@@ -10,4 +10,5 @@ public class Encode extends AbstractActions {
         int key = Integer.parseInt(parameters[2]);
         return changeWithKey(sourceFile,encodedFile,key);
     }
+
 }
