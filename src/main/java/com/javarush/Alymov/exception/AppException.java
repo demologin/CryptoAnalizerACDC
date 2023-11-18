@@ -1,4 +1,4 @@
-package com.javarush.exception;
+package com.javarush.Alymov.exception;
 
 public class AppException extends Exception{
 }
