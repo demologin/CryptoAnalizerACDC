@@ -9,10 +9,10 @@ public enum Action {
     DECODE(new Decode()),
     EXIT(new Exit());
 
-
+    private final Execution execution;
     Action(Execution execution) {
         this.execution = execution;
     }
-    public final Execution execution;
+
 
 }

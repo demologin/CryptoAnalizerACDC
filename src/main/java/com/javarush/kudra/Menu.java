@@ -17,6 +17,7 @@ public class Menu {
 
     public void runApplication(){
         System.out.println(Constant.CHOOSE_VARIANT);
+        System.out.println("_________________________________");
         int numberOfOption = chooseVariant();
         executeOption(numberOfOption);
 
