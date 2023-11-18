@@ -1,10 +1,6 @@
 package com.javarush.Alymov;
 
-
-
 import com.javarush.Alymov.entity.Result;
-
-import java.util.Locale;
 
 public class Runner {
     public static void main(String[] args) {

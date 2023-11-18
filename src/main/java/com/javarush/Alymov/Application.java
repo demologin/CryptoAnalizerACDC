@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Application {
 
-    private MainController mainController;
+    private final MainController mainController;
     public Application(){
 
         mainController = new MainController();
