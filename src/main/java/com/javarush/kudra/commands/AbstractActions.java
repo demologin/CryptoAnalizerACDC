@@ -21,12 +21,13 @@ public abstract class AbstractActions implements Execution {
             BufferedWriter bufferedWriter = Files.newBufferedWriter(destFileName)){
            int symbol;
            while ((symbol=bufferedReader.read())>-1){
-               Character character = (char) symbol;
+               char character = (char) symbol;
+               character = Character.toLowerCase(character);
                if (!Alphabet.SYMBOLS_CHAR.containsKey(character)){
                    continue;
                }
                Integer positionNumber = Alphabet.SYMBOLS_CHAR.get(character);
-               int searchedNumber = (positionNumber+key)%Alphabet.SIZE;
+               int searchedNumber = (positionNumber+key+Math.abs(key)*Alphabet.SIZE)%Alphabet.SIZE;
                bufferedWriter.write(Alphabet.ALPHABET[searchedNumber]);
            }
        }

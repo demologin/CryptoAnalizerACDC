@@ -1,8 +1,4 @@
 package com.javarush.kudra;
-
-import com.javarush.kudra.commands.Decode;
-import com.javarush.kudra.commands.Encode;
-import com.javarush.kudra.commands.Exit;
 import com.javarush.kudra.exceptions.AppException;
 import com.javarush.kudra.constants.Constant;
 
@@ -16,16 +12,17 @@ public class Menu {
     }
 
     public void runApplication(){
-        System.out.println(Constant.CHOOSE_VARIANT);
-        System.out.println("_________________________________");
         chooseVariant();
 
     }
 
     private void chooseVariant() {
         int numberOfOption;
+
         while (true) {
             try {
+                System.out.println(Constant.CHOOSE_VARIANT);
+                System.out.println("_________________________________");
                 numberOfOption = Integer.parseInt(console.nextLine());
                 Action action = Action.getByNumberOfOption(numberOfOption);
                 action.execute(console);

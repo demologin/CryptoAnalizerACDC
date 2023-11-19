@@ -4,7 +4,7 @@ import java.io.File;
 
 public interface Constant {
     String PARENT_DIRECTORY = System.getProperty("user.dir") + File.separator + "text" + File.separator;
-    String CHOOSE_VARIANT = "Select one of the proposed options:\n1.Encode\n2.Decode\n3.Exit\n";
+    String CHOOSE_VARIANT = "Select one of the proposed options:\n1.Encode\n2.Decode\n3.Exit";
     String SOURCE_FILE = "Provide source (full path OR only filename OR Enter for %s) :\n";
     String DEST_FILE = "Provide destination (full path OR only filename OR Enter for %s) :\n";
     String INPUT_KEY = "Provide key\n";

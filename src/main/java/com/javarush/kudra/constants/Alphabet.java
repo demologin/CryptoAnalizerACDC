@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Alphabet {
     private static final String rusLetters = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ";
-    private static final String symbols = ",. :;!?\"\n[]()<>";
+    private static final String symbols = ",. :;!?\"\n[]()<>-*%+/_";
     public static final char[]ALPHABET = (rusLetters+symbols).toLowerCase().toCharArray();
 
     public static final HashMap<Character,Integer> SYMBOLS_CHAR = new HashMap<>();
