@@ -35,7 +35,7 @@ public abstract class AbstractActions implements Execution {
            throw new IncorrectFileNameException(Constant.INCORRECT_FILE_NAME, e);
        }
 
-    return new Result();
+    return new Result(Constant.OP_COMPLETED);
     }
 
 

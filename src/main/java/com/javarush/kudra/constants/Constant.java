@@ -7,8 +7,9 @@ public interface Constant {
     String CHOOSE_VARIANT = "Select one of the proposed options:\n1.Encode\n2.Decode\n3.Exit";
     String SOURCE_FILE = "Provide source (full path OR only filename OR Enter for %s) :\n";
     String DEST_FILE = "Provide destination (full path OR only filename OR Enter for %s) :\n";
-    String INPUT_KEY = "Provide key\n";
+    String INPUT_KEY = "Provide key OR Enter for 1\n";
     String INPUT_EXCEPTION ="Incorrect information. Try again\n";
+    String OP_COMPLETED = "Operation completed successfully\n";
 
 
     String NON_EXISTENT_NUMBER = "This number does not exist. Try again\n";

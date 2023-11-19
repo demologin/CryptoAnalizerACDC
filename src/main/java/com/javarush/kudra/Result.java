@@ -6,7 +6,13 @@ public class Result {
     }
     public Result(String message){
         this.message = message;
+        System.out.println(message);
     }
 
-
+    @Override
+    public String toString() {
+        return "Result{" +
+                "message='" + message + '\'' +
+                '}';
+    }
 }
