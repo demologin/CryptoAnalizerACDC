@@ -4,10 +4,12 @@ import com.javarush.kudra.Execution;
 import com.javarush.kudra.Result;
 import com.javarush.kudra.constants.Constant;
 
+import java.util.Scanner;
+
 public class Exit extends AbstractActions {
 
     @Override
-    public Result execute(String[] parameters) {
+    public Result execute(Scanner console) {
         return new Result(Constant.EXIT);
     }
 }

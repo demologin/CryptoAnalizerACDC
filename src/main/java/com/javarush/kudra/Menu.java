@@ -18,33 +18,25 @@ public class Menu {
     public void runApplication(){
         System.out.println(Constant.CHOOSE_VARIANT);
         System.out.println("_________________________________");
-        int numberOfOption = chooseVariant();
-        executeOption(numberOfOption);
+        chooseVariant();
 
     }
 
-    private int chooseVariant() {
-        int numberOfOption = 0;
-        while (numberOfOption<1 || numberOfOption>3) {
+    private void chooseVariant() {
+        int numberOfOption;
+        while (true) {
             try {
                 numberOfOption = Integer.parseInt(console.nextLine());
-                if (numberOfOption < 1 || numberOfOption > 3) {
-                    throw new AppException(Constant.NON_EXISTENT_NUMBER);
+                Action action = Action.getByNumberOfOption(numberOfOption);
+                action.execute(console);
+                if (action == Action.EXIT) {
+                    System.out.println(Constant.EXIT);
+                    break;
                 }
             } catch (NumberFormatException e) {
                 throw new AppException(Constant.WRONG_FORMAT, e);
             }
         }
-        return numberOfOption;
-    }
-    public void executeOption(int numberOfOption){
-        switch (numberOfOption){
-            case 1-> new Encode();
-            case 2-> new Decode();
-            case 3-> new Exit() ;
-            default -> throw new AppException(Constant.NON_EXISTENT_NUMBER);
-        }
-
     }
 }
 

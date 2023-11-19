@@ -7,4 +7,6 @@ public class Result {
     public Result(String message){
         this.message = message;
     }
+
+
 }
