@@ -1,11 +1,17 @@
 package com.javarush.Alymov;
 
-import com.javarush.Alymov.entity.Result;
+import com.javarush.Alymov.Menu.MenuApp;
+import com.javarush.Alymov.Menu.MenuMessages;
+import com.javarush.Alymov.Menu.MenuView;
+import com.javarush.khmelov.view.console.Menu;
+
+import java.util.Scanner;
 
 public class Runner {
     public static void main(String[] args) {
-        Application application = new Application();
-        Result result = application.run(args);
-        System.out.println(result);
+        System.out.println(MenuMessages.HELLO);
+        Scanner inputStream = new Scanner(System.in);
+        MenuView menuView = new MenuView(inputStream);
+
     }
 }
