@@ -9,7 +9,7 @@ public class Alphabet {
     }
 
     private static final String RUS_UPPER_CASE = "АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-    private static final String RUS = "абвгдеёжзийклмнопрстуфхцчшщъыиэюя";
+    private static final String RUS = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
     private static final String ENG_UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ENG = "abcdefghijklmnopqrstuvwxyz";
     private static final String SYMBOLS = "\n @#$%^&*():;'\"<>,.!№|\\";

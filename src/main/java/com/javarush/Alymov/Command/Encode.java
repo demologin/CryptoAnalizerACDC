@@ -10,24 +10,19 @@ import java.nio.file.Path;
 
 public class Encode {
 
-     static String sourcePath;
-     static String destinationPath;
-     static int stepEncode;
      public static void encoder (String sourcePath, String destinationPath, int step){
 
-         int shift = step;
          try(
                  BufferedReader bufferedReader = Files.newBufferedReader(Path.of(sourcePath));
-                 BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of(destinationPath));
+                 BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of(destinationPath))
          ){
              int valueOfChar;
              int alphabetLength = Alphabet.index.size();
              while ((valueOfChar=bufferedReader.read())>-1){
                  char charecter = (char)valueOfChar;
-                 charecter = Character.toLowerCase(charecter);
                  if (Alphabet.index.containsKey(charecter)){
                      int index = Alphabet.index.get(charecter);
-                     int newIndex = (index+shift)>=alphabetLength? (index+shift)-(alphabetLength*((index+shift)/alphabetLength)):index+shift;
+                     int newIndex = (index+ step)>=alphabetLength? (index+ step)-(alphabetLength*((index+ step)/alphabetLength)):index+ step;
                      bufferedWriter.write(Alphabet.CHARS[newIndex]);
                  }
                  else if (charecter=='\n') {
